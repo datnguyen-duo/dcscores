@@ -1,0 +1,78 @@
+.site-header {
+  &__announcement-bar {
+    background-color: var(--color-announcement-bar-background);
+    color: var(--color-announcement-bar-text);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.3s var(--transition-ease-in-out),
+      opacity 0.3s var(--transition-ease-in-out);
+    height: 3rem;
+    &-inner {
+      padding: 1rem;
+    }
+    &-close {
+      position: absolute;
+      right: 0.5rem;
+      top: 0;
+      height: 100%;
+      svg {
+        width: 70%;
+      }
+    }
+
+    &.hidden {
+      height: 0rem;
+      opacity: 0;
+    }
+  }
+
+  &__logo {
+    width: 70px;
+    display: block;
+    margin-right: auto;
+  }
+  &__navigation {
+    border-bottom: 1px solid var(--color-primary);
+
+    &--top,
+    &--bottom {
+      display: flex;
+      align-items: center;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    &--top {
+      justify-content: flex-end;
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    form {
+      position: relative;
+      padding-left: 2rem;
+      align-self: center;
+
+      label {
+        position: absolute;
+        opacity: 0;
+      }
+      button {
+        width: 30px;
+        height: 30px;
+        svg {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.hero {
+  padding: 0;
+  .container {
+    padding: 0;
+  }
+  &__files {
+    display: flex;
+    svg {
+      position: absolute;
+      bottom: var(--gutter);
+      right: calc(var(--gutter) + 2rem);
+    }
+  }
+
+  &__heading {
+    margin-top: auto;
+  }
+
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: var(--gutter);
+    &-bottom {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-right: 4rem;
+    }
+  }
+}

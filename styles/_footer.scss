@@ -1,0 +1,37 @@
+.site-footer {
+  background-color: var(--color-footer-background);
+  color: var(--color-footer-text);
+  padding: 2rem 0;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr;
+    gap: 1rem;
+    grid-template-areas:
+      "a b c"
+      ". d d";
+  }
+
+  .social-links {
+    gap: 0.5rem;
+    &__link {
+      background-color: var(--color-background);
+      color: var(--color-primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__bottom {
+    grid-area: d;
+
+    > * {
+      display: inline-block;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}

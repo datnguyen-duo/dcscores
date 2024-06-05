@@ -1,0 +1,40 @@
+/*!
+Theme Name: DC Scores
+Theme URI: https://www.dcscores.org/
+Author: Duo Studio
+Author URI: https://duo-studio.co
+Version: 1.0
+*/
+
+@import "styles/reset";
+@import "styles/fonts";
+@import "styles/variables";
+@import "styles/global";
+@import "styles/header";
+@import "styles/footer";
+@import "styles/form";
+@import "styles/404";
+@import "styles/editor";
+@import "styles/posts";
+
+@import "styles/content/content-page";
+@import "styles/content/content-archive";
+@import "styles/content/content-single";
+@import "styles/content/content-none";
+@import "styles/content/entry-header";
+@import "styles/content/entry-meta";
+@import "styles/content/entry-content";
+@import "styles/content/entry-footer";
+@import "styles/content/social-links";
+
+@import "styles/sections/hero";
+@import "styles/sections/rich-text";
+@import "styles/sections/features-list";
+@import "styles/sections/stats";
+@import "styles/sections/text-image";
+@import "styles/sections/cta";
+@import "styles/sections/slider";
+@import "styles/sections/banner";
+@import "styles/sections/faq";
+@import "styles/sections/post-list";
+@import "styles/sections/map";

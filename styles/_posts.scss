@@ -1,0 +1,61 @@
+.posts {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(var(--posts-per-slide), 1fr);
+  position: relative;
+  padding-bottom: 2rem;
+
+  .swiper {
+    &-slide {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(var(--posts-per-slide), 1fr);
+      padding: 0 2rem;
+    }
+
+    &-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      &-bullet {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        cursor: pointer;
+        transition: opacity 0.3s;
+        opacity: 0.5;
+        &-active {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: 2rem;
+      width: 2rem;
+      margin: auto;
+      &-next {
+        right: 0;
+      }
+      &-prev {
+        left: 0;
+      }
+    }
+  }
+  .post-list.--has-pagination & {
+    grid-template-columns: 1fr;
+  }
+
+  .post {
+  }
+}

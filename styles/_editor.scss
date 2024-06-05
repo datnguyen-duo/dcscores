@@ -1,0 +1,80 @@
+.editor {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(:first-child) {
+      margin-top: 2rem;
+    }
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  // START GUTENBERG BLOCK STYLES
+  .wp-block {
+    &-heading {
+    }
+    &-paragraph {
+    }
+    &-quote {
+    }
+    &-pullquote {
+    }
+
+    &-image {
+    }
+    &-media-text {
+    }
+    &-cover {
+    }
+    &-gallery {
+    }
+  }
+
+  .has-small-font-size {
+    font-size: var(--font-size-sm) !important;
+  }
+  .has-medium-font-size {
+    font-size: var(--font-size-md) !important;
+  }
+  .has-large-font-size {
+    font-size: var(--font-size-1) !important;
+  }
+  .has-x-large-font-size {
+    font-size: var(--font-size-0) !important;
+  }
+
+  .has-color {
+    &-primary-color {
+      color: var(--color-primary);
+    }
+    &-secondary-color {
+      color: var(--color-secondary);
+    }
+    &-background-color {
+      color: var(--color-background);
+    }
+    &-text-color {
+      color: var(--color-text);
+    }
+    &-primary-background-color {
+      background-color: var(--color-primary);
+    }
+    &-secondary-background-color {
+      background-color: var(--color-secondary);
+    }
+    &-background-background-color {
+      background-color: var(--color-background);
+    }
+    &-text-background-color {
+      background-color: var(--color-text);
+    }
+  }
+}

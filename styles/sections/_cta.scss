@@ -1,0 +1,41 @@
+.cta {
+  .container {
+    display: grid;
+    gap: var(--gutter);
+    border-radius: var(--border-radius);
+    background-color: var(--color-background);
+    box-shadow: var(--box-shadow);
+    padding-top: var(--gutter);
+    padding-bottom: var(--gutter);
+  }
+
+  &.--file {
+    &-left {
+      .container {
+        grid-template-columns: 45% 1fr;
+      }
+    }
+    &-right {
+      .container {
+        grid-template-columns: 45% 1fr;
+      }
+    }
+  }
+  &__file {
+    overflow: hidden;
+    border-radius: var(--border-radius);
+  }
+
+  &__content {
+  }
+
+  &__pre-heading {
+    margin-bottom: 1rem;
+  }
+  &__heading {
+    margin-bottom: 1.5rem;
+  }
+  &__description {
+    margin-bottom: 2rem;
+  }
+}

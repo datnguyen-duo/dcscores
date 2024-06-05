@@ -1,0 +1,10 @@
+.features-list {
+  text-align: center;
+
+  &__columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gutter);
+    margin-top: var(--gutter);
+  }
+}
