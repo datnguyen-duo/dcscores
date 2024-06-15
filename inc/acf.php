@@ -21,15 +21,23 @@ function add_acf_class_to_menu_items($classes, $item, $args) {
 }
 add_filter('nav_menu_css_class', 'add_acf_class_to_menu_items', 10, 3);
 function acf_input_admin_footer() {
-	$primary_color = get_field('primary_color', 'option');
-	$secondary_color = get_field('secondary_color', 'option');
-	$background_color = get_field('background_color', 'option');
-	$text_color = get_field('text_color', 'option');
+	$primary_colors = get_field('primary_colors', 'option');
+	$secondary_colors = get_field('secondary_colors', 'option');
+    $neutral_colors = get_field('neutral_colors', 'option');
+    $colors = array_merge($primary_colors, $secondary_colors, $neutral_colors);
+    $palette = [];
+    foreach ($colors as $color) {
+        if (is_array($color)) {
+            $palette[] = $color['color'];
+        } else {
+            $palette[] = $color;
+        }
+    }
 	?>
 	<script type="text/javascript">
 		(function($) {
 			acf.add_filter('color_picker_args', function( args, $field ){
-				args.palettes = ['<?php echo $primary_color; ?>', '<?php echo $secondary_color; ?>', '<?php echo $background_color; ?>', '<?php echo $text_color; ?>', '#FFFFFF', '#000000' ];
+                args.palettes = ['<?php echo implode("', '", $palette); ?>'];
 				return args;
 			});
 		})(jQuery);

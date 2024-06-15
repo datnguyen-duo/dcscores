@@ -1,0 +1,30 @@
+.gt_selector {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: 0;
+  color: inherit; // Use the parent's text color
+  font: inherit; // Use the parent's font
+  margin: 0; // Remove margins
+  padding: 0; // Remove padding
+  width: auto; // Adjust width to content or specify a width
+  height: auto; // Adjust height to content or specify a height
+  text-transform: uppercase;
+  width: 2em;
+  cursor: pointer;
+
+  option {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: 0;
+    color: var(--color-primary-1);
+    font: inherit;
+
+    &:nth-child(1) {
+      display: none;
+    }
+  }
+}

@@ -1,10 +1,46 @@
 .features-list {
   text-align: center;
 
+  &__pre-heading {
+    margin-bottom: 1rem;
+  }
+
+  &__heading {
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    @extend .font__size-4--alt;
+    width: calc(var(--font-size-4--alt) * 30);
+    margin: 0 auto;
+  }
+  &__icon {
+    margin: 2rem auto var(--gutter);
+    width: calc(var(--font-size-4--alt) * 20);
+  }
   &__columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(calc((100% - (2 * var(--gutter))) / 3), 1fr)
+    );
     gap: var(--gutter);
-    margin-top: var(--gutter);
+  }
+
+  &__column {
+    &-image {
+      body.home & {
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        width: 100%;
+      }
+    }
+    &-title {
+      @extend .font__size-3;
+      margin-bottom: 0.5rem;
+    }
+    &-description {
+      @extend .font__size-4;
+    }
   }
 }

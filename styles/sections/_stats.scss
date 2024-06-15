@@ -1,5 +1,6 @@
 .stats {
   .container {
+    position: relative;
     display: grid;
     grid-template-areas:
       "pre-heading"
@@ -11,11 +12,14 @@
     box-shadow: var(--box-shadow);
     padding-top: var(--gutter);
     padding-bottom: var(--gutter);
+    background-color: #ffffff;
   }
 
   &__pre-heading {
     grid-area: pre-heading;
     margin-bottom: 1rem;
+    width: max-content;
+    position: relative;
   }
 
   &__heading {
@@ -26,6 +30,7 @@
   &__description {
     grid-area: description;
     margin-bottom: 2rem;
+    max-width: 60%;
   }
 
   &__columns {
@@ -38,8 +43,19 @@
   }
 
   &__column {
+    body.home & {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    &-image {
+      margin-bottom: 1rem;
+    }
     &-stat {
-      > * {
+      padding-bottom: 0.5rem;
+      > p {
+        @extend .font__size-2--alt;
         display: inline-block;
       }
     }
@@ -48,5 +64,27 @@
     grid-area: cta;
     text-align: center;
     margin-top: var(--gutter);
+  }
+
+  .icon {
+    &--dcs-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%) rotate(180deg);
+      aspect-ratio: 558 / 206;
+      width: 200%;
+
+      path {
+        stroke-dasharray: 1500;
+        // stroke-dashoffset: 1500;
+        transition: stroke-dashoffset 1s;
+      }
+    }
+    &--dcs-arrow-left {
+      position: absolute;
+      top: var(--gutter);
+      right: var(--gutter);
+    }
   }
 }

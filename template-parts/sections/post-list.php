@@ -4,8 +4,32 @@ $layout = $args['layout'];
 $settings = get_sub_field('settings');
 $show_pagination = $settings['show_pagination'];
 $show_filter = $settings['show_filter'];
-
 $posts_per_slide = $show_pagination ? $settings['posts_per_slide'] : 4;
+
+if (!function_exists('is_dark_color')) {
+    function is_dark_color($hexColor) {
+        $hexColor = str_replace("#", "", $hexColor);
+        $r = hexdec(substr($hexColor, 0, 2));
+        $g = hexdec(substr($hexColor, 2, 2));
+        $b = hexdec(substr($hexColor, 4, 2));
+        $luminance = (0.299*$r + 0.587*$g + 0.114*$b)/255;
+        return $luminance <= 0.5;
+    }
+}
+
+if (!function_exists('get_colors')) {
+    function get_colors($field_name) {
+        $field_colors = get_field($field_name, 'option');
+        if(!$field_colors) {
+            return array();
+        }
+        return array_filter(array_map(function($color) {
+            return is_dark_color($color['color']) ? $color['color'] : null;
+        }, $field_colors));
+    }
+}
+
+$colors = array_merge(get_colors('primary_colors'), get_colors('secondary_colors'));
 
 $query_args = array(
     'post_type' => $settings['post_type'],
@@ -20,10 +44,12 @@ $header_args = array(
     'heading' => get_sub_field('heading'),
     'description' => get_sub_field('description'),
     'cta' => get_sub_field('cta'),
-); ?>
-<div class="<?php echo $layout . '__header'; ?>">
-    <?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
-</div>
+); 
+
+get_template_part('template-parts/sections/section', 'header', $header_args);
+
+?>
+
 <?php if ($settings['show_filter']):
     $terms = get_terms( array(
         'taxonomy'   => $settings['filter_terms'],
@@ -39,7 +65,8 @@ $header_args = array(
 if ($posts_query->have_posts()): 
     $counter = 0;
 ?>
-    <div class="<?php echo $layout . '__items posts' . ($show_pagination ? ' swiper' : ''); ?>" style="--posts-per-slide: <?php echo $posts_per_slide; ?>;" <?php echo $show_pagination ? 'data-attribute-arrows="true" data-attribute-pagination="true"' : ''; ?>>        <?php 
+    <div class="<?php echo $layout . '__items posts --' . $settings['post_type'] . ($show_pagination ? ' swiper' : ''); ?>" style="--posts-per-slide: <?php echo $posts_per_slide; ?>;" <?php echo $show_pagination ? 'data-attribute-arrows="true" data-attribute-pagination="true"' : ''; ?>>        
+        <?php 
         if ($show_pagination) {
             echo '<div class="swiper-wrapper"><div class="swiper-slide">'; 
         }
@@ -49,20 +76,22 @@ if ($posts_query->have_posts()):
             $target = get_field('external_link') ? 'target="_blank"' : 'target="_self"';
             $terms = wp_get_post_terms( get_the_ID(), $settings['filter_terms']);
             $term_id = ! empty( $terms ) && is_array( $terms ) ? $terms[0]->term_id : '';
+            shuffle($colors);
+            $random_color = $colors[0];
             if ($show_pagination && $counter % $posts_per_slide == 0 && $counter != 0) {
                 echo '</div><div class="swiper-slide">'; 
             }
             $counter++; 
         ?>
-        <article class="<?php echo $layout . '__item post'; ?>" data-term-id=<?php echo $term_id; ?>>
-            <div class="<?php echo $layout . '__image'; ?>">
+        <article class="<?php echo $layout . '__item post'; ?>" data-term-id="<?php echo $term_id; ?>" style="--color-background: <?php echo $random_color; ?>">
+            <div class="<?php echo $layout . '__image'; ?> post__image">
                 <?php if (has_post_thumbnail()): ?>
                     <a href="<?php echo $permalink; ?>" <?php echo $target; ?>>
                         <?php the_post_thumbnail('thumbnail--dcs'); ?>
                     </a>
                 <?php endif; ?>
             </div>
-            <p class="<?php echo $layout . '__meta'; ?>">
+            <p class="<?php echo $layout . '__meta'; ?> post__meta">
                 <?php 
                 $taxonomy = get_post_type() == 'post' ? 'category' : 'source';
                 $terms = get_the_terms(get_the_ID(), $taxonomy);
@@ -75,12 +104,14 @@ if ($posts_query->have_posts()):
                 the_date(); 
                 ?>
             </p>
-            <h3 class="<?php echo $layout . '__title'; ?>">
+            <h5 class="<?php echo $layout . '__title'; ?> post__title">
                 <a href="<?php echo $permalink; ?>" <?php echo $target; ?>>
                     <?php the_title(); ?>
                 </a>
-            </h3>
-            <div class="<?php echo $layout . '__excerpt'; ?>"><?php the_excerpt(); ?></div> 
+            </h5>
+            <div class="<?php echo $layout . '__excerpt'; ?> post__excerpt">
+                <p><?php echo wp_trim_words( get_the_excerpt(), 20, '[...]' ); ?></p>
+            </div> 
         </article>
         <?php 
         endwhile; 
@@ -88,8 +119,12 @@ if ($posts_query->have_posts()):
             echo '</div>';
             echo '</div>';
             echo '<div class="swiper-pagination"></div>';
-            echo '<div class="swiper-button-next swiper-button">ARROW RIGHT</div>';
-            echo '<div class="swiper-button-prev swiper-button">ARROW LEFT</div>';
+            echo '<div class="swiper-button-prev swiper-button icon--arrow">';
+            icon_arrow();
+            echo '</div>';
+            echo '<div class="swiper-button-next swiper-button icon--arrow">';
+            icon_arrow();
+            echo '</div>';
         }
         wp_reset_postdata();
         ?>

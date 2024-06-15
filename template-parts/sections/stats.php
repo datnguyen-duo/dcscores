@@ -27,13 +27,13 @@ get_template_part('template-parts/sections/section', 'header', $header_args);
             } ?>
             <div class="<?php echo $layout . '__column-stat'; ?>">
                 <?php if ($prefix): ?>
-                    <p class="<?php echo $layout . '__column-prefix'; ?>"><?php echo $prefix; ?></p>
+                    <p class="<?php echo $layout . '__column-stat--prefix'; ?>"><?php echo $prefix; ?></p>
                 <?php endif; ?>
                 <?php if ($number): ?>
-                    <p class="<?php echo $layout . '__column-number'; ?>"><?php echo $number; ?></p>
+                    <p class="<?php echo $layout . '__column-stat--number'; ?>"><?php echo $number; ?></p>
                 <?php endif; ?>
                 <?php if ($suffix): ?>
-                    <p class="<?php echo $layout . '__column-suffix'; ?>"><?php echo $suffix; ?></p>
+                    <p class="<?php echo $layout . '__column-stat--suffix'; ?>"><?php echo $suffix; ?></p>
                 <?php endif; ?>
             </div>
 
@@ -60,3 +60,4 @@ get_template_part('template-parts/sections/section', 'header', $header_args);
         </div>
      <?php endforeach; ?>
 </div>
+<?php icon_dcs_arrow_left(); ?>

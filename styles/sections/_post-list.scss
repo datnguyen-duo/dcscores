@@ -1,5 +1,39 @@
 .post-list {
-  &__header {
+  .container {
+    display: grid;
+    grid-template-areas:
+      "pre-heading"
+      "heading"
+      "posts"
+      "pagination"
+      "cta";
+  }
+  &__pre-heading {
     text-align: center;
+    margin-bottom: 1rem;
+    grid-area: pre-heading;
+    @extend .font__size-4--alt;
+  }
+  &__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+    grid-area: heading;
+  }
+  &__items {
+    grid-area: posts;
+  }
+  &__pagination {
+    text-align: center;
+    margin-top: 2rem;
+    grid-area: pagination;
+  }
+  &__cta {
+    text-align: center;
+    margin-top: 2rem;
+    grid-area: cta;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
   }
 }

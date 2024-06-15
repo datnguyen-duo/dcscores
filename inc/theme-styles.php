@@ -1,31 +1,49 @@
 <?php 
-$primary_color = get_field('primary_color', 'option');
-$secondary_color = get_field('secondary_color', 'option');
-$background_color = get_field('background_color', 'option');
-$text_color = get_field('text_color', 'option');
+$primary_colors = get_field('primary_colors', 'option');
+$secondary_colors = get_field('secondary_colors', 'option');
+$neutral_colors = get_field('neutral_colors', 'option');
 $header_background_color = get_field('header_background_color', 'option');
 $header_text_color = get_field('header_text_color', 'option');
 $footer_background_color = get_field('footer_background_color', 'option');
 $footer_text_color = get_field('footer_text_color', 'option');
 $announcement_bar_background_color = get_field('announcement_bar_background_color', 'option');
 $announcement_bar_text_color = get_field('announcement_bar_text_color', 'option');
-function process_font_and_append_css($css, $font_field_name, $css_var_name) {
+function generate_css($colors, $color_type, $css) {
+  foreach ($colors as $key => $color) {
+      $css .= '--color-' . $color_type . '-' . ($key + 1) . ': ' . $color['color'] . ';';
+  }
+  return $css;
+}
+function generate_font_face($font_field_name) {
   $font = get_field($font_field_name, 'option');
-  if ($font['files'] || $font['url']) {
-      if ($font['upload_type'] == 'local-file') {
-          $font_face_src = array_map(function($file) {
-              return 'url("' . $file['file']['url'] . '") format("' . $file['file']['subtype'] . '")';
-          }, $font['files']);
-          $font_face_src = implode(', ', $font_face_src);
-          $font_family_name = $font['files'][0]['file']['title'];
+  if ($font['upload_type'] == 'local-file' && ($font['files'] || $font['url'])) {
+      $font_face_src = array_map(function($file) {
+          $url = $file['file']['url'];
+          $file_subtype = $file['file']['subtype']; 
+          $format = ($file_subtype == 'ttf') ? 'truetype' : $file_subtype;
+          if (substr($url, 0, 5) === 'http:') {
+              $url = 'https:' . substr($url, 5);
+          }
+          return 'url("' . $url . '") format("' . $format . '")';
+      }, $font['files']);
+      $font_face_src = implode(', ', $font_face_src);
+      $font_family_name = $font['files'][0]['file']['title'];
 ?>
 @font-face {
-  font-family: "<?php echo $font_family_name; ?>";    
+  font-family: "<?php echo $font_family_name; ?>";
   src: <?php echo $font_face_src; ?>;
   font-weight: <?php echo $font['font_weight']; ?>;
   font-style: <?php echo $font['font_style']; ?>;
 }
 <?php 
+  }
+}
+
+function process_font_and_append_css($css, $font_field_name, $css_var_name) {
+  $font = get_field($font_field_name, 'option');
+  if ($font['files'] || $font['url']) {
+      if ($font['upload_type'] == 'local-file') {
+          $font_family_name = $font['files'][0]['file']['title'];
           $font_family = '"' . $font_family_name . '", ' . $font['category'];
       } else { 
           $font_family = '"' . $font['font_family'] . '", ' . $font['category'];
@@ -33,42 +51,53 @@ function process_font_and_append_css($css, $font_field_name, $css_var_name) {
       $css .= "$css_var_name: $font_family;";
   }
   return $css;
-}?>
+}
 
+generate_font_face('primary_font');
+generate_font_face('secondary_font');
+generate_font_face('tertiary_font');
+
+?>
 :root {<?php 
     $css = '';
     $css = process_font_and_append_css($css, 'primary_font', '--font-primary');
     $css = process_font_and_append_css($css, 'secondary_font', '--font-secondary');
-    $css .= $primary_color ? '--color-primary: ' . $primary_color . ';' : '';
-    $css .= $secondary_color ? '--color-secondary: ' . $secondary_color . ';' : '';
-    $css .= $background_color ? '--color-background: ' . $background_color . ';' : '';
-    $css .= $text_color ? '--color-text: ' . $text_color . ';' : '';
-    $css .= '--color-white: #ffffff;';
+    $css = process_font_and_append_css($css, 'tertiary_font', '--font-tertiary');
+    $css = generate_css($primary_colors, 'primary', $css);
+    $css = generate_css($secondary_colors, 'secondary', $css);
+    $css = generate_css($neutral_colors, 'neutral', $css);
+    $css .= '--color-white: #faf4f2;';
     $css .= '--color-black: #000000;';
     $css .= $footer_background_color ? '--color-footer-background: ' . $footer_background_color . ';' : '';
     $css .= $footer_text_color ? '--color-footer-text: ' . $footer_text_color . ';' : '';
     $css .= $announcement_bar_background_color ? '--color-announcement-bar-background: ' . $announcement_bar_background_color . ';' : '';
     $css .= $announcement_bar_text_color ? '--color-announcement-bar-text: ' . $announcement_bar_text_color . ';' : '';
-    $css .= '--font-size-0: clamp(50px, 7.5vw, 144px);';
-    $css .= '--font-size-1: clamp(50px, 7.5vw, 144px);';
-    $css .= '--font-size-2: clamp(50px, 7.5vw, 144px);';
-    $css .= '--font-size-3: clamp(50px, 7.5vw, 144px);';
-    $css .= '--font-size-4: clamp(50px, 7.5vw, 144px);';
-    $css .= '--font-size-5: clamp(50px, 7.5vw, 144px);';
-    $css .= '--font-size-6: clamp(50px, 7.5vw, 144px);';
+    $css .= '--font-size-1: 4.375rem;';
+    $css .= '--font-size-1--alt: clamp(2rem, 6.6vw, 127px);';
+    $css .= '--font-size-2: 3rem;';
+    $css .= '--font-size-2--alt: 3.75rem;';
+    $css .= '--font-size-3: 2rem;';
+    $css .= '--font-size-3--alt: 2.875rem;';
+    $css .= '--font-size-4: 2rem;';
+    $css .= '--font-size-4--alt: 1.5rem;';
+    $css .= '--font-size-5: 1.25rem;';
+    $css .= '--font-size-6: .75rem;';
+    $css .= '--font-size-lg: 24px;';
     $css .= '--font-size-md: 16px;';
-    $css .= '--font-size-sm: 14px;';
+    $css .= '--font-size-sm: 12px;';
     $css .= '--container-width: 1200px;';
     $css .= '--content-width: 700px;';
-    $css .= '--spacer: clamp(6rem, 10vw, 192px);';
+    $css .= '--spacer: clamp(2rem, 3.3vw, 4rem);';
     $css .= '--spacer-sm: calc(var(--spacer) / 2);';
     $css .= '--spacer-lg: calc(var(--spacer) * 2);';
     $css .= '--gutter: clamp(1rem, 3vw, 52px);';
     $css .= '--gutter-sm: calc(var(--gutter) / 2);';
     $css .= '--gutter-lg: calc(var(--gutter) * 2);';
-    $css .= '--border-radius: 0.5rem;';
-    $css .= '--box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);';
+    $css .= '--border-radius: 30px;';
+    $css .= '--box-shadow: 0px 4px 12.9px 7px rgba(0, 0, 0, 0.1);';
     $css .= '--transition-ease-in-out: cubic-bezier(0.7, 0, 0.3, 1);';
+    $css .= '--transition-duration: 0.2s;';
+    $css .= '--transition-duration-long: .4s;';
     echo trim($css);
     ?>}
 

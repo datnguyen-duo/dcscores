@@ -27,7 +27,7 @@
         width: 0.5rem;
         height: 0.5rem;
         border-radius: 50%;
-        background-color: var(--color-primary);
+        background-color: var(--color-black);
         cursor: pointer;
         transition: opacity 0.3s;
         opacity: 0.5;
@@ -41,14 +41,18 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      height: 2rem;
-      width: 2rem;
       margin: auto;
+      cursor: pointer;
+      transition: opacity var(--transition-duration);
       &-next {
         right: 0;
       }
       &-prev {
         left: 0;
+        transform: scaleX(-1);
+      }
+      &-disabled {
+        opacity: 0;
       }
     }
   }
@@ -57,5 +61,37 @@
   }
 
   .post {
+    background-color: var(--color-background);
+    color: var(--color-white);
+    padding: 1rem 1rem 2rem;
+    border-radius: var(--border-radius);
+
+    &__image {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    &__meta {
+      @extend .font__size-6;
+      margin-bottom: 0.5rem;
+    }
+
+    &__title {
+      margin-bottom: 1.5rem;
+    }
+
+    &__excerpt {
+      p {
+        @extend .font__size-md;
+      }
+    }
+  }
+
+  &.--press {
+    .post {
+      background-color: transparent;
+      color: var(--color-black);
+    }
   }
 }

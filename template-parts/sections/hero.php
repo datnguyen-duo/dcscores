@@ -17,7 +17,9 @@ $text_right = get_sub_field('text_right');
         foreach($background_files as $key => $file):        
             if ($file['file']['type'] == 'video'): 
                 video($file['file']['url'], $file['file']['mime_type'], $layout . '__file', 'autoplay muted loop playsinline');
+                echo '<div class="' . $layout . '__files-icon">';
                 icon_volume();
+                echo '</div>';
             elseif ($file['file']['type'] == 'image'):
                 image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image');
             endif;
@@ -25,7 +27,14 @@ $text_right = get_sub_field('text_right');
     } ?>
 </div>
 <div class="<?php echo $layout . '__content'; ?>">
-    <?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
+    <div class="<?php echo $layout . '__content-inner'; ?>">
+        <?php 
+            get_template_part('template-parts/sections/section', 'header', $header_args); 
+            echo '<div class="' . $layout . '__content-icon">';
+            icon_dcs_arrow_down();
+            echo '</div>';
+        ?>
+    </div>
 
     <?php if ($text_left || $text_right): ?>
         <div class="<?php echo $layout . '__content-bottom'; ?>">

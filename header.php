@@ -3,6 +3,10 @@ defined( 'ABSPATH' ) || exit;
 $themeurl = get_template_directory_uri();
 $show_announcement_bar = get_field('show_announcement_bar', 'option');
 $scripts = get_field('scripts', 'option');
+$background_color = get_field('header_background_color', 'option');
+$text_color = get_field('header_text_color', 'option');
+$style = ($background_color ? '--color-background: ' . $background_color . ';' : '') . ($text_color ? '--color-text: ' . $text_color . ';' : '');
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -31,7 +35,7 @@ $scripts = get_field('scripts', 'option');
 <?php wp_body_open(); ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'theme' ); ?></a>
-	<header id="masthead" class="site-header">
+	<header id="masthead" class="site-header" <?php echo $style ? ' style="' . $style . '"' : ''; ?>>
 		<?php if ($show_announcement_bar): ?>
 			<div class="site-header__announcement-bar">
 				<div class="site-header__announcement-bar-inner">
@@ -49,8 +53,7 @@ $scripts = get_field('scripts', 'option');
 
 		<div class="site-header__navigation">
 			<?php get_template_part('template-parts/header/navigation'); ?>
-
 		</div>
 	</header>
 
-	<main id="main" class="site-main">
+	<main id="main" class="site-main loading">

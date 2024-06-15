@@ -2877,6 +2877,41 @@
                                     "placeholder": ""
                                 },
                                 {
+                                    "key": "field_66689549e5230",
+                                    "label": "Filter By",
+                                    "name": "filter_by",
+                                    "aria-label": "",
+                                    "type": "select",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_66566643f7772",
+                                                "operator": "!=",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": {
+                                        "all": "All",
+                                        "category": "Category",
+                                        "tag": "Tag"
+                                    },
+                                    "default_value": "all",
+                                    "return_format": "value",
+                                    "multiple": 0,
+                                    "allow_null": 0,
+                                    "ui": 0,
+                                    "ajax": 0,
+                                    "placeholder": ""
+                                },
+                                {
                                     "key": "field_6657a01bbe9c5",
                                     "label": "Posts per Slide",
                                     "name": "posts_per_slide",
@@ -2903,6 +2938,39 @@
                                     "max": "",
                                     "placeholder": "",
                                     "step": "",
+                                    "prepend": "",
+                                    "append": ""
+                                },
+                                {
+                                    "key": "field_6668ad9cbbb91",
+                                    "label": "Filter By Name",
+                                    "name": "filter_by_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_66689549e5230",
+                                                "operator": "!=",
+                                                "value": "all"
+                                            },
+                                            {
+                                                "field": "field_66566643f7772",
+                                                "operator": "!=",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
                                     "prepend": "",
                                     "append": ""
                                 }
@@ -3472,5 +3540,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717019417
+    "modified": 1718136645
 }

@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-$logo = get_field('submark', 'option') ? get_field('submark', 'option')['ID'] : get_option('site_icon');
+$logo = get_field('primary_logo', 'option') ? get_field('primary_logo', 'option')['ID'] : get_option('site_icon');
 ?>
 <div class="site-header__navigation--top container">
     <nav id="secondary-site-navigation" class="secondary-navigation">

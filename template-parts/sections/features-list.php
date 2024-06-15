@@ -10,6 +10,9 @@ $header_args = array(
     'cta' => get_sub_field('cta'),
 );
 get_template_part('template-parts/sections/section', 'header', $header_args);
+echo "<div class='" . $layout . "__icon'>";
+icon_dcs_underline("#FFFFFF");
+echo "</div>";
 ?>
 <?php if ($columns): ?>
     <div class="<?php echo $layout . '__columns'; ?>">

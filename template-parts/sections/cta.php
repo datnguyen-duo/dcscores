@@ -15,9 +15,9 @@ $header_args = array(
     <?php 
     if (!empty($file)):
         if ($file['type'] == 'video'): 
-            video($file['url'], $file['mime_type'], $layout . '__file', 'autoplay muted loop playsinline');
+            video($file['url'], $file['mime_type'], $layout . '__file--video', 'autoplay muted loop playsinline');
         elseif ($file['type'] == 'image'):
-            image($file['ID'], 'full', $layout . '__file', $file['alt'] ? $file['alt'] : 'CTA Image');
+            image($file['ID'], 'full', $layout . '__file--image load--image', $file['alt'] ? $file['alt'] : 'CTA Image');
         endif; 
     endif;
     ?>
@@ -25,3 +25,4 @@ $header_args = array(
 <div class="<?php echo $layout . '__content'; ?>">
     <?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
 </div>
+<div class="shape--1"></div>

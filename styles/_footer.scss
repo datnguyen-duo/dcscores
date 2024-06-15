@@ -2,36 +2,71 @@
   background-color: var(--color-footer-background);
   color: var(--color-footer-text);
   padding: 2rem 0;
-
+  position: relative;
   &__container {
     display: grid;
-    grid-template-columns: 15% 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 15% 1.5fr 1fr;
+    gap: 4rem 2rem;
     grid-template-areas:
       "a b c"
       ". d d";
-  }
-
-  .social-links {
-    gap: 0.5rem;
-    &__link {
-      background-color: var(--color-background);
-      color: var(--color-primary);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
+    .shape--2 {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      background: url("assets/pattern__footer.webp") no-repeat 50% 0 / cover;
+      z-index: -1;
+      aspect-ratio: 5;
     }
   }
 
+  &__navigation {
+    grid-area: c;
+    .menu {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      margin-top: 1rem;
+      gap: 1rem 2rem;
+      li {
+        @extend .font__size-6;
+      }
+    }
+  }
   &__bottom {
     grid-area: d;
+    display: flex;
 
-    > * {
-      display: inline-block;
+    p {
+      font-size: var(--font-size-sm);
+      line-height: 1;
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        border-right: 1px solid var(--color-black);
+      }
     }
 
     a {
       text-decoration: underline;
+    }
+  }
+
+  .newsletter {
+    grid-area: b;
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: flex;
+      input[type="submit"] {
+        margin-left: 0.5rem;
+      }
     }
   }
 }
