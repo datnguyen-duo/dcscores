@@ -477,6 +477,27 @@
                             "rows_per_page": 20,
                             "sub_fields": [
                                 {
+                                    "key": "field_666f121f89b3f",
+                                    "label": "Is Collage",
+                                    "name": "is_collage",
+                                    "aria-label": "",
+                                    "type": "true_false",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "message": "",
+                                    "default_value": 0,
+                                    "ui": 0,
+                                    "ui_on_text": "",
+                                    "ui_off_text": "",
+                                    "parent_repeater": "field_661de7c04e419"
+                                },
+                                {
                                     "key": "field_661de7c04e41a",
                                     "label": "Image",
                                     "name": "image",
@@ -484,7 +505,15 @@
                                     "type": "image",
                                     "instructions": "",
                                     "required": 0,
-                                    "conditional_logic": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_666f121f89b3f",
+                                                "operator": "!=",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
                                     "wrapper": {
                                         "width": "",
                                         "class": "",
@@ -500,6 +529,190 @@
                                     "max_size": "",
                                     "mime_types": "",
                                     "preview_size": "thumbnail",
+                                    "parent_repeater": "field_661de7c04e419"
+                                },
+                                {
+                                    "key": "field_666f13b216431",
+                                    "label": "Layers",
+                                    "name": "layers",
+                                    "aria-label": "",
+                                    "type": "repeater",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_666f121f89b3f",
+                                                "operator": "==",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "layout": "table",
+                                    "min": 0,
+                                    "max": 0,
+                                    "collapsed": "",
+                                    "button_label": "Add Layer",
+                                    "rows_per_page": 20,
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_666f13e116432",
+                                            "label": "Image",
+                                            "name": "image",
+                                            "aria-label": "",
+                                            "type": "image",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "return_format": "array",
+                                            "library": "all",
+                                            "min_width": "",
+                                            "min_height": "",
+                                            "min_size": "",
+                                            "max_width": "",
+                                            "max_height": "",
+                                            "max_size": "",
+                                            "mime_types": "",
+                                            "preview_size": "thumbnail",
+                                            "parent_repeater": "field_666f13b216431"
+                                        },
+                                        {
+                                            "key": "field_666f142a16433",
+                                            "label": "Size",
+                                            "name": "size",
+                                            "aria-label": "",
+                                            "type": "group",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "layout": "block",
+                                            "sub_fields": [
+                                                {
+                                                    "key": "field_666f143a16434",
+                                                    "label": "Width",
+                                                    "name": "width",
+                                                    "aria-label": "",
+                                                    "type": "number",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "min": "",
+                                                    "max": 100,
+                                                    "placeholder": "",
+                                                    "step": "",
+                                                    "prepend": "",
+                                                    "append": "%"
+                                                },
+                                                {
+                                                    "key": "field_666f147d16435",
+                                                    "label": "Height",
+                                                    "name": "height",
+                                                    "aria-label": "",
+                                                    "type": "number",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "min": "",
+                                                    "max": 100,
+                                                    "placeholder": "",
+                                                    "step": "",
+                                                    "prepend": "",
+                                                    "append": "%"
+                                                }
+                                            ],
+                                            "parent_repeater": "field_666f13b216431"
+                                        },
+                                        {
+                                            "key": "field_666f149216436",
+                                            "label": "Position",
+                                            "name": "position",
+                                            "aria-label": "",
+                                            "type": "group",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "layout": "block",
+                                            "sub_fields": [
+                                                {
+                                                    "key": "field_666f149216437",
+                                                    "label": "From the Top",
+                                                    "name": "top",
+                                                    "aria-label": "",
+                                                    "type": "number",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "min": "",
+                                                    "max": 100,
+                                                    "placeholder": "",
+                                                    "step": "",
+                                                    "prepend": "",
+                                                    "append": "%"
+                                                },
+                                                {
+                                                    "key": "field_666f149216438",
+                                                    "label": "From the Left",
+                                                    "name": "left",
+                                                    "aria-label": "",
+                                                    "type": "number",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "min": "",
+                                                    "max": 100,
+                                                    "placeholder": "",
+                                                    "step": "",
+                                                    "prepend": "",
+                                                    "append": "%"
+                                                }
+                                            ],
+                                            "parent_repeater": "field_666f13b216431"
+                                        }
+                                    ],
                                     "parent_repeater": "field_661de7c04e419"
                                 },
                                 {
@@ -3540,5 +3753,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1718136645
+    "modified": 1718558548
 }

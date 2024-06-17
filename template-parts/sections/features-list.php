@@ -17,6 +17,8 @@ echo "</div>";
 <?php if ($columns): ?>
     <div class="<?php echo $layout . '__columns'; ?>">
         <?php foreach($columns as $column): 
+            $is_collage = $column['is_collage'];
+            $layers = $column['layers'];
             $image = $column['image'];
             $pre_title = $column['pre_title'];
             $title = $column['title'];
@@ -24,9 +26,27 @@ echo "</div>";
             $cta = $column['cta'];
             ?>
             <div class="<?php echo $layout . '__column'; ?>">
-                <?php if ($image) {
-                     image($image['ID'], 'full', $layout . '__column-image', $image['alt']);
-                } ?>
+                <?php if ($is_collage): ?>
+                    <div class="<?php echo $layout . '__column-collage'; ?>">
+                        <?php foreach($layers as $layer): 
+                            $layer_image = $layer['image'];
+                            $layer_position = $layer['position'];
+                            $layer_size = $layer['size'];
+                            ?>
+                            <div class="<?php echo
+                                $layout . '__column-collage-layer ' . 
+                                $layout . '__column-collage-layer--' . $layer_position . ' ' . 
+                                $layout . '__column-collage-layer--' . $layer_size; ?>">
+                                <?php image($layer_image['ID'], 'full', $layout . '__column-collage-layer-image', $layer_image['alt']); ?>
+                            </div>
+                            
+                            <?php endforeach; ?>
+                    </div>
+                <?php else: 
+                    if ($image) {
+                        image($image['ID'], 'full', $layout . '__column-image', $image['alt']);
+                   }?>
+                <?php endif; ?>
                 <?php if ($pre_title): ?>
                     <p class="<?php echo $layout . '__column-pre-title'; ?>"><?php echo $pre_title; ?></p>
                 <?php endif; ?>
