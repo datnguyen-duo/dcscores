@@ -27,17 +27,22 @@ echo "</div>";
             ?>
             <div class="<?php echo $layout . '__column'; ?>">
                 <?php if ($is_collage): ?>
-                    <div class="<?php echo $layout . '__column-collage'; ?>">
+                    <div class="<?php echo $layout . '__collage'; ?>">
                         <?php foreach($layers as $layer): 
                             $layer_image = $layer['image'];
-                            $layer_position = $layer['position'];
-                            $layer_size = $layer['size'];
+                            $centered = (isset($layer['position']['top']) && $layer['position']['top'] !== '' && isset($layer['position']['left']) && $layer['position']['left'] !== '') ? '' : ' position--centered';                            $layer_size_width = isset($layer['size']['width']) && $layer['size']['width'] !== '' ? $layer['size']['width'] . '%' : 'auto';
+                            $layer_size_height = isset($layer['size']['height']) && $layer['size']['height'] !== '' ? $layer['size']['height'] . '%' : 'auto';
+                            $layer_position_top = isset($layer['position']['top']) && $layer['position']['top'] !== '' ? $layer['position']['top'] . '%' : '50%';
+                            $layer_position_left = isset($layer['position']['left']) && $layer['position']['left'] !== '' ? $layer['position']['left'] . '%' : '50%';
+                            $layer_hover_animation = $layer['hover_animation'] ? ' hover-animation--' . $layer['hover_animation'] : '';
                             ?>
-                            <div class="<?php echo
-                                $layout . '__column-collage-layer ' . 
-                                $layout . '__column-collage-layer--' . $layer_position . ' ' . 
-                                $layout . '__column-collage-layer--' . $layer_size; ?>">
-                                <?php image($layer_image['ID'], 'full', $layout . '__column-collage-layer-image', $layer_image['alt']); ?>
+                            <div class="<?php echo $layout . '__collage-layer' . $centered . $layer_hover_animation; ?>"
+                                style="<?php echo 'width: ' . $layer_size_width . '; 
+                                height: ' . $layer_size_height . '; 
+                                top: ' . $layer_position_top . '; 
+                                left: ' . $layer_position_left . ';'; ?>"
+                            >
+                                <?php image($layer_image['ID'], 'full', $layout . '__collage-layer-image', $layer_image['alt']); ?>
                             </div>
                             
                             <?php endforeach; ?>

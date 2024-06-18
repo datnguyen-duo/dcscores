@@ -1,4 +1,8 @@
 .post-list {
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .container {
     display: grid;
     grid-template-areas:
@@ -7,6 +11,10 @@
       "posts"
       "pagination"
       "cta";
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: 0;
+    }
   }
   &__pre-heading {
     text-align: center;

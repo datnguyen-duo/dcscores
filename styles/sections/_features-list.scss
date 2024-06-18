@@ -1,6 +1,16 @@
 .features-list {
   text-align: center;
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
+  .container {
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
   &__pre-heading {
     margin-bottom: 1rem;
   }
@@ -13,10 +23,17 @@
     @extend .font__size-4--alt;
     width: calc(var(--font-size-4--alt) * 30);
     margin: 0 auto;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 100%;
+    }
   }
   &__icon {
     margin: 2rem auto var(--gutter);
     width: calc(var(--font-size-4--alt) * 20);
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 80%;
+    }
   }
   &__columns {
     display: grid;
@@ -25,12 +42,23 @@
       minmax(calc((100% - (2 * var(--gutter))) / 3), 1fr)
     );
     gap: var(--gutter);
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      padding: var(--spacer) var(--gutter);
+    }
   }
 
   &__column {
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 80%;
+      flex-shrink: 0;
+    }
     &-image {
       body.home & {
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 1;
         object-fit: contain;
         width: 100%;
       }
@@ -43,4 +71,50 @@
       @extend .font__size-4;
     }
   }
+
+  &__collage {
+    aspect-ratio: 1;
+    width: 100%;
+    position: relative;
+    &-layer {
+      display: flex;
+      position: absolute;
+    }
+
+    &:hover {
+      .hover-animation {
+        &--rotate {
+          // animation: hoverRotate 0.2s linear infinite;
+        }
+
+        &--scale {
+          // animation: hoverScale 0.2s linear infinite;
+        }
+      }
+    }
+  }
 }
+
+// @keyframes hoverRotate {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   50% {
+//     transform: rotate(10deg);
+//   }
+//   100% {
+//     transform: rotate(0deg);
+//   }
+// }
+
+// @keyframes hoverScale {
+//   0% {
+//     transform: scale(1);
+//   }
+//   50% {
+//     transform: scale(1.1);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// }

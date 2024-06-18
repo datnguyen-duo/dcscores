@@ -10,6 +10,16 @@
     grid-template-areas:
       "a b c"
       ". d d";
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      gap: 2rem;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "a"
+        "b"
+        "c"
+        "d";
+    }
     .shape--2 {
       content: "";
       position: absolute;
@@ -22,6 +32,14 @@
     }
   }
 
+  &__logo {
+    grid-area: a;
+    display: flex;
+    @media screen and (max-width: $breakpoint-mobile) {
+      justify-self: center;
+      width: 150px;
+    }
+  }
   &__navigation {
     grid-area: c;
     .menu {
@@ -37,7 +55,8 @@
   &__bottom {
     grid-area: d;
     display: flex;
-
+    flex-wrap: wrap;
+    gap: 0.2rem 0;
     p {
       font-size: var(--font-size-sm);
       line-height: 1;
@@ -64,6 +83,13 @@
 
     form {
       display: flex;
+
+      input[type="email"] {
+        @media screen and (max-width: $breakpoint-mobile) {
+          width: 100%;
+        }
+      }
+
       input[type="submit"] {
         margin-left: 0.5rem;
       }

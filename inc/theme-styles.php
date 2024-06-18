@@ -73,7 +73,7 @@ generate_font_face('tertiary_font');
     $css .= $announcement_bar_background_color ? '--color-announcement-bar-background: ' . $announcement_bar_background_color . ';' : '';
     $css .= $announcement_bar_text_color ? '--color-announcement-bar-text: ' . $announcement_bar_text_color . ';' : '';
     $css .= '--font-size-1: 4.375rem;';
-    $css .= '--font-size-1--alt: clamp(2rem, 6.6vw, 127px);';
+    $css .= '--font-size-1--alt: clamp(40px, 6.6vw, 127px);';
     $css .= '--font-size-2: 3rem;';
     $css .= '--font-size-2--alt: 3.75rem;';
     $css .= '--font-size-3: 2rem;';

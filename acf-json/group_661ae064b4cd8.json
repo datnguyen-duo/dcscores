@@ -559,6 +559,7 @@
                                     "collapsed": "",
                                     "button_label": "Add Layer",
                                     "rows_per_page": 20,
+                                    "parent_repeater": "field_661de7c04e419",
                                     "sub_fields": [
                                         {
                                             "key": "field_666f13e116432",
@@ -601,6 +602,7 @@
                                                 "id": ""
                                             },
                                             "layout": "block",
+                                            "parent_repeater": "field_666f13b216431",
                                             "sub_fields": [
                                                 {
                                                     "key": "field_666f143a16434",
@@ -646,8 +648,7 @@
                                                     "prepend": "",
                                                     "append": "%"
                                                 }
-                                            ],
-                                            "parent_repeater": "field_666f13b216431"
+                                            ]
                                         },
                                         {
                                             "key": "field_666f149216436",
@@ -664,6 +665,7 @@
                                                 "id": ""
                                             },
                                             "layout": "block",
+                                            "parent_repeater": "field_666f13b216431",
                                             "sub_fields": [
                                                 {
                                                     "key": "field_666f149216437",
@@ -709,11 +711,37 @@
                                                     "prepend": "",
                                                     "append": "%"
                                                 }
-                                            ],
+                                            ]
+                                        },
+                                        {
+                                            "key": "field_6670842f07f82",
+                                            "label": "Hover Animation",
+                                            "name": "hover_animation",
+                                            "aria-label": "",
+                                            "type": "select",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "choices": {
+                                                "none": "None",
+                                                "rotate": "Rotate",
+                                                "scale": "Scale"
+                                            },
+                                            "default_value": "none",
+                                            "return_format": "value",
+                                            "multiple": 0,
+                                            "allow_null": 0,
+                                            "ui": 0,
+                                            "ajax": 0,
+                                            "placeholder": "",
                                             "parent_repeater": "field_666f13b216431"
                                         }
-                                    ],
-                                    "parent_repeater": "field_661de7c04e419"
+                                    ]
                                 },
                                 {
                                     "key": "field_661de7c04e41b",
@@ -3753,5 +3781,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1718558548
+    "modified": 1718649940
 }

@@ -1,5 +1,12 @@
 .site-header {
   overflow: hidden;
+  @media screen and (max-width: $breakpoint-mobile) {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+    overflow: visible;
+  }
   &__announcement-bar {
     background-color: var(--color-announcement-bar-background);
     color: var(--color-announcement-bar-text);
@@ -32,6 +39,10 @@
     width: 160px;
     display: block;
     margin-right: auto;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 120px;
+    }
   }
   &__navigation {
     &--top,
@@ -48,7 +59,21 @@
       padding-bottom: 0.5rem;
       font-size: var(--font-size-sm);
       font-weight: 500;
-
+      transition: opacity var(--transition-duration);
+      @media screen and (max-width: $breakpoint-mobile) {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 100%;
+        z-index: 3;
+        justify-content: flex-start;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        body.init__menu & {
+          opacity: 1;
+          pointer-events: initial;
+        }
+      }
       .menu-item-gtranslate {
         &:after {
           content: url("assets/caret-down--white.svg");
@@ -63,6 +88,29 @@
       color: var(--color-text);
       font-weight: 600;
       position: relative;
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        .main-navigation {
+          color: var(--color-background);
+          background-color: var(--color-text);
+          position: absolute;
+          top: calc(100% + 128px);
+          width: calc(100vw + var(--gutter) * 2);
+          left: calc(var(--gutter) * -1);
+          padding: 1rem var(--gutter) 5rem calc(var(--gutter) * 2);
+          transition: opacity var(--transition-duration);
+          opacity: 0;
+          pointer-events: none;
+          body.init__menu & {
+            opacity: 1;
+            pointer-events: initial;
+          }
+          li {
+            font-size: var(--font-size-1--alt);
+            font-weight: 500;
+          }
+        }
+      }
     }
 
     ul {
@@ -70,12 +118,29 @@
       align-items: center;
       justify-content: flex-end;
       gap: 1rem;
+      @media screen and (max-width: $breakpoint-mobile) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     .icon {
       &--search {
         cursor: pointer;
         margin-left: 2rem;
+        @media screen and (max-width: $breakpoint-mobile) {
+          position: absolute;
+          top: calc(100% + 128px + 327px);
+          color: #ffffff;
+          right: var(--gutter);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity var(--transition-duration);
+          body.init__menu & {
+            opacity: 1;
+            pointer-events: initial;
+          }
+        }
       }
       &--close {
         transform: translateX(0.2rem);
@@ -103,12 +168,58 @@
       padding: 1rem calc(var(--gutter) - 30px) 1rem var(--gutter);
       transition: opacity var(--transition-duration);
       margin-top: 1px;
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        position: absolute;
+        top: calc(100% + 128px + 305px);
+        right: 0;
+        width: 100%;
+        justify-content: flex-start;
+        padding: 1rem calc(var(--gutter) - 30px) 1rem var(--gutter);
+      }
       body.init__search & {
         opacity: 1;
         pointer-events: initial;
       }
       button {
         color: inherit;
+      }
+    }
+  }
+
+  &__mobile-toggle {
+    cursor: pointer;
+    display: none;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      display: block;
+    }
+
+    &-line {
+      width: 2rem;
+      height: 3px;
+      background-color: currentColor;
+      margin: 0.3rem 0;
+      transition: margin var(--transition-duration) var(--transition-duration),
+        transform var(--transition-duration) 0s,
+        opacity var(--transition-duration) var(--transition-duration);
+      body.init__menu & {
+        &:nth-child(1) {
+          transform: rotate(45deg);
+          transition: transform var(--transition-duration)
+            var(--transition-duration);
+        }
+        &:nth-child(2) {
+          opacity: 0;
+          margin: calc(-0.3rem - 3px) 0;
+          transition: margin var(--transition-duration) 0s,
+            opacity var(--transition-duration) 0s;
+        }
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+          transition: transform var(--transition-duration)
+            var(--transition-duration);
+        }
       }
     }
   }

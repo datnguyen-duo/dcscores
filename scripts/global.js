@@ -10,6 +10,7 @@ var easeInOut = "power2.inOut",
   durationSlow = 1.2,
   durationFast = 0.3,
   start = "top 70%",
+  startScrub = "top bottom",
   scale = 1.5;
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
@@ -73,7 +74,9 @@ function utility1() {
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    sliderElements.forEach(initializeSlider);
+    if (window.innerWidth > 768) {
+      sliderElements.forEach(initializeSlider);
+    }
   });
 })();
 
@@ -159,6 +162,17 @@ function utility1() {
   });
 })();
 
+// Mobile Menu
+
+(function () {
+  const toggle = document.querySelector(".site-header__mobile-toggle");
+  document.addEventListener("DOMContentLoaded", () => {
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("init__menu");
+    });
+  });
+})();
+
 /*	-----------------------------------------------------------------------------
   COMPONENTS
 --------------------------------------------------------------------------------- */
@@ -219,6 +233,18 @@ function utility1() {
             start: start,
           },
         });
+        gsap.utils
+          .toArray(".features-list__collage-layer-image")
+          .forEach((image, i) => {
+            gsap.from(image, {
+              y: i % 4 === 0 ? -70 : 70,
+              scrollTrigger: {
+                trigger: section.querySelector(".features-list__columns"),
+                start: startScrub,
+                scrub: true,
+              },
+            });
+          });
       });
     }
   });
@@ -313,7 +339,6 @@ function utility1() {
             }
             let activeSlide = 0;
             const animateSlideChange = (oldSlide, newSlide, dir) => {
-              console.log(dir);
               gsap.fromTo(
                 sliderImages[oldSlide],
                 { clipPath: "inset(0% 0% 0% 0%)" },
@@ -502,5 +527,24 @@ function utility1() {
 
   window.addEventListener("load", () => {
     mediaElements.forEach(animateImage);
+  });
+})();
+
+// Icon Load
+(function () {
+  window.addEventListener("load", () => {
+    console.log("load");
+    gsap.utils.toArray(".icon--dcs-circle").forEach((icon) => {
+      var path = icon.querySelector("path");
+      gsap.from(path, {
+        drawSVG: "0%",
+        duration: duration,
+        delay: duration,
+        scrollTrigger: {
+          trigger: icon,
+          start: start,
+        },
+      });
+    });
   });
 })();

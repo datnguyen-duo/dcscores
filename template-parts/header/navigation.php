@@ -29,5 +29,10 @@ $logo = get_field('primary_logo', 'option') ? get_field('primary_logo', 'option'
             );
         ?>
     </nav>
+    <div class="site-header__mobile-toggle">
+        <div class="site-header__mobile-toggle-line"></div>
+        <div class="site-header__mobile-toggle-line"></div>
+        <div class="site-header__mobile-toggle-line"></div>
+    </div>
     <?php get_template_part( 'template-parts/search/searchform' ); ?>
 </div>

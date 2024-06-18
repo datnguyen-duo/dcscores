@@ -9,6 +9,11 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--gutter);
     grid-template-areas: "content image";
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      grid-template-columns: 1fr !important;
+      grid-template-areas: "image" "content" !important;
+    }
   }
 
   &.--image-right {
@@ -60,6 +65,7 @@
       grid-area: inner;
       opacity: 0;
       pointer-events: none;
+      transition: opacity var(--transition-duration);
       &.active {
         opacity: 1;
         pointer-events: initial;
@@ -72,7 +78,7 @@
       li {
         cursor: pointer;
         @extend .font__size-sm--alt;
-
+        width: max-content;
         &.active {
           text-decoration: underline;
         }

@@ -3,6 +3,13 @@ body {
   background-color: var(--color-neutral-2);
   font-family: var(--font-primary);
   text-wrap: balance;
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-top: 62px;
+  }
+
+  &.init__menu {
+    overflow: hidden;
+  }
 }
 
 h1,
@@ -24,6 +31,9 @@ h2,
   font-size: var(--font-size-2);
   font-weight: 600;
 
+  @media screen and (max-width: $breakpoint-mobile) {
+    font-size: calc(var(--font-size-2) * 0.625);
+  }
   &--alt {
     font-family: var(--font-tertiary);
     font-size: var(--font-size-2--alt);
@@ -37,11 +47,16 @@ h3,
   font-size: var(--font-size-3);
   font-weight: 600;
   line-height: 1.4;
-
+  @media screen and (max-width: $breakpoint-mobile) {
+    font-size: calc(var(--font-size-3) * 0.75);
+  }
   &--alt {
     font-size: var(--font-size-3--alt);
     font-weight: 500;
     line-height: 1.4;
+    @media screen and (max-width: $breakpoint-mobile) {
+      font-size: calc(var(--font-size-3--alt) * 0.75);
+    }
   }
 }
 
@@ -51,6 +66,10 @@ h4,
   font-size: var(--font-size-4);
   font-weight: 400;
   line-height: 1.4;
+
+  @media screen and (max-width: $breakpoint-mobile) {
+    font-size: calc(var(--font-size-4) * 0.781);
+  }
   &--alt {
     font-family: var(--font-primary);
     font-size: var(--font-size-4--alt);
@@ -129,6 +148,11 @@ video {
     }
     &.menu-item {
       padding: 0;
+      @media screen and (max-width: $breakpoint-mobile) {
+        font: inherit;
+        border: none;
+        text-transform: inherit;
+      }
       &:hover {
         background-color: var(--color-white);
         color: var(--color-primary-1);
@@ -136,6 +160,9 @@ video {
       a {
         padding: 0.5rem 1.5rem;
         display: block;
+        @media screen and (max-width: $breakpoint-mobile) {
+          padding: 0;
+        }
       }
     }
   }
@@ -206,6 +233,16 @@ input {
   }
 }
 
+.position {
+  &--centered {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.hover-animation {
+  &--rotate {
+  }
+}
 .screen-reader-text {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);

@@ -9,6 +9,10 @@
     padding-top: var(--gutter);
     padding-bottom: var(--gutter);
     background-color: #ffffff;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      grid-template-columns: 1fr !important;
+    }
   }
 
   &.--file {
@@ -30,9 +34,6 @@
     video {
       width: 100%;
     }
-  }
-
-  &__content {
   }
 
   &__pre-heading {

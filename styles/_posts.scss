@@ -4,13 +4,29 @@
   grid-template-columns: repeat(var(--posts-per-slide), 1fr);
   position: relative;
   padding-bottom: 2rem;
-
+  @media screen and (max-width: $breakpoint-mobile) {
+    display: flex;
+    overflow-x: auto !important;
+    padding: 0 var(--gutter) 1rem;
+  }
   .swiper {
+    &-wrapper {
+      @media screen and (max-width: $breakpoint-mobile) {
+        width: auto;
+        gap: 1rem;
+      }
+    }
     &-slide {
       display: grid;
       gap: 1rem;
       grid-template-columns: repeat(var(--posts-per-slide), 1fr);
       padding: 0 2rem;
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        display: flex;
+        padding: 0;
+        width: auto;
+      }
     }
 
     &-pagination {
@@ -44,6 +60,10 @@
       margin: auto;
       cursor: pointer;
       transition: opacity var(--transition-duration);
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        display: none;
+      }
       &-next {
         right: 0;
       }
@@ -66,6 +86,10 @@
     padding: 1rem 1rem 2rem;
     border-radius: var(--border-radius);
 
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 80vw;
+      flex-shrink: 0;
+    }
     &__image {
       border-radius: var(--border-radius);
       overflow: hidden;
