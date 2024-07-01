@@ -4,15 +4,40 @@
     "fields": [
         {
             "key": "field_66217082a6cac",
-            "label": "Photo",
-            "name": "photo",
+            "label": "Photo (Primary)",
+            "name": "photo_primary",
             "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_667f53d3b9baa",
+            "label": "Photo (Secondary)",
+            "name": "photo_secondary",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -31,6 +56,26 @@
             "key": "field_662093d4d81df",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6682061e57c39",
+            "label": "Company",
+            "name": "company",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -76,7 +121,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -101,7 +146,7 @@
             "maxlength": "",
             "rows": "",
             "placeholder": "",
-            "new_lines": ""
+            "new_lines": "br"
         }
     ],
     "location": [
@@ -135,5 +180,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716238378
+    "modified": 1719797300
 }

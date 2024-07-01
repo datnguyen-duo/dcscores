@@ -1020,6 +1020,31 @@
             "return_format": "string"
         },
         {
+            "key": "field_6671da25f1015",
+            "label": "Hover Image",
+            "name": "header_hover_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "thumbnail"
+        },
+        {
             "key": "field_66143c72dc659",
             "label": "Show Announcement Bar",
             "name": "show_announcement_bar",
@@ -1563,5 +1588,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1718223480
+    "modified": 1718737496
 }

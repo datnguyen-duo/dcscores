@@ -1,0 +1,15 @@
+.instagram-feed {
+  &__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  &__description {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  #ig-feed {
+    padding: var(--spacer-lg);
+    text-align: center;
+  }
+}

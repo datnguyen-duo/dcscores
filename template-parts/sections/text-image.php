@@ -64,10 +64,10 @@ $header_args = array(
                 if ($variation == 'slider') {
                     echo '<div class="' . $layout . '__column-pagination"></div>';
                     echo '<div class="' . $layout . '__column-arrow --prev icon--arrow disabled">';
-                    icon_arrow();
+                    icon_arrow_2();
                     echo '</div>';
                     echo '<div class="' . $layout . '__column-arrow --next icon--arrow">';
-                    icon_arrow();
+                    icon_arrow_2();
                     echo '</div>';
                 }
                 ?>
@@ -78,7 +78,7 @@ $header_args = array(
             <?php if ($variation == 'toggles'): ?>
                 <ul class="<?php echo $layout . '__column-toggles'; ?>">
                     <?php foreach ($list as $key => $item): ?>
-                        <li class="<?php echo $layout . '__column-toggle'; echo ($key == 0) ? ' active' : ''; ?>">
+                        <li class="<?php echo $layout . '__column-toggle has-underline'; echo ($key == 0) ? ' active' : ''; ?>">
                             <?php echo $item['content']['label'] ? $item['content']['label'] : $item['content']['title']; ?>
                         </li>
                     <?php endforeach; ?>
@@ -117,5 +117,5 @@ $header_args = array(
     <?php endif; ?>
 </div>
 <?php if ($variation == 'slider') {
-    echo '<div class="shape--1"></div>';
+    echo '<div class="shape shape--1"></div>';
 } ?>

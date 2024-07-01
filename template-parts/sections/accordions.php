@@ -17,8 +17,14 @@ get_template_part('template-parts/sections/section', 'header', $header_args);
         $content = $item['content'];
         ?>
         <div class="<?php echo $layout . '__item'; ?>">
-            <p class="<?php echo $layout . '__title'; ?>"><?php echo $title; ?></p>
-            <div class="<?php echo $layout . '__content editor'; ?>"><?php echo $content; ?></div>
+            <p class="<?php echo $layout . '__item-title'; ?>"><?php echo $title; ?>
+                <span class="<?php echo $layout . '__item-arrow'; ?>"><?php icon_caret(); ?></span>
+            </p>
+            <div class="<?php echo $layout . '__item-content editor'; ?>">
+                <div class="<?php echo $layout . '__item-content-inner'?>">
+                    <?php echo $content; ?>
+                </div>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>
