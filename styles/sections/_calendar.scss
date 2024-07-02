@@ -117,6 +117,9 @@
         &--current {
           .tribe-events-calendar-month__day-date-daynum {
             color: var(--color-primary-4);
+            a {
+              color: var(--color-primary-4);
+            }
           }
         }
       }
@@ -172,6 +175,8 @@ html {
       padding: 0.5rem !important;
       img {
         border-radius: var(--border-radius) !important;
+        aspect-ratio: 1;
+        object-fit: cover;
       }
       * {
         line-height: 1.2 !important;

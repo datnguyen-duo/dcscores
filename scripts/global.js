@@ -9,7 +9,7 @@ var easeInOut = "power2.inOut",
   duration = 0.7,
   durationSlow = 1.2,
   durationFast = 0.3,
-  start = "top 80%",
+  start = "top 85%",
   startScrub = "top bottom",
   scale = 1.5;
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
@@ -697,6 +697,9 @@ function utility1() {
         items.forEach((item) => {
           item.addEventListener("click", function () {
             this.classList.toggle("active");
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 800);
           });
         });
       });

@@ -115,11 +115,7 @@
       border-radius: var(--border-radius);
       overflow: hidden;
       margin-bottom: 1rem;
-      aspect-ratio: 350 / 215;
-      display: flex;
-      a {
-        display: flex;
-      }
+
       img {
         width: 100%;
         height: 100%;
@@ -156,6 +152,18 @@
       color: var(--color-black);
       text-align: center;
       grid-column: span 4;
+    }
+  }
+
+  &.--post {
+    .post {
+      &__image {
+        aspect-ratio: 350 / 215;
+        display: flex;
+        a {
+          display: flex;
+        }
+      }
     }
   }
 

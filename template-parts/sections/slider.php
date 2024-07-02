@@ -34,7 +34,7 @@ if ($slides || $variation == 'team'): ?>
     }
     ?>>
         <?php if ($variation == 'timeline'): ?>
-            <div class="<?php echo $layout . '__slides--alt --images'; ?>">
+            <div class="<?php echo $layout . '__slides--alt --images load--media'; ?>">
                 <?php foreach($slides as $key => $slide): 
                     $image = $slide['image'];
                     if ($image): ?>
@@ -68,7 +68,7 @@ if ($slides || $variation == 'team'): ?>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="<?php echo $layout . '__slides--alt --content'; ?>">
+            <div class="<?php echo $layout . '__slides--alt --content load--media'; ?>">
                 <?php foreach($slides as $key => $slide): 
                     $description = $slide['description'];
                     if ($description): ?>
@@ -118,7 +118,7 @@ if ($slides || $variation == 'team'): ?>
                 </div>
             <?php endif; wp_reset_postdata(); 
             if ($query->have_posts()): ?>
-                <div class="<?php echo $layout . '__slides-container'; ?>">
+                <div class="<?php echo $layout . '__slides-container load--media'; ?>">
                     <div class="<?php echo $layout . '__slides--alt --images'; ?>">
                         <?php 
                             $imageCounter = 0;

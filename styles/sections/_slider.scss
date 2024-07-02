@@ -189,10 +189,7 @@
         }
         position: relative;
         &:not(:last-child) {
-          margin-right: 2rem;
-          @media screen and (max-width: $breakpoint-tablet) {
-            margin-right: 1rem;
-          }
+          margin-right: 1rem;
         }
 
         &:before {

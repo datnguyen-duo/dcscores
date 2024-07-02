@@ -16,7 +16,7 @@ get_template_part('template-parts/sections/section', 'header', $header_args);
         $title = $item['title'];
         $content = $item['content'];
         ?>
-        <div class="<?php echo $layout . '__item'; ?>">
+        <div class="<?php echo $layout . '__item'; ?> load--text">
             <p class="<?php echo $layout . '__item-title'; ?>"><?php echo $title; ?>
                 <span class="<?php echo $layout . '__item-arrow'; ?>"><?php icon_caret(); ?></span>
             </p>
