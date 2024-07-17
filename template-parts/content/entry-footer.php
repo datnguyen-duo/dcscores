@@ -1,14 +1,13 @@
 <?php
 defined( 'ABSPATH' ) || exit; 
+if ( has_tag() ) :
 ?>
 <div class="entry__footer">
-    <span class="entry__footer-tags">
-        <?php the_tags( '', ', ', '' ); ?>
-    </span>
-    <div class="entry__footer-navigation">
-        <?php
-            previous_post_link( '%link', 'Previous: %title' );
-            next_post_link( '%link', 'Next: %title' );
-        ?>
+    <div class="entry__footer-tags">
+        <p class="entry__footer-tags-title font__size-6">Read more stories about</p>
+        <div class="entry__footer-tags-inner">
+            <?php the_tags( '', ' ', '' ); ?>
+        </div>
     </div>
 </div>
+<?php endif; ?>

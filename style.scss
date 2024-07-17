@@ -8,7 +8,6 @@ Version: 1.0
 
 @import "styles/reset";
 @import "styles/fonts";
-@import "styles/variables";
 @import "styles/global";
 @import "styles/header";
 @import "styles/footer";
@@ -36,6 +35,10 @@ Version: 1.0
 @import "styles/sections/cta";
 @import "styles/sections/slider";
 @import "styles/sections/banner";
+@import "styles/sections/accordions";
 @import "styles/sections/faq";
 @import "styles/sections/post-list";
 @import "styles/sections/map";
+@import "styles/sections/calendar";
+@import "styles/sections/logo-wall";
+@import "styles/sections/instagram-feed";

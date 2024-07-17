@@ -1,13 +1,18 @@
 .text-image {
-  &__header {
-    text-align: center;
-    margin-bottom: var(--gutter);
+  &__pre-heading {
+    margin-bottom: 0.5rem;
+  }
+  &__heading {
+    margin-bottom: 1rem;
+  }
+  &__description {
+    margin-bottom: 1rem;
   }
 
   &__columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--gutter);
+    gap: var(--gutter-lg);
     grid-template-areas: "content image";
 
     @media screen and (max-width: $breakpoint-tablet) {
@@ -48,8 +53,12 @@
 
   &__column {
     position: relative;
-    &.--text {
+    &.--content {
       grid-area: content;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      scroll-margin-top: 4rem;
     }
 
     &.--image {
@@ -73,14 +82,17 @@
     }
     &-toggles {
       display: flex;
-      gap: 2rem;
+      gap: 1rem 2rem;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
       li {
         cursor: pointer;
         @extend .font__size-sm--alt;
         width: max-content;
         &.active {
-          text-decoration: underline;
+          &::before {
+            width: 100%;
+          }
         }
       }
     }
@@ -117,6 +129,9 @@
 
     .text-image {
       &__column {
+        &-image {
+          align-self: center;
+        }
         &-description {
           @extend .font__size-3--alt;
         }
@@ -164,6 +179,30 @@
             opacity: 0;
             pointer-events: none;
           }
+        }
+      }
+    }
+  }
+
+  &.--sticky {
+    .text-image {
+      &__column {
+        &-pre-title {
+          @extend .font__size-4--alt;
+        }
+
+        &-description {
+          @extend .font__size-4;
+        }
+
+        &-image {
+          clip-path: unset;
+          position: relative;
+        }
+
+        &-inner {
+          opacity: 1;
+          pointer-events: initial;
         }
       }
     }

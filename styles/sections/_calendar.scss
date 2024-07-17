@@ -1,0 +1,185 @@
+.calendar {
+  &__pre-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+    .site-main & {
+      @extend .font__size-3;
+    }
+  }
+
+  &__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  #calendar {
+    .tribe-common .tribe-common-c-svgicon {
+      color: #ffffff;
+    }
+    .tribe-common .tribe-common-c-svgicon__svg-fill {
+      fill: #ffffff;
+    }
+    .tribe-events-l-container {
+      padding: 0 var(--gutter-lg);
+      @media screen and (max-width: $breakpoint-mobile) {
+        padding: 0;
+      }
+    }
+
+    .tribe-events-c-top-bar {
+      background-color: var(--color-black);
+      margin: 0;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      position: relative;
+      height: calc(var(--font-size-2) * 1.42);
+      &__today-button {
+        display: none !important;
+      }
+      &__datepicker {
+        flex: unset;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        z-index: 9;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+          top: 0.5rem;
+        }
+
+        &-container {
+          width: 220px;
+          right: 0;
+          margin: auto;
+          .dropdown-menu {
+            position: absolute !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+          }
+        }
+        &-button {
+          margin: auto;
+          color: #ffffff;
+          opacity: 0.6;
+          @extend .font__size-2;
+        }
+      }
+
+      &__nav {
+        &-link {
+          position: absolute;
+          width: 45px;
+          height: 45px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #ffffff;
+          top: 0;
+          bottom: 0;
+          margin: auto 0;
+          border-radius: 50%;
+          cursor: pointer;
+          &--prev {
+            left: 1rem;
+          }
+          &--next {
+            right: 1rem;
+            transform: rotate(180deg);
+          }
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+
+    .tribe-events-calendar-month {
+      background-color: #ffffff;
+      &__header {
+        display: none;
+      }
+      &__day {
+        &-cell {
+          border-bottom: 3px solid var(--color-black);
+        }
+        &--other-month {
+          .tribe-events-calendar-month__day-date-daynum {
+            // opacity: 0.2;
+          }
+        }
+        &-date {
+          &-daynum {
+            @extend .font__size-3;
+          }
+
+          &-link {
+            pointer-events: none;
+          }
+        }
+
+        &--current {
+          .tribe-events-calendar-month__day-date-daynum {
+            color: var(--color-primary-4);
+          }
+        }
+      }
+      &__events {
+        padding-top: 1rem;
+        * {
+          font-family: inherit !important;
+          line-height: 1.2 !important;
+        }
+      }
+
+      &__calendar {
+        &-event {
+          position: relative;
+          &.cat {
+            &_poetry {
+              padding-left: 2rem;
+              &::before {
+                content: "";
+                position: absolute;
+                left: 1rem;
+                top: 0.25em;
+                width: 10px;
+                height: 10px;
+                background-color: var(--color-secondary-2);
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+    }
+    .tribe-events
+      .tribe-events-calendar-month__day--past
+      .tribe-events-calendar-month__day-date {
+      opacity: 0.3;
+    }
+  }
+}
+
+html {
+  body {
+    .tooltipster-base {
+      padding: 0.5rem !important;
+
+      border-radius: var(--border-radius) !important;
+      * {
+        width: 100% !important;
+      }
+    }
+    .tooltipster-sidetip .tooltipster-content {
+      color: #fff;
+      padding: 0.5rem !important;
+      img {
+        border-radius: var(--border-radius) !important;
+      }
+      * {
+        line-height: 1.2 !important;
+      }
+    }
+  }
+}

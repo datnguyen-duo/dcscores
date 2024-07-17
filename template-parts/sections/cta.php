@@ -25,4 +25,4 @@ $header_args = array(
 <div class="<?php echo $layout . '__content'; ?>">
     <?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
 </div>
-<div class="shape--1"></div>
+<div class="shape shape--1"></div>

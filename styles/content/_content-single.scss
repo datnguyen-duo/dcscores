@@ -1,7 +1,8 @@
-$sidebar-width: calc(150px + var(--gutter));
+$sidebar-width: calc(250px + var(--gutter-lg));
 $content-spacing: 2rem auto;
 $content-padding: 0 0 0 $sidebar-width;
 .entry {
+  padding: 0 0 var(--spacer);
   .container {
     display: grid;
     grid-template-areas:
@@ -10,31 +11,152 @@ $content-padding: 0 0 0 $sidebar-width;
       "footer footer";
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto auto 1fr auto;
+    padding: 0;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      grid-template-areas:
+        "header"
+        "content"
+        "footer";
+      grid-template-columns: 1fr;
+    }
   }
 
   &__header {
     grid-area: header;
     text-align: center;
     margin-bottom: var(--gutter);
+    padding-top: var(--spacer);
+    color: #ffffff;
   }
 
+  &__excerpt {
+    margin: var(--gutter) auto;
+  }
+  &__meta {
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__title {
+    padding: 0 var(--gutter);
+  }
   &__thumbnail {
     margin-top: var(--gutter);
+    position: relative;
+    padding: 0 var(--gutter-lg);
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: 0 var(--gutter);
+    }
+    &::before {
+      content: "";
+      background-color: var(--color-primary-2);
+      height: 200vh;
+      width: 100%;
+      position: absolute;
+      bottom: 80%;
+      left: 0;
+      z-index: -1;
+    }
     img {
       width: 100%;
+      border-radius: var(--border-radius);
     }
   }
 
   &__sidebar {
     position: absolute;
     width: $sidebar-width;
-    padding: 0 0 0 var(--gutter);
+    padding: 0 0 0 var(--gutter-lg);
+    @media screen and (max-width: $breakpoint-mobile) {
+      position: relative;
+      width: 100%;
+      padding: 0 var(--gutter);
+    }
+    &-title {
+      &:not(:first-child) {
+        margin-top: 1rem;
+      }
+    }
+
+    &-description {
+      font-size: var(--font-size-sm);
+    }
+
+    &-share {
+      width: 45px;
+      margin-top: 2rem;
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+      &-icon {
+        cursor: pointer;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color var(--transition-duration),
+          color var(--transition-duration);
+        flex-shrink: 0;
+
+        svg {
+          width: 45%;
+          margin-left: -10%;
+        }
+      }
+
+      &-links {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity var(--transition-duration);
+        @media screen and (max-width: $breakpoint-mobile) {
+          width: 100%;
+          flex-direction: row;
+          opacity: 1;
+          margin-top: 0;
+        }
+        a {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color var(--transition-duration);
+
+          &:hover {
+            color: var(--color-primary-3);
+          }
+        }
+      }
+
+      &:hover {
+        .entry__sidebar-share-icon {
+          color: #ffffff;
+          background-color: var(--color-primary-3);
+        }
+        .entry__sidebar-share-links {
+          pointer-events: initial;
+          opacity: 1;
+        }
+      }
+    }
   }
 
   &__content {
     grid-area: content;
     position: relative;
-
     .editor {
       > h1,
       > h2,
@@ -47,103 +169,45 @@ $content-padding: 0 0 0 $sidebar-width;
       > ol,
       form {
         max-width: var(--content-width);
-        margin: 0 auto;
+        box-sizing: content-box;
+        margin-left: auto;
+        margin-right: auto;
         padding: $content-padding;
-
-        &:not(:last-child) {
-          margin-bottom: 1rem;
+        @media screen and (max-width: $breakpoint-mobile) {
+          padding: 0 var(--gutter);
         }
       }
 
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        &:not(:first-child) {
-          margin-top: 2rem;
-        }
-      }
-
-      ol,
-      ul {
-        list-style-position: inside;
-        li {
-          &:not(:last-child) {
-            margin-bottom: 0.2rem;
-          }
-        }
-      }
-
-      ul {
-        list-style-type: disc;
-      }
-
-      .aligncenter {
-        text-align: center;
-      }
-      .alignleft {
-        text-align: left;
-      }
-      .alignright {
-        text-align: right;
-      }
       .wp-block {
-        &-image {
-          margin: $content-spacing;
-          figcaption {
-            padding: 0 var(--gutter);
-          }
-        }
         &-gallery {
           max-width: var(--container-width);
-          margin: $content-spacing;
-
           .wp-block-image {
             padding: 0;
           }
-          figcaption.wp-element-caption {
-            position: relative;
-            background: unset;
-            color: inherit;
-            font-size: inherit;
-            text-align: left;
-            flex: unset;
-          }
-        }
-        &-quote {
-          max-width: var(--content-width);
-          margin: $content-spacing;
-          padding: $content-padding;
         }
 
-        &-pullquote {
-          max-width: var(--container-width);
+        &-quote {
+          max-width: var(--content-width);
+          box-sizing: content-box;
+          padding: $content-padding;
+
+          @media screen and (max-width: $breakpoint-mobile) {
+            padding: 0 var(--gutter);
+          }
         }
 
         &-buttons {
           max-width: var(--content-width);
-          margin: 0 auto;
-          padding: $content-padding;
-          &:not(:last-child) {
-            margin-bottom: 1rem;
-          }
-        }
-
-        &-cover {
-          margin: $content-spacing;
-
-          p {
-            padding: 4rem 0;
-            max-width: 100%;
-          }
+          box-sizing: content-box;
         }
 
         &-separator {
           max-width: calc(var(--content-width) - #{$sidebar-width});
           transform: translateX(calc(#{$sidebar-width} / 2));
-          margin: $content-spacing;
+
+          @media screen and (max-width: $breakpoint-mobile) {
+            transform: unset;
+          }
           &.is-style-wide {
             max-width: 100%;
             transform: translateX(0);
@@ -151,11 +215,12 @@ $content-padding: 0 0 0 $sidebar-width;
         }
 
         &-table {
-          display: flex;
-          flex-direction: column;
           max-width: var(--content-width);
-          margin: $content-spacing;
+          box-sizing: content-box;
           padding: 2px 0 2px $sidebar-width;
+          @media screen and (max-width: $breakpoint-mobile) {
+            padding: 0 var(--gutter);
+          }
         }
 
         &-image,
@@ -168,16 +233,47 @@ $content-padding: 0 0 0 $sidebar-width;
         &-preformatted,
         &-verse {
           max-width: var(--content-width);
-          margin: $content-spacing;
+          box-sizing: content-box;
           padding: $content-padding;
+          @media screen and (max-width: $breakpoint-mobile) {
+            padding: 0 var(--gutter);
+          }
         }
 
         &-group,
         &-cover {
-          max-width: calc(var(--content-width) - #{$sidebar-width});
+          max-width: calc(var(--content-width));
           transform: translateX(calc(#{$sidebar-width} / 2));
-          margin: $content-spacing;
-          padding: 1rem;
+          @media screen and (max-width: $breakpoint-mobile) {
+            transform: unset;
+          }
+        }
+      }
+
+      > .wp-block {
+        &-buttons {
+          padding: $content-padding;
+          @media screen and (max-width: $breakpoint-mobile) {
+            padding: 0 var(--gutter);
+          }
+        }
+      }
+
+      .tribe-events-schedule {
+        display: none;
+      }
+
+      .tribe-related-events {
+        display: none;
+      }
+
+      .tribe-block {
+        display: none;
+
+        &__related-events {
+          &__title {
+            display: none;
+          }
         }
       }
     }
@@ -185,5 +281,60 @@ $content-padding: 0 0 0 $sidebar-width;
 
   &__footer {
     grid-area: footer;
+    max-width: var(--content-width);
+    box-sizing: content-box;
+    margin: 2rem auto 0;
+    padding: $content-padding;
+    width: 100%;
+    position: relative;
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: 0 var(--gutter);
+      text-align: center;
+      box-sizing: border-box;
+    }
+    &-tags {
+      &-title {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        @media screen and (max-width: $breakpoint-mobile) {
+          position: relative;
+          justify-content: center;
+          margin-bottom: 0.5rem;
+        }
+      }
+      &-inner {
+        a {
+          @extend .button;
+          @extend .button--secondary;
+          color: currentColor;
+          border-color: currentColor;
+        }
+      }
+    }
   }
+
+  &__related {
+    padding: var(--spacer) var(--gutter-lg);
+    grid-column: span 2;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: var(--spacer) 0;
+    }
+    &-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+// Overrides
+#tribe-events-pg-template {
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
 }

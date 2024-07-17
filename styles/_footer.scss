@@ -20,16 +20,6 @@
         "c"
         "d";
     }
-    .shape--2 {
-      content: "";
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      width: 100%;
-      background: url("assets/pattern__footer.webp") no-repeat 50% 0 / cover;
-      z-index: -1;
-      aspect-ratio: 5;
-    }
   }
 
   &__logo {
@@ -47,8 +37,15 @@
       grid-template-columns: max-content max-content;
       margin-top: 1rem;
       gap: 1rem 2rem;
+      @media screen and (max-width: $breakpoint-mobile) {
+        margin-top: 2rem;
+        gap: 1rem 4rem;
+      }
       li {
         @extend .font__size-6;
+        a {
+          @extend .has-underline;
+        }
       }
     }
   }
@@ -85,6 +82,7 @@
       display: flex;
 
       input[type="email"] {
+        width: 45%;
         @media screen and (max-width: $breakpoint-mobile) {
           width: 100%;
         }

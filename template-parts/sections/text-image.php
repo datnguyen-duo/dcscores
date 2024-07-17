@@ -21,12 +21,23 @@ $header_args = array(
             <div class="<?php echo $layout . '__column --image'; ?>">
                 <?php image($image['ID'], 'full', $layout . '__column-image active load--media', $image['alt']); ?>
             </div>
-        <?php endif; ?>
-        <div class="<?php echo $layout . '__column --content'; ?>">
+        <?php endif;
+            $pre_title = $content['pre_title'];
+            $title = $content['title'];
+            $description = $content['description'];
+            if ($title) {
+                $ID = ' id="' . sanitize_title($title) . '"';
+            } elseif ($pre_title) {
+                $ID = ' id="' . sanitize_title($pre_title) . '"';
+            } else {
+                $ID = '';
+            }
+        ?>
+        <div <?php echo $ID; ?> class="<?php echo $layout . '__column --content'; ?>">
             <?php 
-                echo $content['pre_title'] ? '<p class="' . $layout . '__column-pre-title">' . $content['pre_title'] . '</p>' : '';
-                echo $content['title'] ? '<p class="' . $layout . '__column-title">' . $content['title'] . '</p>' : '';
-                echo $content['description'] ? '<p class="' . $layout . '__column-description">' . $content['description'] . '</p>' : '';
+                echo $pre_title ? '<p class="' . $layout . '__column-pre-title font__size-4">' . $pre_title . '</p>' : '';
+                echo $title ? '<p class="' . $layout . '__column-title">' . $title . '</p>' : '';
+                echo $description ? '<p class="' . $layout . '__column-description">' . $description . '</p>' : '';
                 if (!empty($content['cta'])) {
                     echo '<div class="' . $layout . '__column-cta">';
                     foreach($content['cta'] as $key => $link) { 
@@ -44,7 +55,8 @@ $header_args = array(
                 }
             ?>
         </div>
-    <?php else: 
+    
+    <?php else:
         $hasImage = false;
         foreach($list as $item) {
             if ($item['image']) {
@@ -64,10 +76,10 @@ $header_args = array(
                 if ($variation == 'slider') {
                     echo '<div class="' . $layout . '__column-pagination"></div>';
                     echo '<div class="' . $layout . '__column-arrow --prev icon--arrow disabled">';
-                    icon_arrow();
+                    icon_arrow_2();
                     echo '</div>';
                     echo '<div class="' . $layout . '__column-arrow --next icon--arrow">';
-                    icon_arrow();
+                    icon_arrow_2();
                     echo '</div>';
                 }
                 ?>
@@ -78,7 +90,7 @@ $header_args = array(
             <?php if ($variation == 'toggles'): ?>
                 <ul class="<?php echo $layout . '__column-toggles'; ?>">
                     <?php foreach ($list as $key => $item): ?>
-                        <li class="<?php echo $layout . '__column-toggle'; echo ($key == 0) ? ' active' : ''; ?>">
+                        <li class="<?php echo $layout . '__column-toggle has-underline'; echo ($key == 0) ? ' active' : ''; ?>">
                             <?php echo $item['content']['label'] ? $item['content']['label'] : $item['content']['title']; ?>
                         </li>
                     <?php endforeach; ?>
@@ -90,7 +102,7 @@ $header_args = array(
                     ?>
                     <div class="<?php echo $layout . '__column-inner' . ($key === 0 ? ' active' : ''); ?>">
                         <?php
-                            echo $content['pre_title'] ? '<p class="' . $layout . '__column-pre-title">' . $content['pre_title'] . '</p>' : '';
+                            echo $content['pre_title'] ? '<p class="' . $layout . '__column-pre-title font__size-4">' . $content['pre_title'] . '</p>' : '';
                             echo $content['title'] ? '<p class="' . $layout . '__column-title">' . $content['title'] . '</p>' : '';
                             echo $content['description'] ? '<p class="' . $layout . '__column-description">' . $content['description'] . '</p>' : '';
                             echo $content['subtext'] ? '<p class="' . $layout . '__column-subtext">' . $content['subtext'] . '</p>' : '';
@@ -117,5 +129,5 @@ $header_args = array(
     <?php endif; ?>
 </div>
 <?php if ($variation == 'slider') {
-    echo '<div class="shape--1"></div>';
+    echo '<div class="shape shape--1"></div>';
 } ?>

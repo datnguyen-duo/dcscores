@@ -1,13 +1,13 @@
 <?php 
 function acf_generate_options_css($post_id) {
-	if ($post_id !== 'options') {
-		return;
-	}
-	$ss_dir = get_stylesheet_directory();
-	ob_start(); 
-	require($ss_dir . '/inc/theme-styles.php'); 
-	$css = ob_get_clean(); 
-	file_put_contents($ss_dir . '/styles/_variables.scss', $css, LOCK_EX);
+    if ($post_id !== 'options') {
+        return;
+    }
+    $ss_dir = get_stylesheet_directory();
+    ob_start(); 
+    require($ss_dir . '/inc/theme-styles.php');
+    $css = ob_get_clean(); 
+    file_put_contents($ss_dir . '/theme-variables.css', $css, LOCK_EX);
 }
 add_action( 'acf/save_post', 'acf_generate_options_css', 20 );
 
@@ -16,7 +16,6 @@ function add_acf_class_to_menu_items($classes, $item, $args) {
         $button_type = get_field('button_type', $item);
         $classes[] = 'button button--' . $button_type;
     }
-
     return $classes;
 }
 add_filter('nav_menu_css_class', 'add_acf_class_to_menu_items', 10, 3);

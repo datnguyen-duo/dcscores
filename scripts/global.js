@@ -9,7 +9,7 @@ var easeInOut = "power2.inOut",
   duration = 0.7,
   durationSlow = 1.2,
   durationFast = 0.3,
-  start = "top 70%",
+  start = "top 80%",
   startScrub = "top bottom",
   scale = 1.5;
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
@@ -44,6 +44,7 @@ function utility1() {
   const sliderElements = document.querySelectorAll(".swiper");
   function initializeSlider(sliderElement) {
     const settings = {
+      variation: sliderElement.dataset.variation || null,
       transition: sliderElement.dataset.attributeTransition,
       transitionSpeed: sliderElement.dataset.attributeTransitionSpeed || "1000",
       loop: sliderElement.dataset.attributeLoop || false,
@@ -53,12 +54,21 @@ function utility1() {
       autoplaySpeed: sliderElement.dataset.attributeAutoplaySpeed || "1000",
     };
 
+    if (
+      window.innerWidth < 768 &&
+      settings.variation !== "team" &&
+      settings.variation !== "timeline"
+    )
+      return;
+
     new Swiper(sliderElement, {
       slidesPerView: "auto",
       loop: settings.loop,
       speed: parseInt(settings.transitionSpeed),
       effect: settings.transition == "fade" ? "fade" : "",
       fadeEffect: settings.transition == "fade" ? { crossFade: true } : {},
+      slideToClickedSlide: settings.variation === "default" ? false : true,
+      updateOnWindowResize: true,
       navigation: {
         nextEl: settings.arrows ? ".swiper-button-next" : "",
         prevEl: settings.arrows ? ".swiper-button-prev" : "",
@@ -70,13 +80,41 @@ function utility1() {
       autoplay: settings.autoplay
         ? { delay: parseInt(settings.autoplaySpeed) }
         : false,
+      // centeredSlides: settings.variation == "team" ? true : false,
+      on: {
+        snapGridLengthChange: function () {
+          if (this.snapGrid.length != this.slidesGrid.length) {
+            this.snapGrid = this.slidesGrid.slice(0);
+          }
+        },
+        slideChange: function () {
+          const currentIndex = this.activeIndex;
+
+          if (settings.variation !== "default") {
+            const altSlides = sliderElement.querySelectorAll(
+              ".slider__slides--alt"
+            );
+
+            altSlides.forEach((slideContainer, i) => {
+              const altSlide = slideContainer.querySelectorAll(
+                ".slider__slide--alt"
+              );
+
+              altSlide.forEach((slide) => {
+                slide.classList.remove("active");
+              });
+
+              const targetIndex = currentIndex % altSlide.length;
+              altSlide[targetIndex].classList.add("active");
+            });
+          }
+        },
+      },
     });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    if (window.innerWidth > 768) {
-      sliderElements.forEach(initializeSlider);
-    }
+    sliderElements.forEach(initializeSlider);
   });
 })();
 
@@ -108,14 +146,16 @@ function utility1() {
 // Shape Animations
 (function () {
   window.addEventListener("load", () => {
-    gsap.utils.toArray(".shape--1, .shape--2").forEach((shape) => {
+    gsap.utils.toArray(".shape").forEach((shape) => {
       gsap.from(shape, {
         clipPath: "inset(0 100% 0 0)",
         duration: durationSlow,
         ease: easeInOut,
         scrollTrigger: {
           trigger: shape,
-          start: "30% 50%",
+          start: shape.classList.contains("shape--1")
+            ? "30% 50%"
+            : "top bottom",
         },
       });
     });
@@ -123,7 +163,6 @@ function utility1() {
 })();
 
 // Search Form
-
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
     const toggleSearch = (action) => {
@@ -150,26 +189,39 @@ function utility1() {
           option.textContent = parts[1];
         }
       });
-      clearInterval(checkInterval); // Stop checking once options are updated
+      clearInterval(checkInterval);
     }
   }
 
-  let checkInterval = setInterval(updateGTranslateOptionLabels, 500); // Check every 500ms
+  let checkInterval = setInterval(updateGTranslateOptionLabels, 500);
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Initial call to handle cases where options might load just after DOMContentLoaded
     updateGTranslateOptionLabels();
   });
 })();
 
 // Mobile Menu
-
 (function () {
   const toggle = document.querySelector(".site-header__mobile-toggle");
   document.addEventListener("DOMContentLoaded", () => {
     toggle.addEventListener("click", () => {
       document.body.classList.toggle("init__menu");
     });
+
+    if (window.innerWidth < 768) {
+      const topMenu = document.querySelector(".site-header__navigation--top"),
+        bottomMenu = document.querySelector(".main-navigation"),
+        topMenuHeight = topMenu.clientHeight,
+        bottomMenuHeight = bottomMenu.clientHeight;
+      document.documentElement.style.setProperty(
+        "--menu-height--top",
+        `${topMenuHeight}px`
+      );
+      document.documentElement.style.setProperty(
+        "--menu-height--bottom",
+        `${bottomMenuHeight}px`
+      );
+    }
   });
 })();
 
@@ -183,32 +235,55 @@ function utility1() {
   document.addEventListener("DOMContentLoaded", () => {
     if (sections) {
       sections.forEach((section) => {
-        let firstClick = true;
-        const heroVideo = section.querySelector("video");
-        function unmuteVideo() {
-          if (heroVideo) {
-            if (firstClick) {
-              heroVideo.currentTime = 0;
-              firstClick = false;
-            }
+        if (section.classList.contains("--modal")) {
+          const modal = section.querySelector(".hero__modal");
+          section.addEventListener("click", function () {
+            document.documentElement.style.scrollBehavior = "auto";
 
-            if (heroVideo.muted) {
-              heroVideo.muted = false;
-              section.classList.add("playing");
-            } else {
-              heroVideo.muted = true;
-              section.classList.remove("playing");
+            gsap.to(window, {
+              duration: 0,
+              scrollTo: {
+                y: section,
+                offsetY: -3,
+              },
+            });
+            document.body.classList.add("init__modal");
+            document.documentElement.style.scrollBehavior = "smooth";
+          });
+          modal.addEventListener("click", function (e) {
+            e.stopPropagation();
+            if (e.target === this || e.target.closest(".hero__modal-close")) {
+              document.body.classList.remove("init__modal");
+            }
+          });
+        } else {
+          let firstClick = true;
+          const heroVideo = section.querySelector("video");
+          function unmuteVideo() {
+            if (heroVideo) {
+              if (firstClick) {
+                heroVideo.currentTime = 0;
+                firstClick = false;
+              }
+
+              if (heroVideo.muted) {
+                heroVideo.muted = false;
+                section.classList.add("playing");
+              } else {
+                heroVideo.muted = true;
+                section.classList.remove("playing");
+              }
             }
           }
-        }
-        section.addEventListener("click", unmuteVideo);
+          section.addEventListener("click", unmuteVideo);
 
-        gsap.from(heroVideo, {
-          opacity: 0,
-          duration: duration,
-          ease: easeInOut,
-          delay: duration * 1.3,
-        });
+          gsap.from(heroVideo, {
+            opacity: 0,
+            duration: duration,
+            ease: easeInOut,
+            delay: duration * 1.3,
+          });
+        }
       });
     }
   });
@@ -221,30 +296,47 @@ function utility1() {
   window.addEventListener("load", () => {
     if (sections) {
       sections.forEach((section) => {
+        const columns = section.querySelectorAll(".features-list__column");
         gsap.from(".features-list__column", {
           scale: 0.7,
           opacity: 0,
           rotate: 10,
           stagger: 0.1,
-          duration: 0.7,
+          duration: duration,
           ease: easeInOut,
           scrollTrigger: {
             trigger: section.querySelector(".features-list__columns"),
             start: start,
           },
         });
-        gsap.utils
-          .toArray(".features-list__collage-layer-image")
-          .forEach((image, i) => {
-            gsap.from(image, {
-              y: i % 4 === 0 ? -70 : 70,
-              scrollTrigger: {
-                trigger: section.querySelector(".features-list__columns"),
-                start: startScrub,
-                scrub: true,
-              },
-            });
+
+        columns.forEach((column) => {
+          const elements = column.querySelectorAll(
+            ".features-list__collage-layer-image"
+          );
+
+          gsap.utils.toArray(elements).forEach((element, i) => {
+            if (i === 0) {
+              gsap.from(element, {
+                y: -70,
+                scrollTrigger: {
+                  trigger: section.querySelector(".features-list__columns"),
+                  start: startScrub,
+                  scrub: true,
+                },
+              });
+            } else if (i === 2) {
+              gsap.from(element, {
+                y: 70,
+                scrollTrigger: {
+                  trigger: section.querySelector(".features-list__columns"),
+                  start: startScrub,
+                  scrub: true,
+                },
+              });
+            }
           });
+        });
       });
     }
   });
@@ -258,6 +350,7 @@ function utility1() {
       sections.forEach((section) => {
         const isToggleSection = section.classList.contains("--toggles");
         const isSliderSection = section.classList.contains("--slider");
+        const isStickySection = section.classList.contains("--sticky");
         if (isToggleSection) {
           const togglesContainer = section.querySelector(
             ".text-image__column-toggles"
@@ -396,6 +489,35 @@ function utility1() {
             );
           }
         }
+        if (isStickySection) {
+          const stickyContent = section.querySelectorAll(
+            ".text-image__column-inner"
+          );
+          const stickyImage = section.querySelectorAll(
+            ".text-image__column-image"
+          );
+          var tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "+=150%",
+              pin: true,
+              scrub: true,
+            },
+          });
+
+          stickyContent.forEach((content, i) => {
+            if (i === 0) {
+              return;
+            }
+            let subTl = gsap.timeline();
+            subTl.fromTo(content, { opacity: 0 }, { opacity: 1 });
+            if (stickyImage[i]) {
+              subTl.fromTo(stickyImage[i], { scale: 0 }, { scale: 1 }, "<");
+            }
+            tl.add(subTl);
+          });
+        }
       });
     }
   });
@@ -433,6 +555,242 @@ function utility1() {
   });
 })();
 
+// Post List
+(function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll(".post-list");
+    if (sections) {
+      sections.forEach((section) => {
+        const loadMoreBtn = section.querySelector(".load-more-btn");
+        const filterItems = section.querySelectorAll(".post-list__filter-item");
+        const filterDescriptions = section.querySelectorAll(
+          ".post-list__filter-description-item"
+        );
+        const container = section.querySelector(".posts");
+        var filterTerm = "";
+        var termId = "";
+
+        if (loadMoreBtn) {
+          loadMoreBtn.addEventListener("click", function () {
+            const page = parseInt(this.getAttribute("data-page"), 10) + 1;
+            const postType = this.getAttribute("data-post-type");
+            container.classList.add("loading");
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/wp-admin/admin-ajax.php", true);
+            xhr.setRequestHeader(
+              "Content-Type",
+              "application/x-www-form-urlencoded"
+            );
+            xhr.onload = function () {
+              if (this.status >= 200 && this.status < 400) {
+                container.classList.remove("loading");
+
+                const resp = this.response;
+                if (resp) {
+                  const data = JSON.parse(resp);
+                  const totalPosts = data.total_posts;
+
+                  if (data.posts) {
+                    const tempContainer = document.createElement("div");
+                    tempContainer.innerHTML = data.posts;
+                    const newPosts = tempContainer.querySelectorAll(".post");
+                    newPosts.forEach((post) => {
+                      container.appendChild(post);
+                    });
+
+                    gsap.from(newPosts, {
+                      y: 20,
+                      opacity: 0,
+                      duration: duration,
+                      ease: easeInOut,
+                      stagger: 0.1,
+                      onComplete: () => {
+                        ScrollTrigger.refresh();
+                      },
+                    });
+
+                    loadMoreBtn.setAttribute("data-page", page);
+                    loadMoreBtn.style.display = "";
+                  } else {
+                    loadMoreBtn.style.display = "none";
+                  }
+                } else {
+                  loadMoreBtn.style.display = "none";
+                }
+              }
+            };
+            xhr.onerror = function () {
+              //
+            };
+            xhr.send(
+              "action=fetch_posts&page=" +
+                page +
+                "&post_type=" +
+                postType +
+                "&filter_term=" +
+                filterTerm +
+                "&term_id=" +
+                termId +
+                "&action_type=load_more"
+            );
+          });
+        }
+        if (filterItems) {
+          filterItems.forEach((item, i) => {
+            item.addEventListener("click", function () {
+              filterTerm = this.getAttribute("data-filter-term");
+              termId = this.getAttribute("data-term-id");
+              const postType = this.getAttribute("data-post-type");
+
+              container.innerHTML = "";
+
+              gsap.to(window, {
+                duration: 0,
+                scrollTo: {
+                  y: section,
+                },
+              });
+              container.classList.add("loading");
+
+              filterItems.forEach((filterItem) => {
+                filterItem.classList.remove("active");
+              });
+
+              this.classList.add("active");
+
+              if (postType === "person") {
+                filterDescriptions.forEach((description) => {
+                  description.classList.remove("active");
+                });
+
+                filterDescriptions[i].classList.add("active");
+              }
+
+              const xhr = new XMLHttpRequest();
+              xhr.open("POST", "/wp-admin/admin-ajax.php", true);
+              xhr.setRequestHeader(
+                "Content-Type",
+                "application/x-www-form-urlencoded"
+              );
+              xhr.onload = function () {
+                if (this.status >= 200 && this.status < 400) {
+                  container.classList.remove("loading");
+
+                  const resp = this.response;
+                  if (resp) {
+                    const data = JSON.parse(resp);
+
+                    if (data.posts) {
+                      const tempContainer = document.createElement("div");
+                      tempContainer.innerHTML = data.posts;
+                      const newPosts = tempContainer.querySelectorAll(".post");
+                      newPosts.forEach((post) => {
+                        container.appendChild(post);
+                      });
+
+                      gsap.from(newPosts, {
+                        y: 20,
+                        opacity: 0,
+                        duration: duration,
+                        ease: easeInOut,
+                        stagger: 0.1,
+                        onComplete: () => {
+                          ScrollTrigger.refresh();
+                        },
+                      });
+
+                      if (loadMoreBtn) {
+                        loadMoreBtn.setAttribute("data-page", 1);
+                        loadMoreBtn.style.display = "";
+                      }
+
+                      if (!data.show_load_more && loadMoreBtn) {
+                        loadMoreBtn.style.display = "none";
+                      }
+                    } else {
+                      if (loadMoreBtn) {
+                        loadMoreBtn.style.display = "none";
+                      }
+                    }
+                  } else {
+                    if (loadMoreBtn) {
+                      loadMoreBtn.style.display = "none";
+                    }
+                  }
+                }
+              };
+              xhr.onerror = function () {
+                //
+              };
+              xhr.send(
+                "action=fetch_posts&page=" +
+                  1 +
+                  "&post_type=" +
+                  postType +
+                  "&filter_term=" +
+                  filterTerm +
+                  "&term_id=" +
+                  termId +
+                  "&action_type=filter"
+              );
+            });
+          });
+        }
+      });
+    }
+  });
+})();
+
+// Accordion
+(function () {
+  const sections = document.querySelectorAll(".accordions");
+  document.addEventListener("DOMContentLoaded", () => {
+    if (sections) {
+      sections.forEach((section) => {
+        const items = section.querySelectorAll(".accordions__item");
+        const images = section.querySelectorAll(".accordions__image");
+        items.forEach((item) => {
+          item.addEventListener("click", function () {
+            items.forEach((el, i) => {
+              if (el !== item) {
+                el.classList.remove("active");
+                if (images.length > 0) {
+                  images[i].classList.remove("active");
+                }
+              } else {
+                el.classList.toggle("active");
+                if (images.length > 0) {
+                  images[i].classList.toggle("active");
+                }
+              }
+            });
+          });
+        });
+      });
+    }
+  });
+})();
+// Editor
+(function () {
+  const sections = document.querySelectorAll(".editor");
+  document.addEventListener("DOMContentLoaded", () => {
+    sections.forEach((section) => {
+      const pullquotes = section.querySelectorAll(".wp-block-pullquote");
+      pullquotes.forEach((pullquote) => {
+        gsap.set(pullquote, {
+          scrollTrigger: {
+            trigger: pullquote,
+            start: start,
+            onEnter: () => {
+              pullquote.classList.add("load--shape");
+            },
+          },
+        });
+      });
+    });
+  });
+})();
+
 /*	-----------------------------------------------------------------------------
   LOAD
 --------------------------------------------------------------------------------- */
@@ -465,11 +823,11 @@ function utility1() {
 })();
 
 (function () {
-  const sections = document.querySelectorAll(".post-list");
+  const sections = document.querySelectorAll(".posts");
   window.addEventListener("load", () => {
     if (sections) {
       sections.forEach((section) => {
-        const el = section.querySelectorAll(".post-list__item");
+        const el = section.querySelectorAll(".post");
         gsap.from(el, {
           y: 20,
           opacity: 0,
@@ -514,7 +872,7 @@ function utility1() {
 
   function animateImage(mediaElement) {
     gsap.from(mediaElement, {
-      y: 50,
+      yPercent: 10,
       opacity: 0,
       duration: duration,
       ease: easeInOut,
@@ -533,7 +891,6 @@ function utility1() {
 // Icon Load
 (function () {
   window.addEventListener("load", () => {
-    console.log("load");
     gsap.utils.toArray(".icon--dcs-circle").forEach((icon) => {
       var path = icon.querySelector("path");
       gsap.from(path, {

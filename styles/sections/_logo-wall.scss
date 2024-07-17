@@ -1,0 +1,30 @@
+.logo-wall {
+  &__pre-heading {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  &__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  &__description {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  &__container {
+    margin-top: var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+}

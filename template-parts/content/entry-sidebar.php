@@ -1,6 +1,16 @@
 <div class="entry__sidebar">
-    <p>Published</p>
-    <p><?php the_date(); ?></p>
-    <p>Author</p>
-    <p><?php the_author(); ?></p>
+    <p class="entry__sidebar-title font__size-6">Published</p>
+    <p class="entry__sidebar-description"><?php the_date(); ?></p>
+    <p class="entry__sidebar-title font__size-6">Author</p>
+    <p class="entry__sidebar-description"><?php the_author(); ?></p>
+    <div class="entry__sidebar-share">
+        <div class="entry__sidebar-share-icon">
+            <?php icon_share(); ?>
+        </div>
+        <div class="entry__sidebar-share-links">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" target="_blank"><?php icon_facebook(); ?></a>
+            <a href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&text=<?php the_title(); ?>" target="_blank"><?php icon_x(); ?></a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>&title=<?php the_title(); ?>" target="_blank"><?php icon_linkedin(); ?></a>
+        </div>
+    </div>
 </div>

@@ -62,6 +62,8 @@ function theme_setup() {
     ) );
 
 	add_image_size( 'thumbnail--dcs', 350, 215, true );
+	add_image_size( 'thumbnail--dcs-v', 0, 600, false );
+	add_image_size( 'thumbnail--dcs-auto', 200, 200, false );
 }
 add_action( 'after_setup_theme', 'theme_setup' );
 
@@ -94,6 +96,7 @@ function theme_scripts() {
 	if ($tertiary_font['upload_type'] == 'url') {
 		wp_enqueue_style( 'tertiary-font', $tertiary_font['url'], array(), false, 'all' );
 	}
+	wp_enqueue_style( 'variables', get_stylesheet_directory_uri() . '/theme-variables.css', array(), filemtime(get_stylesheet_directory() . '/theme-variables.css') );
 	wp_enqueue_style( 'stylesheet', get_stylesheet_directory_uri() . '/style.css', array(), filemtime(get_stylesheet_directory() . '/style.css') );
 	wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', true);
 	wp_enqueue_script(
@@ -119,6 +122,15 @@ function theme_scripts() {
 		get_stylesheet_directory_uri() . '/scripts/libs/DrawSVGPlugin.min.js',
 		array(),
 		filemtime( get_stylesheet_directory() . '/scripts/libs/DrawSVGPlugin.min.js' ),
+		array(
+			'strategy' => 'defer'
+		)
+	);
+	wp_enqueue_script(
+		'scroll-to',
+		get_stylesheet_directory_uri() . '/scripts/libs/ScrollToPlugin.min.js',
+		array(),
+		filemtime( get_stylesheet_directory() . '/scripts/libs/ScrollToPlugin.min.js' ),
 		array(
 			'strategy' => 'defer'
 		)
@@ -160,8 +172,8 @@ function theme_scripts() {
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
 function dequeue_scripts(){
-    if ( !is_singular('post') ) {
-        wp_dequeue_style( 'wp-block-library' );
+	if ( ! (is_singular('post') || is_singular('tribe_events')) ) {        
+		wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );
         wp_dequeue_style('classic-theme-styles');
         wp_dequeue_style( 'wc-block-style' );
@@ -192,3 +204,4 @@ require_once('inc/login.php');
 require_once('inc/acf.php');
 require_once('inc/icons.php');
 require_once('inc/elements.php');
+require_once('inc/load-more.php');

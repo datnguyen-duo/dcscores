@@ -12,7 +12,7 @@ $scripts = get_field('scripts', 'option');
 				get_template_part('template-parts/forms/newsletter-signup');
 				get_template_part('template-parts/footer/navigation');
 			?>
-			<div class="shape--2"></div>
+			<div class="shape shape--2"></div>
 		</div>
 	</footer>
 </div>

@@ -1,16 +1,24 @@
 .post-list {
+  & + .post-list {
+    margin-top: calc(var(--spacer) * -1);
+  }
   @media screen and (max-width: $breakpoint-mobile) {
     padding-left: 0;
     padding-right: 0;
   }
   .container {
     display: grid;
+    grid-template-columns: 1fr;
     grid-template-areas:
       "pre-heading"
       "heading"
+      "description"
+      "filter"
+      "filter-description"
       "posts"
       "pagination"
-      "cta";
+      "cta"
+      "button";
 
     @media screen and (max-width: $breakpoint-mobile) {
       padding: 0;
@@ -20,12 +28,56 @@
     text-align: center;
     margin-bottom: 1rem;
     grid-area: pre-heading;
-    @extend .font__size-4--alt;
+    .site-main & {
+      @extend .font__size-3;
+    }
   }
   &__heading {
     text-align: center;
     margin-bottom: 2rem;
     grid-area: heading;
+  }
+  &__description {
+    text-align: center;
+    margin-bottom: 2rem;
+    grid-area: description;
+  }
+  &__filter {
+    text-align: center;
+    margin-bottom: 2rem;
+    grid-area: filter;
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    li {
+      cursor: pointer;
+      color: var(--color-black);
+      @extend .button;
+      @extend .button--secondary;
+
+      &.active {
+        background-color: var(--color-primary-3);
+        color: var(--color-white);
+      }
+    }
+  }
+
+  &__filter-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    grid-area: filter-description;
+    display: grid;
+    grid-template-areas: "a";
+
+    &-item {
+      grid-area: a;
+      opacity: 0;
+      transition: opacity var(--transition-duration);
+      &.active {
+        opacity: 1;
+      }
+    }
   }
   &__items {
     grid-area: posts;
@@ -43,5 +95,12 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
+  }
+  button {
+    grid-area: button;
+    grid-column: span 4;
+    width: 140px;
+    justify-self: center;
+    margin-top: 2rem;
   }
 }

@@ -1,0 +1,8 @@
+.rich-text {
+  &__content {
+    max-width: 70%;
+    @media screen and (max-width: $breakpoint-mobile) {
+      max-width: 100%;
+    }
+  }
+}

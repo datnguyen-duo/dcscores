@@ -52,6 +52,7 @@
   }
 
   &__column {
+    align-self: center;
     body.home & {
       display: flex;
       align-items: center;
@@ -72,12 +73,19 @@
         display: inline-block;
       }
     }
+    &-description {
+      body.home & {
+        @extend .font__size-3;
+      }
+    }
   }
   &__cta {
     grid-area: cta;
     text-align: center;
     margin-top: var(--gutter);
-    text-align: left;
+    @media screen and (max-width: $breakpoint-mobile) {
+      text-align: left;
+    }
   }
 
   .icon {

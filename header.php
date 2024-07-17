@@ -3,9 +3,12 @@ defined( 'ABSPATH' ) || exit;
 $themeurl = get_template_directory_uri();
 $show_announcement_bar = get_field('show_announcement_bar', 'option');
 $scripts = get_field('scripts', 'option');
+$hover_image = get_field('header_hover_image', 'option');
 $background_color = get_field('header_background_color', 'option');
 $text_color = get_field('header_text_color', 'option');
-$style = ($background_color ? '--color-background: ' . $background_color . ';' : '') . ($text_color ? '--color-text: ' . $text_color . ';' : '');
+$style = ($background_color ? '--color-background: ' . $background_color . ';' : '') . 
+($text_color ? '--color-text: ' . $text_color . ';' : '') .
+($hover_image ? '--image-hover: url(' . $hover_image['url'] . ');' : '');
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +26,6 @@ $style = ($background_color ? '--color-background: ' . $background_color . ';' :
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<?php wp_head(); ?>
 </head>
-
 <body <?php body_class(); ?>>
 <?php if ($scripts) {
 	foreach ($scripts as $script) {

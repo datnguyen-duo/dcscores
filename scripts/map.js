@@ -2,22 +2,20 @@ document.addEventListener("DOMContentLoaded", function () {
   var mapData = mapSettings.map;
 
   var pin = mapData.pin
-      ? mapData.pin
+      ? mapData.pin.url
       : mapSettings.themeurl + "/assets/pin.png",
     pin_highlighted = mapData.pin_highlighted
-      ? mapData.pin_highlighted
+      ? mapData.pin_highlighted.url
       : mapSettings.themeurl + "/assets/pin-highlighted.png",
     pin_center = mapData.pin_center
-      ? mapData.pin_center
+      ? mapData.pin_center.url
       : mapSettings.themeurl + "/assets/pin-center-2.png",
-    zoom_level = mapData.zoom_level ? mapData.zoom_level : 14,
-    geo_json = mapSettings.themeurl + "/assets/dc-wards.geojson";
+    zoom_level = mapData.zoom_level ? mapData.zoom_level : 14;
   mapboxgl.accessToken = mapSettings.access_token;
 
   var map = new mapboxgl.Map({
     container: "map",
-    // style: mapData.style,
-    style: "mapbox://styles/duostudio/cllr572sa00nu01ma2yd573an",
+    style: mapData.style,
     center: [mapData.center_point.longitude, mapData.center_point.latitude],
     zoom: zoom_level,
   });
@@ -30,12 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
       name: "center-point",
       lat: mapData.center_point.latitude,
       lon: mapData.center_point.longitude,
+      year: mapData.center_point.year,
+      address: mapData.center_point.address,
     },
     ...mapData.points.map((point) => {
       return {
         name: point.name,
         lat: point.latitude,
         lon: point.longitude,
+        year: point.year,
+        address: point.address,
       };
     }),
   ];
@@ -55,6 +57,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const _locations = locations.filter((location) => {
     return location.name !== "center-point";
+  });
+
+  const popup = new mapboxgl.Popup({
+    closeButton: true,
+    closeOnClick: false,
+    offset: 40,
+  });
+
+  popup.on("close", () => {
+    map.getSource("location-highlighted").setData({
+      type: "FeatureCollection",
+      features: [],
+    });
   });
 
   map.on("load", function () {
@@ -92,13 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
           type: "symbol",
           layout: {
             "icon-image": "pin",
-            "icon-size": 0.3,
-            "text-field": ["get", "label"],
-            "text-font": ["Arial Unicode MS Bold"],
-            "text-offset": [0, -0.25],
-            "text-size": 12,
-            "text-allow-overlap": true,
-            "text-ignore-placement": true,
+            "icon-size": 0.8,
+            // "text-field": ["get", "label"],
+            // "text-font": ["Arial Unicode MS Bold"],
+            // "text-offset": [0, -0.25],
+            // "text-size": 12,
+            // "text-allow-overlap": true,
+            // "text-ignore-placement": true,
             "icon-allow-overlap": true,
             "icon-ignore-placement": true,
           },
@@ -152,13 +167,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         layout: {
           "icon-image": "pin-highlighted",
-          "icon-size": 0.4,
-          "text-field": ["get", "label"],
-          "text-font": ["Arial Unicode MS Bold"],
-          "text-offset": [0, -0.25],
-          "text-size": 12,
-          "text-allow-overlap": true,
-          "text-ignore-placement": true,
+          "icon-size": 1.2,
+          // "text-field": ["get", "label"],
+          // "text-font": ["Arial Unicode MS Bold"],
+          // "text-offset": [0, -0.25],
+          // "text-size": 12,
+          // "text-allow-overlap": true,
+          // "text-ignore-placement": true,
           "icon-allow-overlap": true,
           "icon-ignore-placement": true,
         },
@@ -192,137 +207,12 @@ document.addEventListener("DOMContentLoaded", function () {
         type: "symbol",
         layout: {
           "icon-image": "pin-center",
-          "icon-size": 0.4,
+          "icon-size": 0.9,
           "icon-allow-overlap": false,
         },
       });
     });
-
-    map.addSource("dc-wards", {
-      type: "geojson",
-      data: geo_json, // replace with the path to your GeoJSON file
-    });
-
-    // Add a layer for the boundary
-    map.addLayer({
-      id: "dc-wards-fill",
-      type: "fill",
-      source: "dc-wards",
-      paint: {
-        "fill-color": [
-          "match",
-          ["get", "WARD"],
-          1,
-          "#f00",
-          2,
-          "#0f0",
-          3,
-          "#00f",
-          4,
-          "#ff0",
-          5,
-          "#f0f",
-          6,
-          "#0ff",
-          7,
-          "#f00",
-          8,
-          "#0f0",
-          "#ccc", // default color if 'WARD' doesn't match any of the above
-        ],
-        "fill-opacity": 0.4,
-      },
-    });
-    map.addLayer({
-      id: "dc-wards-line",
-      type: "line",
-      source: "dc-wards",
-      paint: {
-        "line-color": [
-          "match",
-          ["get", "WARD"],
-          1,
-          "#f00",
-          2,
-          "#0f0",
-          3,
-          "#00f",
-          4,
-          "#ff0",
-          5,
-          "#f0f",
-          6,
-          "#0ff",
-          7,
-          "#f00",
-          8,
-          "#0f0",
-          "#ccc", // default color if 'WARD' doesn't match any of the above
-        ],
-        "line-width": 1,
-      },
-    });
-
-    map.on("click", "dc-wards", function (e) {
-      console.log(e);
-    });
   });
-
-  const filterLocations = (type) => {
-    unhighlightItem();
-    const _locations = locations.filter((location) => {
-      return location.category === type;
-    });
-    map.getSource("locations").setData({
-      type: "FeatureCollection",
-      features: createFeatures(_locations),
-    });
-    map.getSource("locations-number").setData({
-      type: "FeatureCollection",
-      features: createFeatures(_locations),
-    });
-    document.querySelectorAll(".map-button").forEach((button) => {
-      button.classList.remove("map-button-active");
-    });
-    document
-      .getElementById(`${type.toLowerCase()}-map-button`)
-      .classList.add("map-button-active");
-
-    // renderMapItems(_locations);
-
-    adjustMapBoundsToFeatures(map, "locations");
-
-    // document.querySelectorAll(".map-button-container").forEach((item) => {
-    //   item.classList.remove("active");
-    // });
-  };
-
-  function adjustMapBoundsToFeatures(map, sourceId) {
-    // Get the source data (GeoJSON) from the map's data source
-    const sourceData = map.getSource(sourceId)._data;
-
-    if (!sourceData || !sourceData.features.length) {
-      console.log("No features to adjust bounds to.");
-      return;
-    }
-
-    // Initialize the bounds with the coordinates of the first feature
-    let bounds = new mapboxgl.LngLatBounds();
-
-    // Loop through all features to expand the bounds
-    sourceData.features.forEach((feature) => {
-      const coords = feature.geometry.coordinates;
-
-      // Extend the bounds with the coordinates of the current feature
-      bounds.extend(coords);
-    });
-
-    // Set the map's bounds to fit all features
-    map.fitBounds(bounds, {
-      duration: 1000,
-      padding: 100, // Optional padding around the bounds
-    });
-  }
 
   const createFeatures = (locations, label) => {
     return locations.map((location, id) => {
@@ -358,17 +248,15 @@ document.addEventListener("DOMContentLoaded", function () {
           type: "FeatureCollection",
           features: createFeatures([location], label),
         });
-        const popup = document.getElementById("map-popup");
-        const title = document.getElementById("map-popup-title");
-        const address = document.getElementById("map-popup-address");
-        const url = document.getElementById("map-popup-url");
 
-        popup.style.display = "block";
-        title.textContent = location.name;
-        address.textContent = location.address;
-        url.href = `https://www.google.com/maps?q=${location.lat},${location.lon}`;
+        popup
+          .setLngLat([location.lon, location.lat])
+          .setHTML(
+            `<h6>${location.name}</h6><p>Active Since: ${location.year}</p><p>${location.address}</p>`
+          )
 
-        // Adjust map bounds to the highlighted location
+          .addTo(map);
+
         map.fitBounds(
           new mapboxgl.LngLatBounds(
             [location.lon, location.lat],
@@ -380,24 +268,5 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
     }
-
-    // document.querySelectorAll(".map-button-container").forEach((item) => {
-    //   item.classList.remove("active");
-    // });
-    // document
-    //   .querySelectorAll(".map-button-container")
-    //   [label - 1].classList.add("active");
-  };
-
-  const unhighlightItem = () => {
-    document.getElementById("map-popup").style.display = "none";
-    map.getSource("location-highlighted").setData({
-      type: "FeatureCollection",
-      features: [],
-    });
-    map.getSource("location-highlighted-number").setData({
-      type: "FeatureCollection",
-      features: [],
-    });
   };
 });

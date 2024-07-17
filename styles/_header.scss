@@ -1,10 +1,11 @@
 .site-header {
   overflow: hidden;
+  z-index: 9;
+  position: relative;
   @media screen and (max-width: $breakpoint-mobile) {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 9;
     overflow: visible;
   }
   &__announcement-bar {
@@ -69,9 +70,19 @@
         justify-content: flex-start;
         padding-top: 1rem;
         padding-bottom: 1rem;
+        font-size: var(--font-size-md);
+
         body.init__menu & {
           opacity: 1;
           pointer-events: initial;
+        }
+      }
+
+      li {
+        &:not(.button) {
+          a {
+            @extend .has-underline;
+          }
         }
       }
       .menu-item-gtranslate {
@@ -89,25 +100,57 @@
       font-weight: 600;
       position: relative;
 
-      @media screen and (max-width: $breakpoint-mobile) {
-        .main-navigation {
+      .main-navigation {
+        @media screen and (max-width: $breakpoint-mobile) {
           color: var(--color-background);
           background-color: var(--color-text);
           position: absolute;
-          top: calc(100% + 128px);
+          top: calc(100% + var(--menu-height--top));
           width: calc(100vw + var(--gutter) * 2);
           left: calc(var(--gutter) * -1);
           padding: 1rem var(--gutter) 5rem calc(var(--gutter) * 2);
           transition: opacity var(--transition-duration);
           opacity: 0;
           pointer-events: none;
+
+          ul {
+            height: 60svh;
+            justify-content: flex-start;
+          }
           body.init__menu & {
             opacity: 1;
             pointer-events: initial;
           }
-          li {
+        }
+
+        li {
+          position: relative;
+          &::before {
+            content: "";
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: auto;
+            background: var(--image-hover) center center / cover no-repeat;
+            height: 6px;
+            width: 75px;
+            transition: clip-path var(--transition-duration);
+            clip-path: inset(0 100% 0 0);
+
+            @media screen and (max-width: $breakpoint-mobile) {
+              display: none;
+            }
+          }
+          @media screen and (max-width: $breakpoint-mobile) {
             font-size: var(--font-size-1--alt);
             font-weight: 500;
+          }
+          &:hover::before {
+            clip-path: inset(0 0% 0 0);
+          }
+          &.current-menu-item::before {
+            clip-path: inset(0 0% 0 0);
           }
         }
       }
@@ -117,7 +160,13 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: 1rem;
+      gap: 3rem;
+      @media screen and (max-width: $breakpoint-tablet) {
+        gap: 2rem;
+      }
+      @media screen and (max-width: $breakpoint-mobile) {
+        gap: 1rem;
+      }
       @media screen and (max-width: $breakpoint-mobile) {
         flex-direction: column;
         align-items: flex-start;
@@ -130,7 +179,10 @@
         margin-left: 2rem;
         @media screen and (max-width: $breakpoint-mobile) {
           position: absolute;
-          top: calc(100% + 128px + 327px);
+          top: calc(
+            (100% + var(--menu-height--top) + var(--menu-height--bottom)) -
+              (var(--gutter) * 2)
+          );
           color: #ffffff;
           right: var(--gutter);
           opacity: 0;
@@ -171,15 +223,36 @@
 
       @media screen and (max-width: $breakpoint-mobile) {
         position: absolute;
-        top: calc(100% + 128px + 305px);
+        top: calc(
+          (100% + var(--menu-height--top) + var(--menu-height--bottom))
+        );
         right: 0;
         width: 100%;
         justify-content: flex-start;
         padding: 1rem calc(var(--gutter) - 30px) 1rem var(--gutter);
+        transform: translateY(-100%);
       }
       body.init__search & {
         opacity: 1;
         pointer-events: initial;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        body.init__search.init__menu & {
+          opacity: 1;
+          pointer-events: initial;
+        }
+      }
+      .search-field {
+        width: 600px;
+        @media screen and (max-width: $breakpoint-mobile) {
+          width: 88vw;
+        }
       }
       button {
         color: inherit;

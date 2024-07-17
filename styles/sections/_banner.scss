@@ -1,0 +1,51 @@
+.banner {
+  padding: 0;
+  margin-bottom: 15%;
+  margin-top: var(--spacer);
+  @media screen and (max-width: $breakpoint-mobile) {
+    margin-bottom: var(--spacer);
+  }
+  .container {
+    padding: 0;
+  }
+
+  &__files {
+    display: flex;
+    img {
+      width: 100%;
+    }
+  }
+  &__content {
+    padding: 2rem;
+    position: absolute;
+    bottom: 0;
+    right: var(--gutter);
+    transform: translateY(50%);
+    width: 55%;
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      position: relative;
+      width: 100%;
+      transform: translateY(0);
+    }
+  }
+
+  &__pre-heading {
+    margin-bottom: 1rem;
+    @extend .font__size-6;
+  }
+
+  &__heading {
+    margin-bottom: 1rem;
+    @extend .font__size-3--alt;
+  }
+
+  &__cta {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

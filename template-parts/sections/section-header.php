@@ -5,6 +5,7 @@ $pre_heading = $args['pre_heading'];
 $heading = $args['heading'];
 $description = $args['description'];
 $cta = $args['cta'];
+$ctaClass = $args['ctaClass'] ?? '';
 if (empty($pre_heading) && empty($heading) && empty($description) && empty($cta)) {
     return;
 }
@@ -27,9 +28,10 @@ if (empty($pre_heading) && empty($heading) && empty($description) && empty($cta)
     <?php 
     foreach($cta as $key => $link) { 
         if (!empty($link['link']['url']) && !empty($link['link']['title'])) {
+            $class = $ctaClass ? $ctaClass : 'primary';
             $url = $link['link']['url'];
             $target = $link['link']['target'];
-            $class = "primary";
+            $class = $class;
             $title = $link['link']['title'];
             echo "<div class='" . $layout . "__cta-link'>";
                 button($title, $class, $url, $target);
