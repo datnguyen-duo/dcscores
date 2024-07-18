@@ -58,7 +58,8 @@ if ($variation == 'featured-post'):
         ],
         'ctaClass' => 'secondary',
     ];
-    $featured_image = get_the_post_thumbnail($ID, 'full');    
+    $featured_image = get_the_post_thumbnail($ID, 'full');
+    $image_id = get_post_thumbnail_id($ID);
     wp_reset_postdata();
 ?>
     <div class="<?php echo $layout . '__columns'; ?>">
@@ -67,7 +68,7 @@ if ($variation == 'featured-post'):
         </div>
         <div class="<?php echo $layout . '__column --image'; ?>">
             <div class="<?php echo $layout . '__image'; ?>">
-                <?php echo $featured_image; ?>
+                <?php image($image_id, 'full', '', 'Hero Image', 'eager'); ?>                
             </div>
             <div class="<?php echo $layout . '__column-shapes'; ?>">
                 <div class="<?php echo $layout . '__column-shape --primary'; ?>"><?php icon_dcs_star_3(); ?></div>
@@ -101,7 +102,7 @@ if ($variation == 'featured-post'):
                             icon_volume();
                             echo '</div>';
                         elseif ($file['file']['type'] == 'image'):
-                            image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image');
+                            image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image', 'eager');
                         endif;
                     endforeach;
                 } ?>
@@ -118,7 +119,7 @@ if ($variation == 'featured-post'):
                     icon_volume();
                     echo '</div>';
                 elseif ($file['file']['type'] == 'image'):
-                    image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image');
+                    image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image', 'eager');
                 endif;
             endforeach;
         } ?>

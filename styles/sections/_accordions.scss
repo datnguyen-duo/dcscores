@@ -76,7 +76,10 @@
         gap: var(--gutter);
 
         @media screen and (max-width: $breakpoint-mobile) {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr !important;
+          grid-template-areas:
+            "image"
+            "content" !important;
         }
       }
       &__list {

@@ -110,7 +110,13 @@ if ($slides || $variation == 'team'): ?>
                                 image($image['ID'], 'thumbnail', $layout . '__slide-image', $image['alt']);
                             } ?>
                             <?php if ($name): ?>
-                                <p class="<?php echo $layout . '__slide-title'; ?>"><?php echo $name; ?></p>
+                                <p class="<?php echo $layout . '__slide-title'; ?>">
+                                    <?php
+                                        $lastSpacePosition = strrpos($name, ' ');
+                                        $lastName = $lastSpacePosition === false ? $name : substr($name, $lastSpacePosition + 1);
+                                        echo $lastName; 
+                                    ?>
+                                </p>
                             <?php endif; ?>
                             <?php if ($title): ?>
                                 <p class="<?php echo $layout . '__slide-description'; ?>"><?php echo $title; ?></p>

@@ -243,6 +243,10 @@
         @media screen and (max-width: $breakpoint-tablet) {
           padding: 0 var(--gutter);
         }
+
+        @media screen and (max-width: $breakpoint-mobile) {
+          padding: 0;
+        }
         &-container {
           order: 1;
           display: grid;
@@ -293,6 +297,10 @@
             font-weight: 800;
             font-style: italic;
             padding-right: var(--gutter-lg);
+
+            @media screen and (max-width: $breakpoint-mobile) {
+              padding-right: 5rem;
+            }
           }
         }
 

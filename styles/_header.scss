@@ -7,6 +7,10 @@
     top: 0;
     width: 100%;
     overflow: visible;
+
+    body.init__modal & {
+      z-index: 1;
+    }
   }
   &__announcement-bar {
     background-color: var(--color-announcement-bar-background);

@@ -3443,6 +3443,32 @@
                             "return_format": "string"
                         },
                         {
+                            "key": "field_669804de7eefa",
+                            "label": "Variation",
+                            "name": "variation",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "query": "Query",
+                                "manual": "Manual"
+                            },
+                            "default_value": "query",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": ""
+                        },
+                        {
                             "key": "field_66566643f776a",
                             "label": "Pre-Heading",
                             "name": "pre_heading",
@@ -3550,7 +3576,15 @@
                             "type": "group",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_669804de7eefa",
+                                        "operator": "==",
+                                        "value": "query"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -3843,6 +3877,50 @@
                                     "append": ""
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_669805b97eefb",
+                            "label": "Posts",
+                            "name": "posts",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_669804de7eefa",
+                                        "operator": "==",
+                                        "value": "manual"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post",
+                                "person",
+                                "press",
+                                "tribe_events"
+                            ],
+                            "post_status": "",
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "object",
+                            "min": "",
+                            "max": "",
+                            "elements": [
+                                "featured_image"
+                            ],
+                            "bidirectional": 0,
+                            "bidirectional_target": []
                         }
                     ],
                     "min": "",
@@ -5051,5 +5129,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1721146586
+    "modified": 1721239197
 }

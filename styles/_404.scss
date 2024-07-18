@@ -1,0 +1,49 @@
+.error-404 {
+  .page {
+    &-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    &-content {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      > * {
+        &:not(:last-child) {
+          margin-bottom: 2rem;
+        }
+      }
+      > p {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        li {
+          &:not(:last-child) {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      .search-form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        input[type="submit"] {
+          @extend .button;
+          @extend .button--primary;
+        }
+      }
+    }
+  }
+}

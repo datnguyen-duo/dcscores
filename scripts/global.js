@@ -254,6 +254,12 @@ function utility1() {
             e.stopPropagation();
             if (e.target === this || e.target.closest(".hero__modal-close")) {
               document.body.classList.remove("init__modal");
+              const iframes = modal.querySelectorAll("iframe");
+              iframes.forEach((iframe) => {
+                const src = iframe.src;
+                iframe.src = ""; // Reset src to effectively pause the video
+                iframe.src = src; // Reset to original src to allow for future playbacks
+              });
             }
           });
         } else {

@@ -337,6 +337,9 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            @media screen and (max-width: $breakpoint-mobile) {
+              width: 100%;
+            }
           }
 
           &-content {

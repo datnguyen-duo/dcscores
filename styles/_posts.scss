@@ -196,6 +196,10 @@
       &__image {
         display: none;
       }
+
+      &__meta {
+        pointer-events: none;
+      }
     }
   }
 
@@ -238,6 +242,22 @@
       }
     }
   }
+
+  &--archive {
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      display: grid;
+      overflow-x: unset !important;
+      padding: 0 var(--gutter) 1rem;
+      grid-template-columns: 1fr;
+
+      .post {
+        width: 100%;
+      }
+    }
+  }
+
   &.loading {
     &::after {
       opacity: 1;

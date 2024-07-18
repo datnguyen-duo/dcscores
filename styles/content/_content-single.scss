@@ -308,6 +308,10 @@ $content-padding: 0 0 0 $sidebar-width;
         }
       }
       &-inner {
+        display: flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+        gap: 0.5rem;
         a {
           @extend .button;
           @extend .button--secondary;
