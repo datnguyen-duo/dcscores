@@ -25,7 +25,7 @@ if ($variation == 'featured-posts') {
                             if (has_post_thumbnail()) {
                                 the_post_thumbnail('thumbnail--dcs-v');
                             } else {
-                                $image_url = get_template_directory_uri() . '/assets/fallback-image.svg';
+                                $image_url = get_template_directory_uri() . '/assets/fallback-image.webp';
                                 echo '<img src="' . esc_url($image_url) . '" alt="Thumbnail">';
                             }
                         ?>
@@ -33,7 +33,7 @@ if ($variation == 'featured-posts') {
                     <div class="<?php echo $layout . '__item-inner'; ?>">
                         <h4 class="<?php echo $layout . '__item-title' . ' font__size-4--alt'?>"><?php echo get_the_title(); ?></h4>
                         <div class="icon--arrow">
-                            <?php icon_arrow_2(); ?>
+                            <?php icon_arrow_1(); ?>
                         </div>
                     </div>
                 </a>

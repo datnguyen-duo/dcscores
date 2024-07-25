@@ -1,8 +1,15 @@
+<?php 
+defined( 'ABSPATH' ) || exit; 
+$ID = get_the_ID();
+$author = get_field('author', $ID);    
+?>
 <div class="entry__sidebar">
     <p class="entry__sidebar-title font__size-6">Published</p>
     <p class="entry__sidebar-description"><?php the_date(); ?></p>
-    <p class="entry__sidebar-title font__size-6">Author</p>
-    <p class="entry__sidebar-description"><?php the_author(); ?></p>
+    <?php if ($author): ?>
+        <p class="entry__sidebar-title font__size-6">Author</p>
+        <p class="entry__sidebar-description"><?php echo $author; ?></p>
+    <?php endif; ?>
     <div class="entry__sidebar-share">
         <div class="entry__sidebar-share-icon">
             <?php icon_share(); ?>

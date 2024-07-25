@@ -22,12 +22,14 @@
 
   &__description {
     @extend .font__size-4--alt;
-    width: calc(var(--font-size-4--alt) * 30);
+    body.home & {
+      width: calc(var(--font-size-4--alt) * 30);
+      @media screen and (max-width: $breakpoint-mobile) {
+        width: 100%;
+      }
+    }
     margin: 0 auto;
     padding: 0 var(--gutter);
-    @media screen and (max-width: $breakpoint-mobile) {
-      width: 100%;
-    }
   }
   &__icon {
     margin: 2rem auto var(--gutter);
@@ -43,7 +45,7 @@
       minmax(calc((100% - (2 * var(--gutter-lg))) / 3), 1fr)
     );
     gap: var(--gutter-lg);
-
+    margin-top: var(--spacer);
     @media screen and (max-width: $breakpoint-mobile) {
       display: flex;
       overflow-x: auto;
@@ -75,16 +77,6 @@
     &-cta {
       margin-top: 1rem;
     }
-  }
-  &__collage {
-    aspect-ratio: 1;
-    width: 100%;
-    position: relative;
-    &-layer {
-      display: flex;
-      position: absolute;
-      will-change: transform;
-    }
     &:hover {
       .hover-animation {
         &--rotate {
@@ -109,6 +101,17 @@
           }
         }
       }
+    }
+  }
+
+  &__collage {
+    aspect-ratio: 1;
+    width: 100%;
+    position: relative;
+    &-layer {
+      display: flex;
+      position: absolute;
+      will-change: transform;
     }
   }
 
@@ -162,6 +165,10 @@
           }
         }
         &-title {
+          font-size: 1.5vw;
+          @media screen and (max-width: $breakpoint-mobile) {
+            font-size: var(--font-size-4--alt);
+          }
           &:hover {
             text-decoration: underline;
           }

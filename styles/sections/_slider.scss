@@ -151,7 +151,7 @@
         height: var(--font-size-1--alt);
         display: flex;
         align-items: flex-end;
-        border-bottom: 2px solid var(--color-black);
+        border-bottom: 2px solid var(--color-primary-1);
         cursor: pointer;
         &:not(:last-child) {
           padding-right: 20%;
@@ -166,6 +166,7 @@
           line-height: 1;
           margin: 0;
           opacity: 0.25;
+          padding-top: 0.1em;
         }
 
         &:hover {
@@ -186,6 +187,8 @@
           opacity: 0;
           pointer-events: none;
           transition: opacity var(--transition-duration);
+          align-self: start;
+
           &.active {
             opacity: 1;
             pointer-events: initial;
@@ -217,7 +220,6 @@
       }
       &-slide {
         width: 150px;
-
         cursor: pointer;
 
         @media screen and (max-width: $breakpoint-tablet) {
@@ -233,6 +235,10 @@
 
         &:before {
           content: "";
+        }
+
+        > * {
+          pointer-events: none;
         }
       }
     }
@@ -253,6 +259,8 @@
           grid-template-columns: 35% 1fr;
           margin-top: var(--gutter);
 
+          border-radius: var(--border-radius);
+          overflow: hidden;
           @media screen and (max-width: $breakpoint-tablet) {
             display: flex;
             flex-direction: column;
@@ -263,7 +271,6 @@
           grid-template-areas: "a";
           position: relative;
           &.--images {
-            max-width: var(--content-width);
             margin: 0 auto;
             background-color: var(--color-primary-4);
             padding: var(--gutter);
@@ -339,6 +346,7 @@
           pointer-events: none;
           text-align: left;
           transition: opacity var(--transition-duration);
+          align-self: start;
           &.--image {
             align-self: center;
           }

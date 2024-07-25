@@ -55,7 +55,7 @@ if ($variation == 'featured-post') {
             if (!empty($featured_image)) {
                 echo $featured_image;
             } else {
-                $image_url = get_template_directory_uri() . '/assets/fallback-image.svg';
+                $image_url = get_template_directory_uri() . '/assets/fallback-image.webp';
                 echo '<img src="' . esc_url($image_url) . '" alt="Thumbnail">';
             }
         } else {

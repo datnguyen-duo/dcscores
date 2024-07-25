@@ -31,7 +31,6 @@
     grid-area: description;
     margin-bottom: 2rem;
     max-width: 60%;
-
     @media screen and (max-width: $breakpoint-mobile) {
       max-width: 100%;
     }
@@ -45,20 +44,21 @@
     gap: var(--gutter);
     text-align: center;
 
-    @media screen and (max-width: $breakpoint-mobile) {
+    @media screen and (max-width: $breakpoint-tablet) {
       grid-auto-flow: unset;
       grid-template-columns: 1fr;
     }
   }
 
   &__column {
-    align-self: center;
+    // align-self: center;
+    align-self: start;
     body.home & {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1rem;
-
+      white-space: nowrap;
       @media screen and (max-width: $breakpoint-mobile) {
         justify-content: flex-start;
       }
@@ -67,7 +67,6 @@
       margin-bottom: 1rem;
     }
     &-stat {
-      padding-bottom: 0.5rem;
       > p {
         @extend .font__size-2--alt;
         display: inline-block;
@@ -76,6 +75,8 @@
     &-description {
       body.home & {
         @extend .font__size-3;
+        margin-top: 1rem;
+        margin-left: 0.5rem;
       }
     }
   }
@@ -87,7 +88,6 @@
       text-align: left;
     }
   }
-
   .icon {
     &--dcs-circle {
       position: absolute;

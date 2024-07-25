@@ -13,6 +13,6 @@ get_template_part('template-parts/sections/section', 'header', $header_args);
 ?>
 <div class="<?php echo $layout . '__container'; ?>">
     <div id="calendar" class="load--media">
-        <?php echo do_shortcode('[tribe_events]'); ?>
+        <?php echo do_shortcode('[tribe_events filter-bar="true"]'); ?>
     </div>
 </div>

@@ -51,6 +51,8 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/header' ); ?>
 
+		<?php $this->template( 'components/filter-bar' ); ?>
+
 		<div
 			class="tribe-events-calendar-month"
 			role="grid"

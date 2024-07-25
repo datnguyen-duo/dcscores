@@ -2,8 +2,8 @@
 defined( 'ABSPATH' ) || exit;
 $header_args = array(
     'layout' => 'archive',
-    'pre_heading' => get_search_query() ? 'Search Results for: ' . esc_html(get_search_query()) : '',
-    'heading' => get_the_archive_title(),
+    'pre_heading' => '',
+    'heading' => get_search_query() ? 'Search Results for: ' . esc_html(get_search_query()) : get_the_archive_title(),
     'description' => '',
     'cta' => '',
 );

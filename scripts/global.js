@@ -9,7 +9,7 @@ var easeInOut = "power2.inOut",
   duration = 0.7,
   durationSlow = 1.2,
   durationFast = 0.3,
-  start = "top 80%",
+  start = "top 90%",
   startScrub = "top bottom",
   scale = 1.5;
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
@@ -18,10 +18,21 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
   UTILITY FUNCTIONS
 --------------------------------------------------------------------------------- */
 
-function utility1() {
-  // ...
-}
+(function () {
+  function updateLinks() {
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      if (link.hostname !== window.location.hostname) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
+    });
+  }
 
+  document.addEventListener("DOMContentLoaded", () => {
+    updateLinks();
+  });
+})();
 /*	-----------------------------------------------------------------------------
   GLOBAL FUNCTIONS
 --------------------------------------------------------------------------------- */
@@ -106,6 +117,11 @@ function utility1() {
 
               const targetIndex = currentIndex % altSlide.length;
               altSlide[targetIndex].classList.add("active");
+
+              if (window.innerWidth < 768) {
+                const activeSlideHeight = altSlide[targetIndex].clientHeight;
+                slideContainer.style.height = `${activeSlideHeight + 50}px`;
+              }
             });
           }
         },
@@ -154,7 +170,7 @@ function utility1() {
         scrollTrigger: {
           trigger: shape,
           start: shape.classList.contains("shape--1")
-            ? "30% 50%"
+            ? "20% 50%"
             : "top bottom",
         },
       });
@@ -208,20 +224,18 @@ function utility1() {
       document.body.classList.toggle("init__menu");
     });
 
-    if (window.innerWidth < 768) {
-      const topMenu = document.querySelector(".site-header__navigation--top"),
-        bottomMenu = document.querySelector(".main-navigation"),
-        topMenuHeight = topMenu.clientHeight,
-        bottomMenuHeight = bottomMenu.clientHeight;
-      document.documentElement.style.setProperty(
-        "--menu-height--top",
-        `${topMenuHeight}px`
-      );
-      document.documentElement.style.setProperty(
-        "--menu-height--bottom",
-        `${bottomMenuHeight}px`
-      );
-    }
+    const topMenu = document.querySelector(".site-header__navigation--top"),
+      bottomMenu = document.querySelector(".main-navigation"),
+      topMenuHeight = topMenu.clientHeight,
+      bottomMenuHeight = bottomMenu.clientHeight;
+    document.documentElement.style.setProperty(
+      "--menu-height--top",
+      `${topMenuHeight}px`
+    );
+    document.documentElement.style.setProperty(
+      "--menu-height--bottom",
+      `${bottomMenuHeight}px`
+    );
   });
 })();
 
@@ -257,9 +271,25 @@ function utility1() {
               const iframes = modal.querySelectorAll("iframe");
               iframes.forEach((iframe) => {
                 const src = iframe.src;
-                iframe.src = ""; // Reset src to effectively pause the video
-                iframe.src = src; // Reset to original src to allow for future playbacks
+                iframe.src = "";
+                iframe.src = src;
               });
+            }
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" || e.key === "Esc") {
+              if (document.body.classList.contains("init__modal")) {
+                document.body.classList.remove("init__modal");
+                const modal = document.querySelector(".hero__modal");
+                if (modal) {
+                  const iframes = modal.querySelectorAll("iframe");
+                  iframes.forEach((iframe) => {
+                    const src = iframe.src;
+                    iframe.src = "";
+                    iframe.src = src;
+                  });
+                }
+              }
             }
           });
         } else {
@@ -357,6 +387,7 @@ function utility1() {
         const isToggleSection = section.classList.contains("--toggles");
         const isSliderSection = section.classList.contains("--slider");
         const isStickySection = section.classList.contains("--sticky");
+
         if (isToggleSection) {
           const togglesContainer = section.querySelector(
             ".text-image__column-toggles"
@@ -373,6 +404,21 @@ function utility1() {
           let activeToggle = toggles[0];
           let activeContent = togglesContent[0];
           let activeImage = togglesImages[0];
+          let currentToggleIndex = 0;
+
+          function switchToNextToggle() {
+            if (currentToggleIndex !== -1) {
+              const nextToggleIndex = (currentToggleIndex + 1) % toggles.length;
+
+              toggles[nextToggleIndex].click();
+
+              currentToggleIndex = nextToggleIndex;
+            }
+          }
+
+          // Set up the timer
+          const toggleTimer = setInterval(switchToNextToggle, 5000);
+
           togglesContainer.addEventListener("click", function (event) {
             const clickedToggleIndex = toggles.findIndex(
               (toggle) => toggle === event.target
@@ -405,11 +451,13 @@ function utility1() {
                   ease: easeInOut,
                 }
               );
+              // clearInterval(toggleTimer);
               toggles[clickedToggleIndex].classList.add("active");
               togglesContent[clickedToggleIndex].classList.add("active");
               activeToggle = toggles[clickedToggleIndex];
               activeContent = togglesContent[clickedToggleIndex];
               activeImage = togglesImages[clickedToggleIndex];
+              currentToggleIndex = clickedToggleIndex;
             }
           });
         }
@@ -495,7 +543,7 @@ function utility1() {
             );
           }
         }
-        if (isStickySection) {
+        if (isStickySection && window.innerWidth > 768) {
           const stickyContent = section.querySelectorAll(
             ".text-image__column-inner"
           );
@@ -756,7 +804,8 @@ function utility1() {
         const items = section.querySelectorAll(".accordions__item");
         const images = section.querySelectorAll(".accordions__image");
         items.forEach((item) => {
-          item.addEventListener("click", function () {
+          const title = item.querySelector(".accordions__item-title");
+          title.addEventListener("click", function () {
             items.forEach((el, i) => {
               if (el !== item) {
                 el.classList.remove("active");

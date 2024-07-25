@@ -1,7 +1,7 @@
 .site-footer {
   background-color: var(--color-footer-background);
   color: var(--color-footer-text);
-  padding: 2rem 0;
+  padding: var(--gutter) 0;
   position: relative;
   &__container {
     display: grid;
@@ -25,17 +25,22 @@
   &__logo {
     grid-area: a;
     display: flex;
+    width: 180px;
     @media screen and (max-width: $breakpoint-mobile) {
       justify-self: center;
       width: 150px;
+    }
+
+    img {
+      width: 100%;
     }
   }
   &__navigation {
     grid-area: c;
     .menu {
       display: grid;
-      grid-template-columns: max-content max-content;
-      margin-top: 1rem;
+      grid-template-columns: max-content max-content max-content;
+      margin-top: 2rem;
       gap: 1rem 2rem;
       @media screen and (max-width: $breakpoint-mobile) {
         margin-top: 2rem;

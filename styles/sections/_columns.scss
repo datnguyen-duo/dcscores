@@ -1,0 +1,20 @@
+.columns {
+  &__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: var(--gutter);
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      grid-auto-flow: unset;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__item {
+    padding: 2rem;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    align-self: start;
+  }
+}

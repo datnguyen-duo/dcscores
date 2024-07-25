@@ -42,13 +42,16 @@ $random_color = $colors[0];
             </a>
         <?php else: ?>
             <a href="<?php echo $permalink; ?>" <?php echo $target; ?>>
-                <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.svg'; ?>" alt="Thumbnail">
+                <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.webp'; ?>" alt="Thumbnail">
             </a>
         <?php endif; ?>
     </div>
     <p class="<?php echo $layout . '__item-meta'; ?> post__meta">
     <?php 
         $post_type = get_post_type();
+        if ($post_type == 'tribe_events') {
+            $post_type = 'Event';
+        }
         echo $post_type . " | ";
 
         $taxonomy = $post_type == 'post' ? 'category' : 'source';
@@ -60,7 +63,14 @@ $random_color = $colors[0];
             }, $terms));
             echo " | "; 
         }
-        the_date(); 
+
+        if ($post_type == 'tribe_events') {
+            echo tribe_get_start_date(null, false, 'F j, Y');
+            echo tribe_get_start_time(null, false, ' - g:i a') ? ' | ' . tribe_get_start_time(null, false, ' - g:i a') : '';
+            echo tribe_get_end_time(null, false, ' - g:i a') ? ' - ' . tribe_get_end_time(null, false, 'g:i a') : '';
+        } else {
+            echo get_the_date();
+        }
     ?>
     </p>
     <h5 class="<?php echo $layout . '__item-title'; ?> post__title">

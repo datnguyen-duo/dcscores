@@ -198,7 +198,14 @@ function keep_published_date( $data, $postarr ) {
     }
     return $data;
 }
-add_filter( 'wp_insert_post_data', 'keep_published_date', 99, 2 );
+// add_filter( 'wp_insert_post_data', 'keep_published_date', 99, 2 );
+
+function modify_search_query($query) {
+    if ($query->is_main_query() && $query->is_search() && empty(get_search_query())) {
+        $query->set('post_type', array('post', 'pages'));
+    }
+}
+add_action('pre_get_posts', 'modify_search_query');
 
 require_once('inc/login.php');
 require_once('inc/acf.php');

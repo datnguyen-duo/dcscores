@@ -76,10 +76,10 @@ $header_args = array(
                 if ($variation == 'slider') {
                     echo '<div class="' . $layout . '__column-pagination"></div>';
                     echo '<div class="' . $layout . '__column-arrow --prev icon--arrow disabled">';
-                    icon_arrow_2();
+                    icon_arrow_1();
                     echo '</div>';
                     echo '<div class="' . $layout . '__column-arrow --next icon--arrow">';
-                    icon_arrow_2();
+                    icon_arrow_1();
                     echo '</div>';
                 }
                 ?>

@@ -23,6 +23,13 @@ function video($src, $mime_type, $class = '', $settings = '', $poster = '', $cap
 <?php }
 
 function button($text, $class = '', $link = '#', $target = '_self') {
-    echo '<a href="' . $link . '" class="button button--' . $class . '" target="' . $target . '">' . $text . '</a>';
+    $is_external_link = $target == '_blank' ? true : false;
+    ob_start();
+    if ($is_external_link) {
+        icon_external_link();
+    }
+    $icon_svg = ob_get_clean();
+    
+    echo '<a href="' . $link . '" class="button button--' . $class . '" target="' . $target . '">' . $text . $icon_svg . '</a>';
 }
 ?>

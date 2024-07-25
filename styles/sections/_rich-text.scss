@@ -1,8 +1,14 @@
 .rich-text {
-  &__content {
-    max-width: 70%;
-    @media screen and (max-width: $breakpoint-mobile) {
-      max-width: 100%;
+  padding-top: var(--spacer-sm);
+  padding-bottom: var(--spacer-sm);
+
+  &.--content-width {
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      @media screen and (max-width: $breakpoint-mobile) {
+        max-width: 100%;
+      }
     }
   }
 }

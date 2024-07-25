@@ -156,7 +156,7 @@ if ($variation == 'query') {
                         </a>
                     <?php else: ?>
                         <a href="<?php echo $permalink; ?>" <?php echo $target; ?>>
-                            <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.svg'; ?>" alt="Thumbnail">
+                            <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.webp'; ?>" alt="Thumbnail">
                         </a>
                     <?php endif; ?>
                 </div>
@@ -169,8 +169,11 @@ if ($variation == 'query') {
                             return '<a href="' . get_term_link($term) . '">' . $term->name . '</a>';
                         }, $terms));
                     }
-                    echo " | "; 
-                    the_date(); 
+                    if ($settings['post_type'] !== 'press') {
+                        echo " | "; 
+                        the_date(); 
+                    }
+        
                     ?>
                 </p>
                 <h5 class="<?php echo $layout . '__item-title'; ?> post__title">
@@ -187,7 +190,7 @@ if ($variation == 'query') {
                         </a>
                     <?php endif; ?>
                 </h5>
-                <?php if (get_the_excerpt()): ?>
+                <?php if ($settings['post_type'] !== 'press'): ?>
                     <div class="<?php echo $layout . '__item-excerpt'; ?> post__excerpt">
                         <p><?php echo wp_trim_words( get_the_excerpt(), 20, '[...]' ); ?></p>
                     </div>
@@ -209,10 +212,10 @@ if ($variation == 'query') {
                 echo '</div>';
                 echo '<div class="swiper-pagination"></div>';
                 echo '<div class="swiper-button-prev swiper-button icon--arrow">';
-                icon_arrow_2();
+                icon_arrow_1();
                 echo '</div>';
                 echo '<div class="swiper-button-next swiper-button icon--arrow">';
-                icon_arrow_2();
+                icon_arrow_1();
                 echo '</div>';
             }
             wp_reset_postdata();
@@ -245,7 +248,7 @@ if ($variation == 'query') {
                             </a>
                         <?php else: ?>
                             <a href="<?php echo $permalink; ?>" <?php echo $target; ?>>
-                                <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.svg'; ?>" alt="Thumbnail">
+                                <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.webp'; ?>" alt="Thumbnail">
                             </a>
                         <?php endif; ?>
                     </div>
@@ -258,8 +261,10 @@ if ($variation == 'query') {
                                 return '<a href="' . get_term_link($term) . '">' . $term->name . '</a>';
                             }, $terms));
                         }
-                        echo " | "; 
-                        the_date(); 
+                        if ($settings['post_type'] !== 'press') {
+                            echo " | "; 
+                            the_date(); 
+                        }
                         ?>
                     </p>
                     <h5 class="<?php echo $layout . '__item-title'; ?> post__title">
@@ -273,10 +278,12 @@ if ($variation == 'query') {
                             </a>
                         <?php endif; ?>
                     </h5>
-                    <?php if (get_the_excerpt()): ?>
-                        <div class="<?php echo $layout . '__item-excerpt'; ?> post__excerpt">
-                            <p><?php echo wp_trim_words( get_the_excerpt(), 20, '[...]' ); ?></p>
-                        </div>
+                    <?php if ($settings['post_type'] !== 'press'): ?>
+                        <?php if (get_the_excerpt()): ?>
+                            <div class="<?php echo $layout . '__item-excerpt'; ?> post__excerpt">
+                                <p><?php echo wp_trim_words( get_the_excerpt(), 20, '[...]' ); ?></p>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </article>
             <?php endforeach;?>

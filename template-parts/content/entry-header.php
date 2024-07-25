@@ -1,7 +1,7 @@
 <?php
-defined( 'ABSPATH' ) || exit;  
+defined( 'ABSPATH' ) || exit;
 ?>
-<div class="entry__header">
+<div class="entry__header<?php echo !has_post_thumbnail() ? ' no-thumbnail' : ''; ?>">
     <p class="entry__meta">
         <?php if (get_post_type() == 'tribe_events') {
           $event_categories = get_the_term_list( get_the_ID(), 'tribe_events_cat', '', ', ' );
@@ -24,6 +24,14 @@ defined( 'ABSPATH' ) || exit;
     <?php if (has_post_thumbnail()) : ?>
         <div class="entry__thumbnail">
             <?php image(get_post_thumbnail_id(), 'full', 'entry__thumbnail-image load--media', get_the_title()); ?>
+            <?php 
+            $thumbnail_id = get_post_thumbnail_id();
+            $thumbnail_caption = wp_get_attachment_caption($thumbnail_id);
+            if (!empty($thumbnail_caption)) : ?>
+                <div class="entry__thumbnail-caption">
+                    <?php echo esc_html($thumbnail_caption); ?>
+                </div>
+            <?php endif; ?>
             <div class="shape shape--4"></div>
         </div>
     <?php endif; ?>

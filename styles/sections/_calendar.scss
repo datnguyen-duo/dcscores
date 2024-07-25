@@ -21,6 +21,8 @@
     }
     .tribe-events-l-container {
       padding: 0 var(--gutter-lg);
+      display: flex;
+      flex-direction: column;
       @media screen and (max-width: $breakpoint-mobile) {
         padding: 0;
       }
@@ -157,6 +159,16 @@
       .tribe-events-calendar-month__day--past
       .tribe-events-calendar-month__day-date {
       opacity: 0.3;
+    }
+  }
+  .tribe-filter-bar {
+    order: -1;
+    margin: 0 0 2rem;
+    .tribe-filter-bar-c-filter--pill {
+      .tribe-filter-bar-c-filter__container {
+        display: block !important;
+        visibility: visible !important;
+      }
     }
   }
 }

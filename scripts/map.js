@@ -257,15 +257,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
           .addTo(map);
 
-        map.fitBounds(
-          new mapboxgl.LngLatBounds(
-            [location.lon, location.lat],
-            [location.lon, location.lat]
-          ),
-          {
-            maxZoom: zoom_level,
-          }
-        );
+        // map.fitBounds(
+        //   new mapboxgl.LngLatBounds(
+        //     [location.lon, location.lat],
+        //     [location.lon, location.lat]
+        //   ),
+        //   {
+        //     maxZoom: zoom_level,
+        //   }
+        // );
       }
     }
   };

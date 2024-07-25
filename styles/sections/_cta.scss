@@ -27,14 +27,6 @@
       }
     }
   }
-  &__file {
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    img,
-    video {
-      width: 100%;
-    }
-  }
 
   &__pre-heading {
     margin-bottom: 1rem;
@@ -44,5 +36,21 @@
   }
   &__description {
     margin-bottom: 2rem;
+  }
+
+  &__file {
+    overflow: hidden;
+    border-radius: var(--border-radius-sm);
+    img,
+    video {
+      width: 100%;
+    }
+  }
+
+  &__content {
+    align-self: center;
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: 2rem 0;
+    }
   }
 }

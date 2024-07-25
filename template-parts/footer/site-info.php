@@ -13,6 +13,7 @@ $copyright = get_field( 'copyright', 'option' );
     echo $entity_information ? '<p>' . $entity_information . '</p>' : '';
     echo '<p>Copyright ' . date('Y') . '</p>';
     echo get_privacy_policy_url() ? '<p><a href="' . esc_url(get_privacy_policy_url()) . '" class="site-footer__privacy">' . __('Privacy Policy', 'text-domain') . '</a></p>' : '';
+    echo '<p><a href="/terms-and-conditions/" class="site-footer__terms">' . __('Terms & Conditions', 'text-domain') . '</a></p>';
     echo $organization_description ? $organization_description : '';
 ?>
 </div>

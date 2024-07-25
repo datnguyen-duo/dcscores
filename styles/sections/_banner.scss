@@ -2,6 +2,9 @@
   padding: 0;
   margin-bottom: 15%;
   margin-top: var(--spacer);
+  @media screen and (max-width: $breakpoint-tablet) {
+    margin-bottom: 20%;
+  }
   @media screen and (max-width: $breakpoint-mobile) {
     margin-bottom: var(--spacer);
   }
@@ -25,10 +28,16 @@
     background-color: var(--color-background);
     border-radius: var(--border-radius);
 
+    @media screen and (max-width: $breakpoint-tablet) {
+      width: calc(100% - calc(var(--gutter) * 2));
+    }
+
     @media screen and (max-width: $breakpoint-mobile) {
       position: relative;
       width: 100%;
       transform: translateY(0);
+      right: unset;
+      padding: 2rem 1rem;
     }
   }
 

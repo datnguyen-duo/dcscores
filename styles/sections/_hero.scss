@@ -4,6 +4,7 @@
   .container {
     padding: 0;
     position: relative;
+    height: 100%;
     &::before {
       content: "";
       position: absolute;
@@ -18,6 +19,8 @@
   &__files {
     display: flex;
     cursor: pointer;
+    height: 100%;
+
     img,
     video {
       width: 100%;
@@ -37,14 +40,27 @@
       padding: 0.5rem;
       border-radius: 50%;
       border: 1px solid var(--color-white);
-      transition: opacity var(--transition-duration);
-
+      transition: opacity var(--transition-duration),
+        color var(--transition-duration),
+        border-color var(--transition-duration);
+      display: flex;
+      z-index: 1;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
       @media screen and (max-width: $breakpoint-mobile) {
         display: none;
       }
     }
   }
 
+  &:hover {
+    .hero__files-icon {
+      color: var(--color-secondary-2);
+      border-color: var(--color-secondary-2);
+    }
+  }
   &__heading {
     margin-top: auto;
   }
@@ -70,7 +86,6 @@
       justify-content: center;
       margin: auto;
       width: 100%;
-      padding-top: 8%;
       width: calc(var(--font-size-1--alt) * 14);
       position: relative;
 
@@ -80,14 +95,18 @@
     }
     &-shape {
       position: absolute;
-      right: var(--gutter);
-      top: var(--gutter);
+      right: 0;
+      top: 0;
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        display: none;
+      }
       &.--secondary {
         margin: 3rem -3rem 0 0;
       }
     }
     &-icon {
-      width: 5%;
+      width: 3.5%;
       margin-top: 2rem;
 
       @media screen and (max-width: $breakpoint-mobile) {
@@ -99,7 +118,7 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-      padding-right: 5rem;
+      padding-right: 5.5rem;
 
       @media screen and (max-width: $breakpoint-mobile) {
         justify-content: center;
@@ -188,6 +207,11 @@
 
         &__heading {
           margin-bottom: 1rem;
+          a {
+            &:hover {
+              text-decoration: underline;
+            }
+          }
         }
 
         &__description {
@@ -242,7 +266,7 @@
           display: flex;
           align-items: center;
           flex-wrap: wrap;
-          gap: 1rem;
+          gap: 2rem;
           margin-top: 2rem;
         }
 
@@ -275,10 +299,30 @@
       overflow: unset;
       z-index: 3;
       margin-bottom: 4rem;
+      height: calc(100svh - #{$menu-height});
+
       .container {
         .hero {
           &__content {
             text-align: left;
+            padding-bottom: var(--gutter-lg);
+
+            @media screen and (max-width: $breakpoint-mobile) {
+              padding-top: var(--gutter-lg);
+            }
+            &-breadcrumb {
+              margin-right: auto;
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              svg {
+                transform: rotate(180deg);
+              }
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
             &-inner {
               align-items: flex-start;
               margin: auto auto 0 0;
@@ -297,8 +341,10 @@
             color: var(--color-black);
             display: flex;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 1rem;
+            width: 100%;
           }
         }
       }
@@ -306,6 +352,8 @@
   }
 
   &.--modal {
+    height: calc(100svh - #{$menu-height});
+
     .container {
       .hero {
         &__modal {
@@ -320,11 +368,8 @@
           justify-content: center;
           background-color: rgba(0, 0, 0, 1);
           opacity: 0;
-          visibility: hidden;
           pointer-events: none;
-          transition: opacity var(--transition-duration),
-            visibility var(--transition-duration);
-
+          transition: opacity 0.7s;
           body.init__modal & {
             opacity: 1;
             visibility: visible;

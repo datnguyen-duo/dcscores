@@ -28,12 +28,23 @@ $content-padding: 0 0 0 $sidebar-width;
     margin-bottom: var(--gutter);
     padding-top: var(--spacer);
     color: #ffffff;
+
+    &.no-thumbnail {
+      padding-bottom: var(--spacer);
+      background-color: var(--color-primary-1);
+    }
   }
 
   &__excerpt {
     margin: var(--gutter) auto;
+    padding: 0 var(--gutter-lg);
+    p {
+      @extend .font__size-4--alt;
+    }
   }
   &__meta {
+    @extend .font__size-6;
+    margin-bottom: 2rem;
     a {
       &:hover {
         text-decoration: underline;
@@ -63,6 +74,15 @@ $content-padding: 0 0 0 $sidebar-width;
     img {
       width: 100%;
       border-radius: var(--border-radius);
+    }
+
+    &-caption {
+      color: var(--color-black);
+      padding: 1rem;
+      text-align: left;
+      font-size: var(--font-size-sm);
+      font-style: italic;
+      line-height: 1.2;
     }
   }
 

@@ -1,3 +1,5 @@
+$menu-height: 128px;
+
 .site-header {
   overflow: hidden;
   z-index: 9;
@@ -52,6 +54,7 @@
   &__navigation {
     &--top,
     &--bottom {
+      width: 100%;
       display: flex;
       align-items: center;
     }
@@ -88,8 +91,19 @@
             @extend .has-underline;
           }
         }
+
+        &.current_page_item,
+        &.current-page-ancestor {
+          a {
+            &::before {
+              width: 100%;
+            }
+          }
+        }
       }
       .menu-item-gtranslate {
+        @extend .has-underline;
+
         &:after {
           content: url("assets/caret-down--white.svg");
           transform: translateY(-1px);
@@ -103,7 +117,11 @@
       color: var(--color-text);
       font-weight: 600;
       position: relative;
-
+      .container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
       .main-navigation {
         @media screen and (max-width: $breakpoint-mobile) {
           color: var(--color-background);
@@ -169,7 +187,7 @@
         gap: 2rem;
       }
       @media screen and (max-width: $breakpoint-mobile) {
-        gap: 1rem;
+        gap: 1.5rem;
       }
       @media screen and (max-width: $breakpoint-mobile) {
         flex-direction: column;
@@ -181,6 +199,8 @@
       &--search {
         cursor: pointer;
         margin-left: 2rem;
+        transition: opacity var(--transition-duration),
+          transform var(--transition-duration);
         @media screen and (max-width: $breakpoint-mobile) {
           position: absolute;
           top: calc(
@@ -191,11 +211,14 @@
           right: var(--gutter);
           opacity: 0;
           pointer-events: none;
-          transition: opacity var(--transition-duration);
           body.init__menu & {
             opacity: 1;
             pointer-events: initial;
           }
+        }
+
+        &:hover {
+          transform: scale(1.2);
         }
       }
       &--close {

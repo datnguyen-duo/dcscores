@@ -87,7 +87,7 @@
       flex-wrap: wrap;
       li {
         cursor: pointer;
-        @extend .font__size-sm--alt;
+        @extend .font__size-6;
         width: max-content;
         &.active {
           &::before {
@@ -120,7 +120,6 @@
     &-subtext {
       font-size: 16px;
       margin-top: 1rem;
-      text-decoration: underline;
     }
   }
 
@@ -131,9 +130,12 @@
       &__column {
         &-image {
           align-self: center;
+          border-radius: var(--border-radius);
         }
         &-description {
           @extend .font__size-3--alt;
+          line-height: 1.4;
+          font-weight: 400;
         }
 
         &-pagination {
@@ -186,9 +188,17 @@
 
   &.--sticky {
     .text-image {
+      &__columns {
+        grid-template-columns: 40% 1fr;
+      }
       &__column {
         &-pre-title {
           @extend .font__size-4--alt;
+        }
+
+        &-title {
+          font-family: var(--font-primary);
+          font-weight: 500;
         }
 
         &-description {

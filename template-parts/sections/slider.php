@@ -45,7 +45,7 @@ if ($slides || $variation == 'team'): ?>
                         <div class="<?php echo $layout . '__slide--alt --image' . ($key === 0 ? ' active' : ''); ?>">
                             <div class="<?php echo $layout . '__slide-image'; ?>">
                                 <?php
-                                    $image_url = get_template_directory_uri() . '/assets/fallback-image.svg';
+                                    $image_url = get_template_directory_uri() . '/assets/fallback-image.webp';
                                     echo '<img src="' . esc_url($image_url) . '" alt="Thumbnail">';
                                 ?>
                             </div>
@@ -144,7 +144,7 @@ if ($slides || $variation == 'team'): ?>
                                 $layout . '__slide--alt --image' . ($imageCounter === 0 ? ' active' : ''); ?>">
                                     <div class="<?php echo $layout . '__slide-image'; ?>">
                                         <?php
-                                            $image_url = get_template_directory_uri() . '/assets/fallback-image.svg';
+                                            $image_url = get_template_directory_uri() . '/assets/fallback-image.webp';
                                             echo '<img src="' . esc_url($image_url) . '" alt="Thumbnail">';
                                         ?>
                                     </div>

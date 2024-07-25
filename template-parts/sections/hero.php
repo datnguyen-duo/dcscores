@@ -45,7 +45,7 @@ if ($variation == 'featured-post'):
     $header_args = [
         'layout' => $layout,
         'pre_heading' => $pre_heading,
-        'heading' => get_the_title(),
+        'heading' => '<a href="' . get_permalink() . '">' . get_the_title() . '</a>',
         'description' => strtok(get_the_excerpt(), '.') . '.',
         'cta' => [
             [
@@ -99,7 +99,7 @@ if ($variation == 'featured-post'):
                         if ($file['file']['type'] == 'video'): 
                             video($file['file']['url'], $file['file']['mime_type'], $layout . '__file', 'autoplay muted loop playsinline');
                             echo '<div class="' . $layout . '__files-icon">';
-                            icon_volume();
+                            icon_play();
                             echo '</div>';
                         elseif ($file['file']['type'] == 'image'):
                             image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image', 'eager');
@@ -116,7 +116,7 @@ if ($variation == 'featured-post'):
                 if ($file['file']['type'] == 'video'): 
                     video($file['file']['url'], $file['file']['mime_type'], $layout . '__file', 'autoplay muted loop playsinline');
                     echo '<div class="' . $layout . '__files-icon">';
-                    icon_volume();
+                    icon_play();
                     echo '</div>';
                 elseif ($file['file']['type'] == 'image'):
                     image($file['file']['ID'], 'full', $layout . '__file', $file['file']['alt'] ? $file['file']['alt'] : 'Hero Image', 'eager');
@@ -125,6 +125,11 @@ if ($variation == 'featured-post'):
         } ?>
     </div>
     <div class="<?php echo $layout . '__content'; ?>">
+        <?php
+        $current_post = get_queried_object();
+        if (isset($current_post->post_parent) && $current_post->post_parent > 0): ?>
+            <a href="<?php echo esc_url(get_permalink($current_post->post_parent)); ?>" class="<?php echo $layout . '__content-breadcrumb'; ?>"><?php icon_arrow_1(); ?>Families Portal</a>
+        <?php endif; ?>
         <div class="<?php echo $layout . '__content-inner'; ?>">
             <?php 
                 get_template_part('template-parts/sections/section', 'header', $header_args); 
