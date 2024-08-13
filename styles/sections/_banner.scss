@@ -16,6 +16,10 @@
     display: flex;
     img {
       width: 100%;
+      @media screen and (max-width: $breakpoint-tablet) {
+        min-height: 70vw;
+        object-fit: cover;
+      }
     }
   }
   &__content {

@@ -132,6 +132,13 @@
     }
   }
 
+  &__cta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
   &.playing {
     .container {
       &::before {
@@ -190,6 +197,9 @@
               object-fit: cover;
               border-radius: var(--border-radius) 0 0 0;
               aspect-ratio: 1;
+              @media screen and (max-width: $breakpoint-mobile) {
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+              }
             }
           }
 
@@ -235,12 +245,11 @@
 
         &__heading {
           @extend .font__size-3--alt;
-          margin-bottom: 1rem;
+          margin: 1rem 0 2rem;
         }
 
         &__description {
-          @extend .font__size-4--alt;
-          margin-bottom: 1rem;
+          margin: 1rem 0 2rem;
         }
       }
     }
@@ -266,7 +275,7 @@
           display: flex;
           align-items: center;
           flex-wrap: wrap;
-          gap: 2rem;
+          gap: 1rem;
           margin-top: 2rem;
         }
 

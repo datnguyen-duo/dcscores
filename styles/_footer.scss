@@ -26,6 +26,7 @@
     grid-area: a;
     display: flex;
     width: 180px;
+    align-self: start;
     @media screen and (max-width: $breakpoint-mobile) {
       justify-self: center;
       width: 150px;
@@ -45,7 +46,9 @@
       @media screen and (max-width: $breakpoint-mobile) {
         margin-top: 2rem;
         gap: 1rem 4rem;
+        grid-template-columns: max-content max-content;
       }
+
       li {
         @extend .font__size-6;
         a {
@@ -76,25 +79,76 @@
 
   .newsletter {
     grid-area: b;
-    h3 {
-      margin-bottom: 0.5rem;
-    }
-    p {
-      margin-bottom: 2rem;
-    }
 
-    form {
-      display: flex;
+    .ctct-inline-form {
+      .ctct-form-container {
+        .ctct-form-defaults {
+          padding: 0;
+          .ctct-form-custom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+              "header header"
+              "text text"
+              "fname lname"
+              "email email"
+              "disclaimer disclaimer"
+              "button button";
 
-      input[type="email"] {
-        width: 45%;
-        @media screen and (max-width: $breakpoint-mobile) {
-          width: 100%;
+            @media screen and (max-width: $breakpoint-mobile) {
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "header"
+                "text"
+                "fname"
+                "lname"
+                "email"
+                "disclaimer"
+                "button";
+            }
+            gap: 0 1rem;
+            .ctct-form-text,
+            .ctct-form-label {
+              font-family: var(--font-primary);
+              @extend p;
+            }
+            .ctct-form-header {
+              grid-area: header;
+              @extend .font__size-3;
+              color: inherit;
+            }
+
+            .ctct-form-text {
+              grid-area: text;
+              margin-bottom: 1rem;
+            }
+            #email_address_field_0 {
+              grid-area: email;
+            }
+            #first_name_field_0 {
+              grid-area: fname;
+            }
+            #last_name_field_0 {
+              grid-area: lname;
+            }
+            #gdpr_text {
+              grid-area: disclaimer;
+              font-family: var(--font-primary);
+              @extend .font__size-sm;
+            }
+            .ctct-form-element {
+              border-radius: var(--border-radius);
+              border: 1px solid var(--color-black);
+              height: auto;
+            }
+
+            .ctct-form-button {
+              grid-area: button;
+              @extend .button;
+              @extend .button--primary;
+            }
+          }
         }
-      }
-
-      input[type="submit"] {
-        margin-left: 0.5rem;
       }
     }
   }

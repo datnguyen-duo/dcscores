@@ -3,7 +3,8 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <div class="entry__header<?php echo !has_post_thumbnail() ? ' no-thumbnail' : ''; ?>">
     <p class="entry__meta">
-        <?php if (get_post_type() == 'tribe_events') {
+        <?php 
+        if (get_post_type() == 'tribe_events') {
           $event_categories = get_the_term_list( get_the_ID(), 'tribe_events_cat', '', ', ' );
           if ( ! is_wp_error( $event_categories ) ) {
               echo 'Event | ';

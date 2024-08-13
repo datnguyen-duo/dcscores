@@ -157,6 +157,7 @@
               transparent 100%
             );
             z-index: 1;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
           }
           img {
             height: 100%;
@@ -166,6 +167,9 @@
         }
         &-title {
           font-size: 1.5vw;
+          &:not(:nth-last-child(2)) {
+            margin-bottom: 0.5rem;
+          }
           @media screen and (max-width: $breakpoint-mobile) {
             font-size: var(--font-size-4--alt);
           }

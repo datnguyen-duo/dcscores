@@ -42,6 +42,9 @@ $content-spacing: 2rem auto;
   }
   a {
     text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
   }
   figcaption,
   img + em,
@@ -68,7 +71,7 @@ $content-spacing: 2rem auto;
     &-image {
       margin: $content-spacing;
       figcaption {
-        padding: 0 var(--gutter);
+        padding: 0;
       }
 
       &.is-style-rounded,

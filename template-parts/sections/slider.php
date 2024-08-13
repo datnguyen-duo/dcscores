@@ -23,6 +23,7 @@ if ($slides || $variation == 'team'): ?>
         'transition-speed' => 'transition_speed',
         'loop' => 'loop',
         'arrows' => 'arrows',
+        'scrollbar' => 'scrollbar',
         'pagination' => 'pagination',
         'autoplay' => 'autoplay',
         'autoplay-speed' => 'autoplay_speed',
@@ -77,11 +78,16 @@ if ($slides || $variation == 'team'): ?>
             <div class="<?php echo $layout . '__slides--alt --content'; ?>">
                 <?php foreach($slides as $key => $slide): 
                     $description = $slide['description'];
+                    $cta = $slide['cta'];
                     if ($description): ?>
                         <div class="<?php echo $layout . '__slide--alt' . ($key === 0 ? ' active' : ''); ?>">
                             <p class="<?php echo $layout . '__slide-description'; ?>"><?php echo $description; ?></p>
+                            <?php if ($cta): ?>
+                                <a href="<?php echo $cta['url']; ?>" class="<?php echo $layout . '__slide-cta'; ?> button button--primary"><?php echo $cta['title']; ?></a>
+                            <?php endif; ?>
                         </div>
-                <?php endif; endforeach; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
         <?php elseif ($variation == 'team'):
             $group = get_sub_field('group');
@@ -114,7 +120,8 @@ if ($slides || $variation == 'team'): ?>
                                     <?php
                                         $lastSpacePosition = strrpos($name, ' ');
                                         $lastName = $lastSpacePosition === false ? $name : substr($name, $lastSpacePosition + 1);
-                                        echo $lastName; 
+                                        $lastName = str_replace('-', ' ', $lastName);
+                                        echo $lastName;
                                     ?>
                                 </p>
                             <?php endif; ?>
@@ -164,7 +171,7 @@ if ($slides || $variation == 'team'): ?>
                             ?>
                             <div class="<?php echo $layout . '__slide--alt --content-inner' . ($contentCounter === 0 ? ' active' : ''); ?>">
                                 <?php if ($name): ?>
-                                    <p class="<?php echo $layout . '__slide-title--alt'; ?>"><?php echo $name; ?></p>
+                                    <p class="<?php echo $layout . '__slide-title--alt'; ?>"><?php echo str_replace('-', ' ', $name); ?></p>
                                 <?php endif; ?>
                                 <?php if ($title): ?>
                                     <p class="<?php echo $layout . '__slide-pre-title--alt'; ?>"><?php echo $title; ?></p>
@@ -220,6 +227,9 @@ if ($slides || $variation == 'team'): ?>
                     <?php icon_arrow_1(); ?>
                 </div>
             </div>
+        <?php endif; ?>
+        <?php if (!empty($settings['scrollbar'])): ?>
+            <div class="swiper-scrollbar"></div>
         <?php endif; ?>
     </div>
 <?php endif; ?>

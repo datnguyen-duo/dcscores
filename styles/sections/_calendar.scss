@@ -164,11 +164,73 @@
   .tribe-filter-bar {
     order: -1;
     margin: 0 0 2rem;
+
+    .tribe-filter-bar__filters-container {
+      position: relative !important;
+    }
     .tribe-filter-bar-c-filter--pill {
       .tribe-filter-bar-c-filter__container {
         display: block !important;
         visibility: visible !important;
+        width: 100% !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        transform: translate(0, 0) !important;
+        padding: 0 !important;
+        bottom: unset !important;
+        .tribe-filter-bar-c-filter__filter-fields {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
+
+      .tribe-filter-bar-c-filter__filters-legend {
+        display: none !important;
+      }
+    }
+    .tribe-filter-bar__actions {
+      padding-top: 1rem;
+      position: absolute;
+      right: 0;
+      top: 2rem;
+    }
+    .tribe-filter-bar__filters,
+    .tribe-filter-bar__filters-container,
+    .tribe-filter-bar-c-filter:last-child,
+    .tribe-common--breakpoint-medium
+      .tribe-filter-bar--horizontal.tribe-filter-bar
+      .tribe-filter-bar__filters-slide:last-child {
+      width: 100%;
+    }
+
+    .tribe-filter-bar-c-checkbox {
+      margin: 0;
+      color: var(--color-black);
+      .tribe-common-form-control-checkbox__input {
+        display: none;
+
+        &:checked + .tribe-common-form-control-checkbox__label {
+          background-color: var(--color-primary-3);
+          color: var(--color-white);
+        }
+      }
+
+      .tribe-common-form-control-checkbox__label {
+        color: var(--color-black);
+        @extend .button;
+        @extend .button--secondary;
+        font-family: var(--font-primary);
+        opacity: 1 !important;
+        line-height: 1;
+        margin-left: 0.2rem;
+      }
+    }
+
+    .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill,
+    .tribe-filter-bar-c-filter__filters-close {
+      display: none !important;
     }
   }
 }
@@ -187,7 +249,7 @@ html {
       color: #fff;
       padding: 0.5rem !important;
       img {
-        border-radius: var(--border-radius) !important;
+        border-radius: var(--border-radius-sm) !important;
       }
       * {
         line-height: 1.2 !important;

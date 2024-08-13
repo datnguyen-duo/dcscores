@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_665646c920f42",
-            "label": "Author",
+            "label": "Display Author",
             "name": "author",
             "aria-label": "",
             "type": "text",
@@ -45,5 +45,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716935691
+    "modified": 1722281198
 }

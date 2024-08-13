@@ -102,5 +102,11 @@
     width: 140px;
     justify-self: center;
     margin-top: 2rem;
+
+    &.load-more-btn {
+      @media screen and (max-width: $breakpoint-mobile) {
+        display: none;
+      }
+    }
   }
 }

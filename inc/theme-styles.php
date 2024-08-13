@@ -86,6 +86,7 @@ generate_font_face('tertiary_font');
     $css .= '--font-size-md: 16px;';
     $css .= '--font-size-sm: 12px;';
     $css .= '--container-width: 1200px;';
+    $css .= '--container-width-sm: 1000px;';
     $css .= '--content-width: 700px;';
     $css .= '--spacer: clamp(3rem, 6.6vw, 8rem);';
     $css .= '--spacer-sm: calc(var(--spacer) / 2);';

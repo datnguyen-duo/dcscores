@@ -53,7 +53,7 @@
 
     &.active {
       .accordions__item-content {
-        max-height: 500px;
+        max-height: 550px;
         opacity: 1;
       }
       .accordions__item-arrow {
@@ -95,6 +95,7 @@
         width: 100%;
         opacity: 0;
         transition: opacity var(--transition-duration);
+        border-radius: var(--border-radius);
         &.active {
           opacity: 1;
         }

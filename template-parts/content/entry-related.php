@@ -84,15 +84,25 @@ if ( $categories ) {
                             </div>
                             <p class="<?php echo $layout . '__item-meta'; ?> post__meta">
                                 <?php 
-                                $taxonomy = get_post_type() == 'post' ? 'category' : 'source';
-                                $terms = get_the_terms(get_the_ID(), $taxonomy);
-                                if ($terms) {
-                                    echo implode(', ', array_map(function($term) {
-                                        return '<a href="' . get_term_link($term) . '">' . $term->name . '</a>';
-                                    }, $terms));
-                                }
-                                echo " | "; 
-                                the_date(); 
+                                    if (get_post_type() == 'tribe_events') {
+                                        $event_categories = get_the_term_list( get_the_ID(), 'tribe_events_cat', '', ', ' );
+                                        if ( ! is_wp_error( $event_categories ) ) {
+                                            echo 'Event | ';
+                                            echo tribe_get_start_date(null, false, 'F j, Y');
+                                            echo tribe_get_start_time(null, false, ' - g:i a') ? ' | ' . tribe_get_start_time(null, false, ' - g:i a') : '';
+                                            echo tribe_get_end_time(null, false, ' - g:i a') ? ' - ' . tribe_get_end_time(null, false, 'g:i a') : '';
+                                        }
+                                    } else {
+                                        $taxonomy = get_post_type() == 'post' ? 'category' : 'source';
+                                        $terms = get_the_terms(get_the_ID(), $taxonomy);
+                                        if ($terms) {
+                                            echo implode(', ', array_map(function($term) {
+                                                return '<a href="' . get_term_link($term) . '">' . $term->name . '</a>';
+                                            }, $terms));
+                                        }
+                                        echo " | "; 
+                                        the_date(); 
+                                    }
                                 ?>
                             </p>
                             <h5 class="<?php echo $layout . '__item-title'; ?> post__title">

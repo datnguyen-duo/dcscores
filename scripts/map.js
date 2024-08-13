@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     pin_center = mapData.pin_center
       ? mapData.pin_center.url
       : mapSettings.themeurl + "/assets/pin-center-2.png",
-    zoom_level = mapData.zoom_level ? mapData.zoom_level : 14;
+    zoom_level = mapData.zoom_level ? mapData.zoom_level : 14,
+    geo_json = mapSettings.themeurl + "/assets/dc-wards.geojson";
   mapboxgl.accessToken = mapSettings.access_token;
 
   var map = new mapboxgl.Map({
@@ -73,6 +74,70 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   map.on("load", function () {
+    map.addSource("dc-wards", {
+      type: "geojson",
+      data: geo_json,
+    });
+
+    map.addLayer({
+      id: "dc-wards-fill",
+      type: "fill",
+      source: "dc-wards",
+      paint: {
+        "fill-color": [
+          "match",
+          ["get", "WARD"],
+          1,
+          "#fac831",
+          2,
+          "#d92314",
+          3,
+          "#0868f8",
+          4,
+          "#d92314",
+          5,
+          "#0868f8",
+          6,
+          "#fac831",
+          7,
+          "#d92314",
+          8,
+          "#0868f8",
+          "#0868f8",
+        ],
+        "fill-opacity": 0.2,
+      },
+    });
+    map.addLayer({
+      id: "dc-wards-line",
+      type: "line",
+      source: "dc-wards",
+      paint: {
+        "line-color": [
+          "match",
+          ["get", "WARD"],
+          1,
+          "#fac831",
+          2,
+          "#d92314",
+          3,
+          "#0868f8",
+          4,
+          "#d92314",
+          5,
+          "#0868f8",
+          6,
+          "#fac831",
+          7,
+          "#d92314",
+          8,
+          "#0868f8",
+          "#0868f8",
+        ],
+        "line-width": 1,
+      },
+    });
+
     map.loadImage(pin, (error, image) => {
       if (error) {
         console.log(error);

@@ -11,3 +11,17 @@ defined( 'ABSPATH' ) || exit;
 		?>
 	</div>
 </section>
+<?php
+if (get_post_type() == 'post'): ?>
+    <style>
+        #menu-item-5201::before {
+            clip-path: inset(0 0% 0 0);
+        }
+    </style>
+<?php elseif (get_post_type() == 'tribe_events'): ?>
+    <style>
+        #menu-item-4286::before {
+            clip-path: inset(0 0% 0 0);
+        }
+    </style>
+<?php endif; ?>

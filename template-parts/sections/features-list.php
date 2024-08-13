@@ -32,6 +32,13 @@ if ($variation == 'featured-posts') {
                     </div>
                     <div class="<?php echo $layout . '__item-inner'; ?>">
                         <h4 class="<?php echo $layout . '__item-title' . ' font__size-4--alt'?>"><?php echo get_the_title(); ?></h4>
+                        <?php if (get_post_type() == 'tribe_events'): ?>
+                            <p><?php echo tribe_get_start_date(null, false, 'F j, Y'); ?></p>
+                            <p><?php
+                                echo tribe_get_start_time(null, false, ' - g:i a') ? tribe_get_start_time(null, false, ' - g:i a') : '';
+                                echo tribe_get_end_time(null, false, ' - g:i a') ? ' - ' . tribe_get_end_time(null, false, 'g:i a') : '';
+                            ?></p>
+                        <?php endif; ?>
                         <div class="icon--arrow">
                             <?php icon_arrow_1(); ?>
                         </div>

@@ -13,7 +13,7 @@ get_template_part('template-parts/sections/section', 'header', $header_args);
 ?>
 <div class="<?php echo $layout . '__container'; ?>">
     <div id="ig-feed" class="load--media">
-        <p>[IG Feed - 5x2 Grid]</p>
+        <?php echo do_shortcode('[instagram-feed feed=4]'); ?>
     </div>
     <div class="shape shape--1"></div>
 </div>

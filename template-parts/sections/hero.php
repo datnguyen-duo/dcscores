@@ -128,7 +128,19 @@ if ($variation == 'featured-post'):
         <?php
         $current_post = get_queried_object();
         if (isset($current_post->post_parent) && $current_post->post_parent > 0): ?>
-            <a href="<?php echo esc_url(get_permalink($current_post->post_parent)); ?>" class="<?php echo $layout . '__content-breadcrumb'; ?>"><?php icon_arrow_1(); ?>Families Portal</a>
+            <a href="<?php echo esc_url(get_permalink($current_post->post_parent)); ?>" class="<?php echo $layout . '__content-breadcrumb'; ?>"><?php icon_arrow_1(); ?>
+            <?php
+            $title = get_the_title($current_post->post_parent);
+            $title_words = explode(' ', $title);
+
+            if (count($title_words) > 1) {
+                $second_word = $title_words[1];
+                echo $second_word . ' Portal';
+            } else {
+                echo 'Portal'; // Fallback if there is no second word
+            }
+            ?>
+            </a>
         <?php endif; ?>
         <div class="<?php echo $layout . '__content-inner'; ?>">
             <?php 

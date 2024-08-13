@@ -22,7 +22,10 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
   function updateLinks() {
     const links = document.querySelectorAll("a");
     links.forEach((link) => {
-      if (link.hostname !== window.location.hostname) {
+      if (
+        link.hostname !== window.location.hostname &&
+        link.href !== "javascript:void(0);"
+      ) {
         link.target = "_blank";
         link.rel = "noopener noreferrer";
       }
@@ -60,6 +63,7 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
       transitionSpeed: sliderElement.dataset.attributeTransitionSpeed || "1000",
       loop: sliderElement.dataset.attributeLoop || false,
       arrows: sliderElement.dataset.attributeArrows || false,
+      scrollbar: sliderElement.dataset.attributeScrollbar || false,
       pagination: sliderElement.dataset.attributePagination || false,
       autoplay: sliderElement.dataset.attributeAutoplay || false,
       autoplaySpeed: sliderElement.dataset.attributeAutoplaySpeed || "1000",
@@ -84,6 +88,10 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
         nextEl: settings.arrows ? ".swiper-button-next" : "",
         prevEl: settings.arrows ? ".swiper-button-prev" : "",
       },
+      scrollbar: {
+        el: settings.scrollbar ? ".swiper-scrollbar" : "",
+        draggable: settings.scrollbar ? true : false,
+      },
       pagination: {
         el: settings.pagination ? ".swiper-pagination" : "",
         clickable: true,
@@ -91,7 +99,7 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
       autoplay: settings.autoplay
         ? { delay: parseInt(settings.autoplaySpeed) }
         : false,
-      // centeredSlides: settings.variation == "team" ? true : false,
+      centeredSlides: settings.variation == "team" ? true : false,
       on: {
         snapGridLengthChange: function () {
           if (this.snapGrid.length != this.slidesGrid.length) {
@@ -99,7 +107,7 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
           }
         },
         slideChange: function () {
-          const currentIndex = this.activeIndex;
+          const currentIndex = this.realIndex;
 
           if (settings.variation !== "default") {
             const altSlides = sliderElement.querySelectorAll(

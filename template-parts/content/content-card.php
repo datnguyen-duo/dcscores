@@ -52,7 +52,10 @@ $random_color = $colors[0];
         if ($post_type == 'tribe_events') {
             $post_type = 'Event';
         }
-        echo $post_type . " | ";
+        
+        if ($post_type != 'post') {
+            echo $post_type . " | ";
+        }
 
         $taxonomy = $post_type == 'post' ? 'category' : 'source';
         $terms = get_the_terms(get_the_ID(), $taxonomy);

@@ -1,4 +1,9 @@
 .columns {
+  .container {
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: 0;
+    }
+  }
   &__grid {
     display: grid;
     grid-auto-flow: column;
@@ -16,5 +21,8 @@
     background-color: var(--color-background);
     color: var(--color-text);
     align-self: start;
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: 0;
+    }
   }
 }

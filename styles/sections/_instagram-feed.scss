@@ -9,7 +9,31 @@
   }
 
   #ig-feed {
-    padding: var(--spacer-lg);
     text-align: center;
+    .sb {
+      &_instagram_header {
+        display: none;
+      }
+    }
+
+    #sbi_load {
+      .sbi_load_btn {
+        @extend .button;
+        @extend .button--primary;
+        box-shadow: unset !important;
+      }
+
+      .sbi_follow_btn {
+        a {
+          @extend .button;
+          @extend .button--primary;
+          box-shadow: unset !important;
+          background-color: var(--color-primary-3) !important;
+          &:hover {
+            background-color: var(--color-primary-2) !important;
+          }
+        }
+      }
+    }
   }
 }
