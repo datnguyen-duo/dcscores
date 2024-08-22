@@ -8,9 +8,9 @@ defined( 'ABSPATH' ) || exit;
           $event_categories = get_the_term_list( get_the_ID(), 'tribe_events_cat', '', ', ' );
           if ( ! is_wp_error( $event_categories ) ) {
               echo 'Event | ';
-              echo tribe_get_start_date(null, false, 'F j, Y');
-              echo tribe_get_start_time(null, false, ' - g:i a') ? ' | ' . tribe_get_start_time(null, false, ' - g:i a') : '';
-              echo tribe_get_end_time(null, false, ' - g:i a') ? ' - ' . tribe_get_end_time(null, false, 'g:i a') : '';
+              echo tribe_get_start_date(null, true, 'F j, Y');
+              echo tribe_get_start_time() ? ' | ' . tribe_get_start_time() : '';
+              echo tribe_get_end_time() ? ' - ' . tribe_get_end_time() : '';
           }
         } else {
             the_category(', ');

@@ -66,11 +66,10 @@ $random_color = $colors[0];
             }, $terms));
             echo " | "; 
         }
-
         if ($post_type == 'tribe_events') {
-            echo tribe_get_start_date(null, false, 'F j, Y');
-            echo tribe_get_start_time(null, false, ' - g:i a') ? ' | ' . tribe_get_start_time(null, false, ' - g:i a') : '';
-            echo tribe_get_end_time(null, false, ' - g:i a') ? ' - ' . tribe_get_end_time(null, false, 'g:i a') : '';
+            echo tribe_get_start_date(null, true, 'F j, Y');
+            echo tribe_get_start_time() ? ' | ' . tribe_get_start_time() : '';
+            echo tribe_get_end_time() ? ' - ' . tribe_get_end_time() : '';
         } else {
             echo get_the_date();
         }

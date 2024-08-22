@@ -35,9 +35,9 @@ if ($variation == 'featured-post'):
         $event_categories = get_the_term_list($ID, 'tribe_events_cat', '', ', ');
         if (!is_wp_error($event_categories)) {
             $pre_heading = 'Event | ';
-            $pre_heading .= tribe_get_start_date(null, false, 'F j, Y');
-            $pre_heading .= tribe_get_start_time(null, false, ' - g:i a') ? ' | ' . tribe_get_start_time(null, false, ' - g:i a') : '';
-            $pre_heading .= tribe_get_end_time(null, false, ' - g:i a') ? ' - ' . tribe_get_end_time(null, false, 'g:i a') : '';
+            $pre_heading .= tribe_get_start_date(null, true, 'F j, Y');
+            $pre_heading .= tribe_get_start_time() ? ' | ' . tribe_get_start_time() : '';
+            $pre_heading .= tribe_get_end_time() ? ' - ' . tribe_get_end_time() : '';
         }
     } else {
         $pre_heading = get_the_category_list(', ', '', $ID);

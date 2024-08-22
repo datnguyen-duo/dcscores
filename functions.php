@@ -202,10 +202,46 @@ function keep_published_date( $data, $postarr ) {
 
 function modify_search_query($query) {
     if ($query->is_main_query() && $query->is_search() && empty(get_search_query())) {
-        $query->set('post_type', array('post', 'pages'));
+        $query->set('post_type', array('post', 'page'));
+    } elseif ($query->is_main_query() && $query->is_search()) {
+        $post_types = get_post_types(array('public' => true), 'names');
+        unset($post_types['person']);
+        $query->set('post_type', $post_types);
     }
 }
 add_action('pre_get_posts', 'modify_search_query');
+
+function add_custom_role() {
+    add_role(
+        'content_manager', 
+        'Content Manager', 
+        array(
+            'list_users' => true,
+            'create_users' => true,
+            'edit_users' => true,
+            'delete_users' => true,
+            'promote_users' => true,
+            'remove_users' => true,
+            'manage_options' => true,
+
+            'edit_posts' => true,
+            'delete_posts' => true,
+            'publish_posts' => true,
+            'edit_others_posts' => true,
+            'delete_others_posts' => true,
+            'edit_pages' => true,
+            'delete_pages' => true,
+            'publish_pages' => true,
+            'edit_others_pages' => true,
+            'delete_others_pages' => true,
+            'edit_published_posts' => true,
+            'delete_published_posts' => true,
+            'edit_published_pages' => true,
+            'delete_published_pages' => true,
+        )
+    );
+}
+add_action('init', 'add_custom_role');
 
 require_once('inc/login.php');
 require_once('inc/acf.php');

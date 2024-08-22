@@ -34,18 +34,18 @@ function fetch_posts() {
     $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'post';
     $filter_term = isset($_POST['filter_term']) ? sanitize_text_field($_POST['filter_term']) : null;
     $term_id = isset($_POST['term_id']) ? intval($_POST['term_id']) : null;
-    $next_page = $page + 1;
 
     if ($action_type === 'filter') {
         $paged = 1; 
     } else {
-        $paged = $page + 1;
+        $paged = $page;
     }
 
     $args = array(
         'post_type' => $post_type,
         'posts_per_page' => $post_type === 'person' ? -1 : 12,
         'paged' => $paged,
+        'post_status' => 'publish',
     );
 
     if ($term_id) {
@@ -67,8 +67,10 @@ function fetch_posts() {
             $ID = get_the_ID();
             $permalink = get_field('external_link') ? get_field('external_link') : get_the_permalink();
             $target = get_field('external_link') ? 'target="_blank"' : 'target="_self"';
-            $terms = wp_get_post_terms( get_the_ID(), $settings['filter_term']);
-            $term_id = !empty( $terms ) && is_array( $terms ) ? $terms[0]->term_id : '';
+            if ($settings['filter_term']) {
+                $terms = wp_get_post_terms( get_the_ID(), $settings['filter_term']);
+                $term_id = !empty( $terms ) && is_array( $terms ) ? $terms[0]->term_id : '';
+            }
             shuffle($colors);
             $random_color = $colors[0];
             $total_posts = $the_query->found_posts;
