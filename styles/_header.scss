@@ -46,7 +46,10 @@ $menu-height: 128px;
     width: 160px;
     display: block;
     margin-right: auto;
-
+    transition: width var(--transition-duration);
+    body.scrolled & {
+      width: 120px;
+    }
     @media screen and (max-width: $breakpoint-mobile) {
       width: 120px;
     }

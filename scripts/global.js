@@ -40,6 +40,16 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
   GLOBAL FUNCTIONS
 --------------------------------------------------------------------------------- */
 
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: "5px top",
+      end: "+=100000",
+      toggleClass: { targets: document.body, className: "scrolled" },
+    });
+  });
+})();
 // Announcement bar
 (function () {
   const announcementBar = document.querySelector(

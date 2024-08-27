@@ -137,9 +137,9 @@ function theme_scripts() {
 	);
 	wp_enqueue_script(
 		'global-script',
-		get_stylesheet_directory_uri() . '/scripts/global.js',
+		get_stylesheet_directory_uri() . '/scripts/global.min.js',
 		array(),
-		filemtime( get_stylesheet_directory() . '/scripts/global.js' ),
+		filemtime( get_stylesheet_directory() . '/scripts/global.min.js' ),
 		array(
 			'strategy' => 'defer'
 		)

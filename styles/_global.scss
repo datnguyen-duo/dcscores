@@ -52,6 +52,7 @@ $breakpoint-desktop: 1920px;
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 128px;
   @media screen and (max-width: $breakpoint-mobile) {
     scroll-padding-top: 80px;
   }
