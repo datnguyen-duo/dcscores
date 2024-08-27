@@ -4,10 +4,10 @@ $menu-height: 128px;
   overflow: hidden;
   z-index: 9;
   position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
   @media screen and (max-width: $breakpoint-mobile) {
-    position: fixed;
-    top: 0;
-    width: 100%;
     overflow: visible;
 
     body.init__modal & {
@@ -102,8 +102,12 @@ $menu-height: 128px;
         }
 
         &.button {
+          background-color: var(--color-primary-4);
+          border-color: var(--color-primary-4);
           @media screen and (max-width: $breakpoint-mobile) {
             letter-spacing: unset;
+            background-color: unset;
+            border-color: unset;
           }
         }
       }

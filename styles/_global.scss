@@ -62,6 +62,7 @@ body {
   background-color: var(--color-neutral-2);
   font-family: var(--font-primary);
   text-wrap: balance;
+  padding-top: 128px;
   @media screen and (max-width: $breakpoint-mobile) {
     padding-top: 62px;
   }
