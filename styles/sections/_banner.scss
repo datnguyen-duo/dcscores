@@ -1,12 +1,10 @@
 .banner {
   padding: 0;
-  margin-bottom: 15%;
+  margin-bottom: 20%;
   margin-top: var(--spacer);
+
   @media screen and (max-width: $breakpoint-tablet) {
     margin-bottom: 20%;
-  }
-  @media screen and (max-width: $breakpoint-mobile) {
-    margin-bottom: var(--spacer);
   }
   .container {
     padding: 0;
