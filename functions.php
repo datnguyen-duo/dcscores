@@ -146,7 +146,15 @@ function theme_scripts() {
 	);
 	if ($sections && array_filter($sections, function($section) { return $section['acf_fc_layout'] == 'map'; })) {
 		wp_enqueue_style('mapbox', 'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css');
-		wp_enqueue_script('mapbox', 'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js');
+		wp_enqueue_script(
+			'mapbox',
+			'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js',
+			array(),
+			filemtime( 'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js' ),
+			array(
+				'strategy' => 'defer'
+			)
+		);
 		wp_enqueue_script(
 			'map-script',
 			get_stylesheet_directory_uri() . '/scripts/map.js',
@@ -177,7 +185,10 @@ function dequeue_scripts(){
         wp_dequeue_style( 'wp-block-library-theme' );
         wp_dequeue_style('classic-theme-styles');
         wp_dequeue_style( 'wc-block-style' );
-        wp_dequeue_style( 'global-styles' ); 
+        wp_dequeue_style( 'global-styles' );
+    }
+	if (!is_admin()) {
+        wp_dequeue_style('dashicons');
     }
 }
 add_action( 'wp_enqueue_scripts', 'dequeue_scripts', 100 );
