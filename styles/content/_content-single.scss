@@ -95,6 +95,13 @@ $content-padding: 0 0 0 $sidebar-width;
       width: 100%;
       padding: 0 var(--gutter);
     }
+    body.single-tribe_events & {
+      max-width: var(--container-width);
+      position: relative;
+      width: 100%;
+      padding: 0 var(--gutter);
+      margin: 0 auto var(--gutter);
+    }
     &-title {
       &:not(:first-child) {
         margin-top: 1rem;
@@ -110,6 +117,11 @@ $content-padding: 0 0 0 $sidebar-width;
       margin-top: 2rem;
 
       @media screen and (max-width: $breakpoint-mobile) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+      body.single-tribe_events & {
         width: 100%;
         display: flex;
         align-items: center;
@@ -142,6 +154,12 @@ $content-padding: 0 0 0 $sidebar-width;
         opacity: 0;
         transition: opacity var(--transition-duration);
         @media screen and (max-width: $breakpoint-mobile) {
+          width: 100%;
+          flex-direction: row;
+          opacity: 1;
+          margin-top: 0;
+        }
+        body.single-tribe_events & {
           width: 100%;
           flex-direction: row;
           opacity: 1;
@@ -196,13 +214,18 @@ $content-padding: 0 0 0 $sidebar-width;
         @media screen and (max-width: $breakpoint-mobile) {
           padding: 0 var(--gutter);
         }
+
+        body.single-tribe_events & {
+          max-width: var(--container-width);
+          padding: 0 var(--gutter);
+        }
       }
 
       .wp-block {
         &-gallery {
           max-width: var(--container-width);
           .wp-block-image {
-            padding: 0;
+            padding: 0 !important;
           }
         }
 
@@ -214,11 +237,21 @@ $content-padding: 0 0 0 $sidebar-width;
           @media screen and (max-width: $breakpoint-mobile) {
             padding: 0 var(--gutter);
           }
+
+          body.single-tribe_events & {
+            max-width: var(--container-width);
+            padding: 0 var(--gutter);
+          }
         }
 
         &-buttons {
           max-width: var(--content-width);
           box-sizing: content-box;
+
+          body.single-tribe_events & {
+            max-width: var(--container-width);
+            padding: 0 var(--gutter);
+          }
         }
 
         &-separator {
@@ -241,6 +274,10 @@ $content-padding: 0 0 0 $sidebar-width;
           @media screen and (max-width: $breakpoint-mobile) {
             padding: 0 var(--gutter);
           }
+          body.single-tribe_events & {
+            max-width: var(--container-width);
+            padding: 0 var(--gutter);
+          }
         }
 
         &-image,
@@ -256,6 +293,10 @@ $content-padding: 0 0 0 $sidebar-width;
           box-sizing: content-box;
           padding: $content-padding;
           @media screen and (max-width: $breakpoint-mobile) {
+            padding: 0 var(--gutter);
+          }
+          body.single-tribe_events & {
+            max-width: var(--container-width);
             padding: 0 var(--gutter);
           }
         }
@@ -294,6 +335,16 @@ $content-padding: 0 0 0 $sidebar-width;
           &__title {
             display: none;
           }
+        }
+
+        &__venue {
+          display: flex;
+          max-width: var(--container-width);
+          margin: 2rem auto;
+          border: unset;
+          font-family: inherit;
+          border-radius: 0;
+          padding: 0 var(--gutter);
         }
       }
     }
