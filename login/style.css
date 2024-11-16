@@ -3,7 +3,7 @@ body {
 }
 
 .login h1 a {
-  background: url("../assets/logo.png") 50% 50% / contain no-repeat;
-  width: 150px;
-  height: 150px;
+  background: url("../assets/logo.png") 50% 50% / contain no-repeat !important;
+  width: 150px !important;
+  height: 150px !important;
 }
