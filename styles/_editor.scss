@@ -202,7 +202,8 @@ $content-spacing: 2rem auto;
     &-file,
     &-code,
     &-preformatted,
-    &-verse {
+    &-verse,
+    &-embed {
       margin: $content-spacing;
     }
 
