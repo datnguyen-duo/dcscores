@@ -22,15 +22,20 @@ $menu-height: 128px;
     overflow: hidden;
     transition: height 0.3s var(--transition-ease-in-out),
       opacity 0.3s var(--transition-ease-in-out);
-    height: 3rem;
     &-inner {
-      padding: 1rem;
+      padding: 0.5rem 1rem;
+      p {
+        font-size: 14px;
+      }
     }
     &-close {
       position: absolute;
       right: 0.5rem;
       top: 0;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       svg {
         width: 70%;
       }

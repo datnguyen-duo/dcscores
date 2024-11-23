@@ -82,6 +82,30 @@ $content-spacing: 2rem auto;
       }
     }
 
+    &-video,
+    &-embed {
+      padding: 0 var(--gutter-lg);
+      @media screen and (max-width: $breakpoint-mobile) {
+        padding: 0 var(--gutter);
+      }
+      &:first-child {
+        @media screen and (max-width: $breakpoint-mobile) {
+          margin-top: 2rem;
+        }
+      }
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &-embed {
+      iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        height: 100%;
+      }
+    }
+
     &-file {
       &__button {
         @extend .button;
@@ -195,15 +219,13 @@ $content-spacing: 2rem auto;
     }
 
     &-image,
-    &-video,
     &-columns,
     &-media-text,
     &-audio,
     &-file,
     &-code,
     &-preformatted,
-    &-verse,
-    &-embed {
+    &-verse {
       margin: $content-spacing;
     }
 

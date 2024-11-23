@@ -281,15 +281,13 @@ $content-padding: 0 0 0 $sidebar-width;
         }
 
         &-image,
-        &-video,
         &-columns,
         &-media-text,
         &-audio,
         &-file,
         &-code,
         &-preformatted,
-        &-verse,
-        &-embed {
+        &-verse {
           max-width: var(--content-width);
           box-sizing: content-box;
           padding: $content-padding;
