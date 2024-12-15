@@ -495,4 +495,10 @@ main {
       opacity: 1;
     }
   }
+
+  &.has-announcement-bar {
+    &::before {
+      top: 2.3rem;
+    }
+  }
 }

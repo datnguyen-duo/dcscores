@@ -171,7 +171,7 @@ if ($variation == 'query') {
                     }
                     if ($settings['post_type'] !== 'press') {
                         echo " | "; 
-                        the_date(); 
+                        echo get_the_date(); 
                     }
         
                     ?>

@@ -58,4 +58,4 @@ $style = ($background_color ? '--color-background: ' . $background_color . ';' :
 		</div>
 	</header>
 
-	<main id="main" class="site-main loading">
+	<main id="main" class="site-main loading<?php echo $show_announcement_bar ? ' has-announcement-bar' : '' ; ?>">
