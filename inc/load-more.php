@@ -85,7 +85,7 @@ function fetch_posts() {
                         </a>
                     <?php else: ?>
                         <a href="<?php echo $permalink; ?>" <?php echo $target; ?>>
-                            <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.webp'; ?>" alt="Thumbnail">
+                            <img src="<?php echo get_template_directory_uri() . '/assets/fallback-image.webp'; ?>" alt="Thumbnail" loading="lazy">
                         </a>
                     <?php endif; ?>
                 </div>

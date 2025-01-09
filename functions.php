@@ -83,6 +83,8 @@ function theme_upload_mimes($mimes) {
 add_filter('upload_mimes', 'theme_upload_mimes');
 
 function theme_scripts() {
+	$theme_version = wp_get_theme()->get('Version');
+
 	$sections = get_field('sections');
 	$primary_font = get_field('primary_font', 'option');
 	$secondary_font = get_field('secondary_font', 'option');
@@ -96,14 +98,14 @@ function theme_scripts() {
 	if ($tertiary_font['upload_type'] == 'url') {
 		wp_enqueue_style( 'tertiary-font', $tertiary_font['url'], array(), false, 'all' );
 	}
-	wp_enqueue_style( 'variables', get_stylesheet_directory_uri() . '/theme-variables.css', array(), filemtime(get_stylesheet_directory() . '/theme-variables.css') );
-	wp_enqueue_style( 'stylesheet', get_stylesheet_directory_uri() . '/style.css', array(), filemtime(get_stylesheet_directory() . '/style.css') );
+	wp_enqueue_style( 'variables', get_stylesheet_directory_uri() . '/theme-variables.css', array(), wp_get_theme()->get('Version') . '/theme-variables.css');
+	wp_enqueue_style( 'stylesheet', get_stylesheet_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version') . '/style.css');
 	wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', true);
 	wp_enqueue_script(
 		'gsap',
 		get_stylesheet_directory_uri() . '/scripts/libs/gsap.min.js',
 		array(),
-		filemtime( get_stylesheet_directory() . '/scripts/libs/gsap.min.js' ),
+		wp_get_theme()->get('Version') . '/scripts/libs/gsap.min.js',
 		array(
 			'strategy' => 'defer'
 		)
@@ -112,7 +114,7 @@ function theme_scripts() {
 		'scrollTrigger',
 		get_stylesheet_directory_uri() . '/scripts/libs/ScrollTrigger.min.js',
 		array(),
-		filemtime( get_stylesheet_directory() . '/scripts/libs/ScrollTrigger.min.js' ),
+		wp_get_theme()->get('Version') . '/scripts/libs/ScrollTrigger.min.js',
 		array(
 			'strategy' => 'defer'
 		)
@@ -121,7 +123,7 @@ function theme_scripts() {
 		'draw-svg',
 		get_stylesheet_directory_uri() . '/scripts/libs/DrawSVGPlugin.min.js',
 		array(),
-		filemtime( get_stylesheet_directory() . '/scripts/libs/DrawSVGPlugin.min.js' ),
+		wp_get_theme()->get('Version') . '/scripts/libs/DrawSVGPlugin.min.js',
 		array(
 			'strategy' => 'defer'
 		)
@@ -130,7 +132,7 @@ function theme_scripts() {
 		'scroll-to',
 		get_stylesheet_directory_uri() . '/scripts/libs/ScrollToPlugin.min.js',
 		array(),
-		filemtime( get_stylesheet_directory() . '/scripts/libs/ScrollToPlugin.min.js' ),
+		wp_get_theme()->get('Version') . '/scripts/libs/ScrollToPlugin.min.js',
 		array(
 			'strategy' => 'defer'
 		)
@@ -139,7 +141,7 @@ function theme_scripts() {
 		'global-script',
 		get_stylesheet_directory_uri() . '/scripts/global.min.js',
 		array(),
-		filemtime( get_stylesheet_directory() . '/scripts/global.min.js' ),
+		wp_get_theme()->get('Version') . '/scripts/global.min.js',
 		array(
 			'strategy' => 'defer'
 		)
@@ -150,7 +152,7 @@ function theme_scripts() {
 			'mapbox',
 			'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js',
 			array(),
-			filemtime( 'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js' ),
+			wp_get_theme()->get('Version') . '/https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js',
 			array(
 				'strategy' => 'defer'
 			)
@@ -159,7 +161,7 @@ function theme_scripts() {
 			'map-script',
 			get_stylesheet_directory_uri() . '/scripts/map.js',
 			array(),
-			filemtime( get_stylesheet_directory() . '/scripts/map.js' ),
+			wp_get_theme()->get('Version') . '/scripts/map.js',
 			array(
 				'strategy' => 'defer'
 			)
@@ -221,6 +223,14 @@ function modify_search_query($query) {
     }
 }
 add_action('pre_get_posts', 'modify_search_query');
+
+function remove_dashicons_from_frontend() {
+    if (!is_admin() && !is_customize_preview() && !current_user_can('edit_posts')) {
+        wp_dequeue_style('dashicons');
+        wp_deregister_style('dashicons');
+    }
+}
+add_action('wp_enqueue_scripts', 'remove_dashicons_from_frontend', 100);
 
 function add_custom_role() {
     add_role(

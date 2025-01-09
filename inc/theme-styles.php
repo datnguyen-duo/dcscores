@@ -34,6 +34,7 @@ function generate_font_face($font_field_name) {
   src: <?php echo $font_face_src; ?>;
   font-weight: <?php echo $font['font_weight']; ?>;
   font-style: <?php echo $font['font_style']; ?>;
+  font-display: swap;
 }
 <?php 
   }

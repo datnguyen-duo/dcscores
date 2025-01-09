@@ -137,7 +137,7 @@ if ($variation == 'featured-post'):
                 $second_word = $title_words[1];
                 echo $second_word . ' Portal';
             } else {
-                echo 'Portal'; // Fallback if there is no second word
+                echo 'Portal';
             }
             ?>
             </a>
@@ -164,18 +164,22 @@ if ($variation == 'featured-post'):
 <?php endif; ?>
 <?php if ($variation == 'modal'):
     $embed = get_sub_field('embed');
-    if ($embed): ?>
-        <div class="<?php echo $layout . '__modal'; ?>">
-            <div class="<?php echo $layout . '__modal-inner'; ?>">
-                <div class="<?php echo $layout . '__modal-content'; ?>">
-                    <?php echo $embed; ?>
+    if ($embed): 
+        preg_match('/embed\/([\w-]+)/', $embed, $matches);
+        $video_id = $matches[1] ?? null;
+        if ($video_id): ?>
+            <div class="<?php echo $layout . '__modal'; ?>">
+                <div class="<?php echo $layout . '__modal-inner'; ?>">
+                    <div class="<?php echo $layout . '__modal-content'; ?>" data-embed="<?php echo esc_attr($embed); ?>">
+                        <div class="youtube-facade"></div>
+                    </div>
+                </div>
+                <div class="<?php echo $layout . '__modal-close'; ?>">
+                    <div class="icon--close"><?php icon_close(); ?></div>
                 </div>
             </div>
-            <div class="<?php echo $layout . '__modal-close'; ?>">
-                <div class="icon--close"><?php icon_close(); ?></div>
-            </div>
-        </div>
-    <?php endif;
+        <?php endif;
+    endif;
 endif; ?>
 <?php if ($variation == 'anchors-alt'): 
     $anchor_links = get_sub_field('anchor_links');

@@ -269,6 +269,8 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
       sections.forEach((section) => {
         if (section.classList.contains("--modal")) {
           const modal = section.querySelector(".hero__modal");
+          const modalContent = modal.querySelector(".hero__modal-content");
+          let embedLoaded = false;
           section.addEventListener("click", function () {
             document.documentElement.style.scrollBehavior = "auto";
 
@@ -279,6 +281,13 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
                 offsetY: -3,
               },
             });
+
+            if (!embedLoaded) {
+              const embedCode = modalContent.dataset.embed;
+              modalContent.innerHTML = embedCode;
+              embedLoaded = true;
+            }
+
             document.body.classList.add("init__modal");
             document.documentElement.style.scrollBehavior = "smooth";
           });

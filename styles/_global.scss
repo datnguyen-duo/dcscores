@@ -73,6 +73,12 @@ body {
     overflow: hidden;
   }
 
+  &.init__modal {
+    header {
+      display: none;
+    }
+  }
+
   // The Events Calendar Overrides
   --tec-color-day-marker-month: var(--color-black);
   --tec-color-background-primary-multiday: transparent;
